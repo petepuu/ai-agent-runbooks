@@ -1,16 +1,16 @@
 # HR Onboarding Agent (GHCP) - ServiceNow Knowledge Setup
 
-> **Purpose:** Reuse the original scenario's sample knowledge with the GHCP agent.
+> **Purpose:** Configure sample ServiceNow knowledge for the GHCP agent.
 >
 > **Documentation reviewed:** September 15, 2026
 >
 > **Return to:** [Runbook](../../3.Runbook.md)
 
-## What Is Reused
+## Sample Knowledge
 
-The copied [Contoso Employee Handbook](./Contoso%20Employee%20Handbook.docx) and [Wellness Benefits Sample Knowledge](./Wellness%20Benefits%20Sample%20Knowledge.docx) documents are demonstration source material. Publish their content as ServiceNow knowledge articles for the lab; do not treat their benefits or policies as real employer commitments.
+The included [Contoso Employee Handbook](./Contoso%20Employee%20Handbook.docx) and [Wellness Benefits Sample Knowledge](./Wellness%20Benefits%20Sample%20Knowledge.docx) documents are demonstration source material. Publish their content as ServiceNow knowledge articles for the lab; do not treat their benefits or policies as real employer commitments.
 
-The copied `../Images` directory retains the original scenario's screenshots for historical context. They are not current GHCP authoring instructions. This guide replaces the original setup text's dated preview, authentication, and admin-UI assumptions; the [original guide](../../../HR-Onboarding-Agent/0.Resources/Sample-documents/ServiceNow-Tenant-%26-Copilot-Connector-Setup-Guide.md) remains unchanged.
+The `../Images` directory contains historical reference assets. Use this guide and the linked product documentation for current setup instructions.
 
 ## Prerequisites
 
@@ -26,13 +26,13 @@ The copied `../Images` directory retains the original scenario's screenshots for
 
 1. Use an existing approved test instance or obtain a developer instance through [ServiceNow Developer](https://developer.servicenow.com).
 2. Follow organizational sign-in and MFA requirements. Do not weaken authentication for the lab.
-3. Create or select a test knowledge base appropriate for HR demonstration content. The original used the IT knowledge base; that is not a production HR-access design.
+3. Create or select a test knowledge base appropriate for HR demonstration content, with access controls approved by the HR content owner.
 4. Create **Contoso Employee Handbook** and **Comprehensive Guide to Health and Wellness Benefits** articles from the sample documents.
 5. Publish using the appropriate approval workflow, set validity/applicability information, and verify source permissions with test users.
 
 ## 2. Configure the Microsoft Copilot Connector
 
-Follow the current [ServiceNow Knowledge deployment guide](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-deployment) rather than assuming the old screenshots still match.
+Follow the current [ServiceNow Knowledge deployment guide](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-deployment).
 
 1. In Microsoft 365 admin center, open **Copilot > Connectors > Gallery > ServiceNow Knowledge**.
 2. Configure the instance URL, authentication, content filters, and crawler permissions using the supported deployment method.
@@ -47,7 +47,7 @@ Indexing is asynchronous. Content and identity synchronization have separate sch
 ## 3. Connect and Validate the GHCP Agent
 
 1. Use **Build > Knowledge > Add knowledge** and select the ServiceNow/Copilot-connector connection.
-2. Confirm actual access with the GHCP agent's configured **Authenticate with Microsoft** setting. Do not copy standard-only manual-authentication settings into GHCP without current product support.
+2. Confirm actual access with the GHCP agent's configured **Authenticate with Microsoft** setting.
 3. Ask a known handbook question as an authorized non-maker user and confirm a valid article citation.
 4. Repeat with a denied user and verify that the article content and restricted source links do not leak.
 5. Change a test article or permission, wait for the appropriate synchronization, and repeat the check.
