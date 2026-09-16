@@ -20,8 +20,9 @@ only establishes where the repository authoring skill is discovered.
 
 ## Verification record for each generated scenario
 
-Record the source URL, reviewed date, claim it supports, tenant check still needed,
-and responsible role. Keep references close to consequential setup steps. Label:
+Record the source URL, claim it supports, tenant check still needed, and responsible
+role. Track reviewed/retrieved dates in working context only, not generated scenario
+documents or Resources. Keep references close to consequential setup steps. Label:
 
 - **Documented:** supported by a source actually read.
 - **Design choice:** a boundary or convention selected for this scenario.

@@ -27,7 +27,7 @@ Fixtures F3 and F4 intentionally state **15** and **20 vacation days** for the s
 
 ## Official-source verification
 
-All successful reads below were retrieved on **2026-09-16**. "Documented" is evidence about product guidance, not proof that a specific tenant is configured or licensed. The [runbook gates](../3.Runbook.md#release-gates) are authoritative for owner-assigned deployment checks.
+"Documented" is evidence about product guidance, not proof that a specific tenant is configured or licensed. The [runbook gates](../3.Runbook.md#release-gates) are authoritative for owner-assigned deployment checks.
 
 | Official source | Documented claim read | Remaining tenant check / owner |
 |---|---|---|
@@ -44,7 +44,7 @@ All successful reads below were retrieved on **2026-09-16**. "Documented" is evi
 | [Publish overview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/publication-fundamentals-publish-channels) | Draft/live separation, publish states, channel distribution and republishing | G5: approved version and audience / release owner |
 | [Available channels](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/publication-channels-overview) | Teams and M365 Copilot available; native Email unavailable | G5: actual channel identity/rendering; E1: separate event integration / tenant and integration owners |
 
-An attempted GHCP `agents-experience/triggers-overview` documentation lookup returned HTTP 404 on 2026-09-16. No event-to-agent invocation claim is marked verified on that basis. E1 blocks the proposed intake integration until the integration owner records a current supported route and exercises it; a native Email channel is not a fallback.
+An attempted GHCP `agents-experience/triggers-overview` documentation lookup returned HTTP 404. No event-to-agent invocation claim is marked verified on that basis. E1 blocks the proposed intake integration until the integration owner records a current supported route and exercises it; a native Email channel is not a fallback.
 
 **Design choices:** one agent, baseline read-only, memory off initially, four independent skills, narrow reviewed-email extension and no unattended sending. **Proposed contracts:** the three email operations in the matrix. **Deployment values and tenant gates:** only in the runbook; no unresolved placeholders are embedded in runtime skills.
 

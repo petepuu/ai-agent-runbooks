@@ -52,8 +52,9 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    contract. Reuse that outline for all four target documents.
 2. **Verify the actual host and evidence.** Read
    [official sources](references/official-sources.md) and fetch the relevant current
-   pages. Record retrieval date and distinguish verified documentation from tenant
-   validation and design decisions. If sources cannot be read, mark affected claims
+   pages. Record retrieval dates in working context only and distinguish verified
+   documentation from tenant validation and design decisions. If sources cannot
+   be read, mark affected claims
    `[VERIFY]` and block dependent release steps. Do not invent portal settings,
    connector operation IDs, APIs, licensing entitlements, or feature availability.
 3. **Inventory behavior, not just labels.** Read
@@ -103,9 +104,10 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    or new index descriptions. Required resources must be local to the new scenario
    or independently configured; examples must be self-contained. Do not relocate
    removed provenance to Resources. Keep official product/knowledge-source
-   citations, documentation verification dates and legally required attribution;
-   those are distinct from scenario ancestry. Original files and original index
-   entries stay intact.
+   citations and legally required attribution; those are distinct from scenario
+   ancestry. Omit read/retrieved/reviewed dates from all generated pages and
+   resources; retain policy effective dates and meaningful test/deployment dates.
+   Original files and original index entries stay intact.
    Generate inline fenced Mermaid diagrams in Overview's `How It Works` and
    Architecture's `How It Works`, plus sequence diagrams under Architecture's
    `Data Flow`, following the source's style and locations. Do not replace these

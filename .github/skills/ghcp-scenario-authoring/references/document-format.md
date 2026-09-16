@@ -41,8 +41,10 @@ provenance inventories. This applies to all generated pages, Resources, capabili
 matrices and new index descriptions, not just the Overview. Do not move these
 references to a footer or Resources. Keep required permitted assets within the
 new scenario, or describe independent configuration; make test fixtures
-self-contained. Preserve official documentation and knowledge-source citations,
-verification dates in the evidence record, and any legally required attribution.
+self-contained. Preserve official documentation and knowledge-source citations and any legally required attribution.
+Do not publish read/retrieved/reviewed dates, including in Resources or footers;
+keep those in working context only. Policy effective dates and meaningful test
+or deployment dates are not reading metadata and should remain.
 
 Source inspection, revision tracking and behavior mapping remain internal
 authoring steps. They do not become a prerequisite for reading or deploying the
