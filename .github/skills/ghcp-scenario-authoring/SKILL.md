@@ -1,6 +1,6 @@
 ---
 name: ghcp-scenario-authoring
-description: "Create a new Copilot Studio GitHub Copilot harness scenario from an existing repository scenario or a new brief, with Overview, Architecture, Runbook, Sample-prompts, and runtime skills. Preserve the original and map topic behavior to skills without confusing skills with tools."
+description: "Create a Copilot Studio GitHub Copilot harness scenario while preserving the source scenario's document format, section order and Mermaid diagrams. Produce Overview, Architecture, Runbook, Sample-prompts and runtime skills; preserve the original and keep skills separate from tools."
 ---
 
 # GHCP Scenario Authoring
@@ -45,6 +45,10 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    Reject a destination equal to, inside, or containing the source; also reject paths
    outside `01-scenarios`. If the destination exists, ask whether to update that GHCP
    variant or choose a new name. Preserve unrelated changes.
+   Read [document format](references/document-format.md) and extract the source's
+   heading outline, levels, order, metadata, tables, separators and diagram locations
+   before drafting. The source scenario, not a generic summary, is the formatting
+   contract. Reuse that outline for all four target documents.
 2. **Verify the actual host and evidence.** Read
    [official sources](references/official-sources.md) and fetch the relevant current
    pages. Record retrieval date and distinguish verified documentation from tenant
@@ -63,13 +67,38 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    Preserve deterministic validation, authorization, approvals, and transactions
    in the backend/workflow where needed. Do not force a second agent or introduce
    writes merely to demonstrate the harness.
-5. **Create the sibling scenario.** Use all four
-   [templates](templates/1.Overview.md), following their companion links.
+5. **Create the sibling scenario.** Read all four templates:
+   [Overview](templates/1.Overview.md), [Architecture](templates/2.Architecture.md),
+   [Runbook](templates/3.Runbook.md), and [Sample prompts](templates/4.Sample-prompts.md).
+   For adaptations, preserve the source's section names, hierarchy, order, table
+   format and visual style; use the templates as content checklists, not replacement
+   outlines. For new briefs, use their sample-scenario layout. Never collapse
+   `In Scope / Out of Scope` into a generic capability paragraph or replace
+   `Problem Statement`, `Solution Summary`, `Business Outcomes`, `Target Users`
+   and `Knowledge Sources Used` with a shorter overview. Keep explicit In Scope
+   and Out of Scope subsections. Place GHCP provenance near the title and extra
+   mapping/contracts/gates under appropriate existing sections or in Resources.
+   Add the four-page breadcrumb as the first nonblank line of each main
+   scenario document: `1. Overview > 2. Architecture > 3. Runbook > 4. Sample Prompts`.
+   Bold the current page without a self-link; link the other three to their sibling
+   Markdown files. Do not repeat the breadcrumb at the bottom. End each main page
+   with `## Related Resources` and a Resource/Link table linking to the other three
+   main pages (no self-link), followed by Capability and Integration Contracts
+   linking to `0.Resources/Capability-matrix.md`.
+   This applies only to the four main pages, not resource documents or runtime
+   `SKILL.md` files. Follow [document format](references/document-format.md#breadcrumbs)
+   for exact labels, links and placement.
    Preserve the standard filenames. Adapt content, do not recursively copy stale
    screenshots, exports, credentials, or unrelated assets. Copy only necessary
    permitted static resources and repair their links. Add a provenance block with
    source path/link, actual revision, target host, authored date, scope changes,
    and implementation status. Original files and original index entries stay intact.
+   Generate inline fenced Mermaid diagrams in Overview's `How It Works` and
+   Architecture's `How It Works`, plus sequence diagrams under Architecture's
+   `Data Flow`, following the source's style and locations. Do not replace these
+   with prose, a table, an external diagram link or a copied screenshot. Show the
+   actual GHCP components, skills, knowledge, tools and outputs; label proposed,
+   OFF and tenant-gated paths in the diagrams themselves. No invented integrations.
 6. **Write the matrix and runtime skills.** Under `0.Resources`, create a README,
    `Capability-matrix.md`, and `Skills\README.md`. Follow the
    [mapping reference](references/component-mapping.md) for required matrix columns.
@@ -98,7 +127,16 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    `[FILL]` may remain only as explicit owner-assigned deployment gates, never hidden
    in a runtime instruction. Compare source files with the initial state to ensure
    no source changes. Use existing doc tooling; don't install dependencies just for
-   Markdown checks.
+   Markdown checks. Compare the source/target heading outlines for all four files:
+   preserve source sections and their relative order; explain necessary host/scope
+   label changes and additions. Explicitly check Overview's scope subsections,
+   both `How It Works` Mermaid blocks, Architecture's data-flow diagrams, and that
+   diagram edges/statuses agree with the capability matrix. A missing source section
+   or required diagram is an authoring defect, not a stylistic simplification.
+   Check the single top breadcrumb on every main page: exact order and labels,
+   one bold current page and three valid relative sibling links. Verify the final
+   Related Resources table links to the other three pages and capability matrix,
+   with no trailing breadcrumb.
 
 ## Results and Failure Handling
 
