@@ -21,11 +21,14 @@ not evidence that the old host cannot support the business outcome.
 
 ## Required capability matrix
 
-Start with an implementation-status statement and include:
+The source mapping above is internal authoring guidance, not a table to publish
+in the generated scenario. Describe the independent design using current
+capabilities, components and controls instead of source assets or migration
+dispositions. Start with an implementation-status statement and include:
 
-| Capability ID / linked SKILL.md | Source behavior / disposition | Tools or knowledge | Actual implementation / operation ID | Dependencies | Profile / access / approval |
+| Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Profile / access / approval |
 |---|---|---|---|---|---|
-| One independently enabled action | Retained, re-expressed, deferred or excluded | Exact configured names or clearly labeled logical contracts | Verified operation ID, proposed custom contract, or no external tool | Required and conditional dependencies | ON/OFF state; identity, backend scope, confirmation |
+| One independently enabled action | Supported outcome and explicit limits | Exact configured names or clearly labeled logical contracts | Verified operation ID, proposed custom contract, or no external tool | Required and conditional dependencies | ON/OFF state; identity, backend scope, confirmation |
 
 For each external operation record inputs, outputs, permitted records/fields/actions,
 execution identity, connection ownership, concurrency behavior, idempotency or

@@ -4,12 +4,12 @@
 
 ## Capability inventory
 
-| Capability ID / linked SKILL.md | Source behavior / disposition | Tools or knowledge | Actual implementation / operation ID | Dependencies | Profile / access / approval |
+| Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Profile / access / approval |
 |---|---|---|---|---|---|
-| [hr-policy-answer](Skills/hr-policy-answer/SKILL.md) | HR knowledge questions and fallback / re-expressed | Configured approved ServiceNow HR knowledge | Instructions supplied; no external operation tool | Mandatory: validated source and caller ACLs; no sibling skill | Baseline ON; reviewed-email ON; authenticated caller; no write approval |
-| [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | First-day / week guidance / re-expressed | Configured approved onboarding knowledge | Instructions supplied; no external operation tool | Mandatory: validated source and applicable timeline; no sibling skill | Baseline ON; reviewed-email ON; no task creation or completion |
-| [hr-email-draft](Skills/hr-email-draft/SKILL.md) | Generate answer from email Body / re-expressed | Supplied inquiry or authorized workflow context; configured HR knowledge | Instructions supplied; text output only, no external operation tool | Mandatory: inquiry and evidence; no sibling skill or mailbox access needed for supplied text | Baseline ON; reviewed-email ON; draft only, audience clearance required before use outside chat |
-| [hr-email-reply](Skills/hr-email-reply/SKILL.md) | SendEmail action / deferred implementation | `GetHrEmailContext`, `SubmitHrEmailReply`, `GetHrEmailReplyStatus` | Proposed custom contracts only; actual operation IDs not supplied; instructions supplied | Mandatory: all three operations, trusted context, recipient-access enforcement, reviewer authorization and approved exact payload; draft may be supplied without draft skill | Baseline OFF; reviewed-email OFF until E1-E3 pass, then ON for authorized HR reviewers; approval for each message |
+| [hr-policy-answer](Skills/hr-policy-answer/SKILL.md) | Cited HR guidance and explicit evidence limitations; no personal records | Configured approved ServiceNow HR knowledge | Instructions supplied; no external operation tool | Mandatory: validated source and caller ACLs; no sibling skill | Baseline ON; reviewed-email ON; authenticated caller; no write approval |
+| [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | First-day / week guidance; no scheduling or completion | Configured approved onboarding knowledge | Instructions supplied; no external operation tool | Mandatory: validated source and applicable timeline; no sibling skill | Baseline ON; reviewed-email ON; no task creation or completion |
+| [hr-email-draft](Skills/hr-email-draft/SKILL.md) | Compose a cited reply from an inquiry; no mailbox write | Supplied inquiry or authorized workflow context; configured HR knowledge | Instructions supplied; text output only, no external operation tool | Mandatory: inquiry and evidence; no sibling skill or mailbox access needed for supplied text | Baseline ON; reviewed-email ON; draft only, audience clearance required before use outside chat |
+| [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Submit one authorized, reviewed reply; proposed / OFF | `GetHrEmailContext`, `SubmitHrEmailReply`, `GetHrEmailReplyStatus` | Proposed custom contracts only; actual operation IDs not supplied; instructions supplied | Mandatory: all three operations, trusted context, recipient-access enforcement, reviewer authorization and approved exact payload; draft may be supplied without draft skill | Baseline OFF; reviewed-email OFF until E1-E3 pass, then ON for authorized HR reviewers; approval for each message |
 
 ## Profiles and disablement
 
@@ -17,7 +17,7 @@
 
 **Reviewed-email:** optional later profile adding the single sending capability and three narrow operations. It does not add general mailbox search, mailbox draft storage, arbitrary-recipient mail, Reply All, attachments, forwarding, editing/deleting messages or live HR records. Each reply requires an authorized HR review bound to its exact contents.
 
-**Unattended email:** source behavior recorded but not implemented or enabled by either profile. A future design would need its own approved authorization policy, recipient-safe knowledge scope and exception handling; do not infer authorization from this matrix or a skill description.
+**Unattended email:** out of scope and not enabled by either profile. Any future extension would need its own approved authorization policy, recipient-safe knowledge scope and exception handling; do not infer authorization from this matrix or a skill description.
 
 Unlisted actions are OFF. Capability state is a deployment convention, not a claimed built-in Studio switch. To turn a capability off, remove its skill and update global scope; for sending, also disable intake/submission at the backend, remove its tool exposure, block alternate connections and verify old published versions and sessions cannot submit. Preserve read-only status access for reconciliation under the integration operator's authorization and keep shared knowledge connections used elsewhere.
 

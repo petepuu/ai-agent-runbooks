@@ -1,6 +1,6 @@
 ---
 name: ghcp-scenario-authoring
-description: "Create a Copilot Studio GitHub Copilot harness scenario while preserving the source scenario's document format, section order and Mermaid diagrams. Produce Overview, Architecture, Runbook, Sample-prompts and runtime skills; preserve the original and keep skills separate from tools."
+description: "Create an independent Copilot Studio GitHub Copilot harness scenario using an existing scenario's document format, section order and Mermaid style. Produce standalone Overview, Architecture, Runbook, Sample-prompts and runtime skills without source-scenario references or provenance banners; preserve original files and keep skills separate from tools."
 ---
 
 # GHCP Scenario Authoring
@@ -40,7 +40,8 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
 1. **Inspect and protect.** Read repository instructions, Git status, the source's
    four documents, resources, and existing skill definitions. Read relevant indexes
    and nearby GHCP examples. Resolve repository URLs to the local checkout when they
-   name this repository; record its actual revision, not the URL's assumed revision.
+   name this repository; record its actual revision in working context only, not
+   in the generated scenario.
    Use authorized read-only retrieval for other sources. Never overwrite the source.
    Reject a destination equal to, inside, or containing the source; also reject paths
    outside `01-scenarios`. If the destination exists, ask whether to update that GHCP
@@ -57,10 +58,12 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    connector operation IDs, APIs, licensing entitlements, or feature availability.
 3. **Inventory behavior, not just labels.** Read
    [translation rules](references/component-mapping.md). Identify the actual source
-   harness. A declarative source may have no topics: mark that explicitly. Record
+   harness. A declarative source may have no topics: note that in working context. Record
    each source behavior/asset and whether it is retained, re-expressed, deferred,
-   or excluded. Identify unsupported promises and missing data paths instead of
-   copying them into the new architecture.
+   or excluded for internal authoring analysis only. Publish the resulting
+   capabilities and boundaries, not a source-to-target comparison. Identify
+   unsupported promises and missing data paths instead of copying them into the
+   new architecture.
 4. **Design the capability boundary.** Keep agent-wide policy in instructions,
    retrieval context in knowledge, callable operations in tools, and task-specific
    procedures in skills. Use one skill per independently enabled capability.
@@ -76,8 +79,12 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    `In Scope / Out of Scope` into a generic capability paragraph or replace
    `Problem Statement`, `Solution Summary`, `Business Outcomes`, `Target Users`
    and `Knowledge Sources Used` with a shorter overview. Keep explicit In Scope
-   and Out of Scope subsections. Place GHCP provenance near the title and extra
-   mapping/contracts/gates under appropriate existing sections or in Resources.
+   and Out of Scope subsections. Write the result as a completely independent
+   scenario, not a migration report. Do not add an opening metadata/provenance
+   block (target host, source, revision, authored/retrieval date, scope changes,
+   or original-preservation statement). Describe the host, current scope and
+   implementation status in the normal business/architecture sections and put
+   contracts/gates under appropriate existing sections or in Resources.
    Add the four-page breadcrumb as the first nonblank line of each main
    scenario document: `1. Overview > 2. Architecture > 3. Runbook > 4. Sample Prompts`.
    Bold the current page without a self-link; link the other three to their sibling
@@ -90,9 +97,15 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    for exact labels, links and placement.
    Preserve the standard filenames. Adapt content, do not recursively copy stale
    screenshots, exports, credentials, or unrelated assets. Copy only necessary
-   permitted static resources and repair their links. Add a provenance block with
-   source path/link, actual revision, target host, authored date, scope changes,
-   and implementation status. Original files and original index entries stay intact.
+   permitted static resources into the new scenario and repair their links.
+   Do not reference the original scenario, its files, revision, agent, sample
+   assets or migration history anywhere in generated pages, resources, matrices
+   or new index descriptions. Required resources must be local to the new scenario
+   or independently configured; examples must be self-contained. Do not relocate
+   removed provenance to Resources. Keep official product/knowledge-source
+   citations, documentation verification dates and legally required attribution;
+   those are distinct from scenario ancestry. Original files and original index
+   entries stay intact.
    Generate inline fenced Mermaid diagrams in Overview's `How It Works` and
    Architecture's `How It Works`, plus sequence diagrams under Architecture's
    `Data Flow`, following the source's style and locations. Do not replace these
@@ -128,15 +141,19 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    in a runtime instruction. Compare source files with the initial state to ensure
    no source changes. Use existing doc tooling; don't install dependencies just for
    Markdown checks. Compare the source/target heading outlines for all four files:
-   preserve source sections and their relative order; explain necessary host/scope
-   label changes and additions. Explicitly check Overview's scope subsections,
+   preserve business sections and their relative order, excluding source
+   provenance/history sections; record necessary host/scope label changes in
+   working context only. Explicitly check Overview's scope subsections,
    both `How It Works` Mermaid blocks, Architecture's data-flow diagrams, and that
    diagram edges/statuses agree with the capability matrix. A missing source section
    or required diagram is an authoring defect, not a stylistic simplification.
    Check the single top breadcrumb on every main page: exact order and labels,
    one bold current page and three valid relative sibling links. Verify the final
    Related Resources table links to the other three pages and capability matrix,
-   with no trailing breadcrumb.
+   with no trailing breadcrumb. Check all generated documents and new index
+   descriptions for source-scenario links/names/revisions, migration comparisons,
+   asset dependencies and opening metadata banners; remove them without losing
+   current scope, implementation status, safety boundaries or official citations.
 
 ## Results and Failure Handling
 

@@ -5,7 +5,8 @@
 The four source documents are the presentation contract. Before drafting, extract
 their heading text, heading levels and order, and note metadata blocks, tables,
 horizontal rules, diagrams, examples and navigation. Retain that structure in the
-GHCP sibling. Preserving filenames alone is not format preservation.
+GHCP sibling. Preserving filenames alone is not format preservation. Preserve
+business structure, not source provenance/history sections or metadata banners.
 
 Use the companion templates as coverage checklists. Do not replace a source outline
 with the templates when it already has a different established structure. A new
@@ -22,10 +23,30 @@ section describes unavailable behavior; do not silently omit the section.
 Host-specific step labels and scenario labels may change when keeping them would
 be misleading (for example, an autonomous send becomes an OFF reviewed-email
 extension). Preserve the numbered step/category pattern and section position,
-and record the reason in the source-to-GHCP mapping. Do not copy stale portal
+and record the reason in working context only. Do not copy stale portal
 instructions merely to preserve a heading. Additional GHCP details can be nested
 under existing sections or linked to Resources. Do not bury the business overview
 under the integration contract.
+
+## Independent scenario content
+
+Generated scenarios stand alone. After the breadcrumb and title, start the normal
+page content without a target-host/source/revision/authored-date/scope-change
+banner. Describe the runtime, capabilities and implementation status in the
+relevant business or architecture sections.
+
+Do not include references or links to the original scenario, comparisons with its
+agent or steps, source-to-target mappings, preservation statements or asset
+provenance inventories. This applies to all generated pages, Resources, capability
+matrices and new index descriptions, not just the Overview. Do not move these
+references to a footer or Resources. Keep required permitted assets within the
+new scenario, or describe independent configuration; make test fixtures
+self-contained. Preserve official documentation and knowledge-source citations,
+verification dates in the evidence record, and any legally required attribution.
+
+Source inspection, revision tracking and behavior mapping remain internal
+authoring steps. They do not become a prerequisite for reading or deploying the
+generated scenario.
 
 ## Reference layout
 
@@ -38,7 +59,7 @@ The repository's HR Onboarding sample illustrates the expected format:
 | Runbook | Overview; Prerequisites; numbered phases for environment, source setup, agent creation, testing and deployment; numbered steps within phases; Summary Checklist; Related Resources |
 | Sample prompts | How to Use These Prompts; domain-specific numbered categories with Prompt/Expected Output tables and examples; Tips for Getting Better Responses; Out-of-Scope Topics; Related Resources |
 
-Acceptance fixtures, composed tests, deployment gates and provenance are additions,
+Acceptance fixtures, composed tests and deployment gates are additions,
 not replacements for those sections. For another source, preserve that source's
 equivalent headings rather than forcing this HR-specific outline onto it.
 
@@ -118,8 +139,9 @@ in deterministic workflows where required, not in an assumed skill-selection ord
 ## Verification
 
 Compare source and target outlines before finishing. Check every original section
-is represented in the same relative order at the appropriate heading level;
-record justified host-specific substitutions. Check table schemas and numbered
+with business content is represented in the same relative order at the appropriate
+heading level; exclude source-history/provenance sections and record justified
+host-specific substitutions in working context. Check table schemas and numbered
 step/category conventions, not just the existence of the four filenames.
 
 For each main page, verify exactly one breadcrumb at the beginning, with one bold
@@ -128,6 +150,11 @@ and their order, not merely the presence of a `>` separator. Verify exactly one
 final Related Resources section with the other three page links and the capability
 matrix, and no bottom breadcrumb or self-link. Do not add this navigation to
 Resources or runtime skills.
+
+Verify that the delivered scenario and its index descriptions have no source-
+scenario references, cross-scenario asset dependencies or opening metadata
+banners. Do not mistake citations to operational knowledge or official product
+documentation for references to the original scenario.
 
 Check at least one Mermaid flowchart under each How It Works heading and the
 named Data Flow sequences. Check balanced fences, node/participant references,

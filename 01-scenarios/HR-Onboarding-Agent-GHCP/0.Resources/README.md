@@ -11,30 +11,19 @@
 
 These files are authoring deliverables, not a solution package. No connector, tool, workflow or approval is created by importing a skill. No runtime skill links to repository-only supporting files.
 
-## Provenance and asset disposition
+## Knowledge and test resources
 
-Source: `01-scenarios\HR-Onboarding-Agent`, repository `petepuu/ai-agent-runbooks`, revision `697593082501641fd9adf31381c328533d6989ce`, inspected 2026-09-16. This revision includes the user's deletion of the older GHCP folder; this adaptation was authored anew rather than restoring that folder. The original source has four Markdown scenario documents, a connector setup guide, two sample documents and 101 PNG screenshots; no runtime skills or executable topic/flow exports were present.
+HR supplies approved onboarding, handbook, benefits and wellness articles through the configured ServiceNow knowledge source. The [runbook](../3.Runbook.md#phase-1-servicenow-knowledge-base-setup) covers connection setup, source scope, citations and permissions. Production HR articles and tenant configuration are not included.
 
-The four source documents, connector guide and sample document text were read for behavior and evidence inventory. Screenshots were inventoried but not revalidated as current UI evidence. No binary or screenshot is copied into this sibling.
+The [controlled fixtures](../4.Sample-prompts.md#controlled-fixtures) contain the complete synthetic text needed for onboarding, wellness and conflicting-leave tests. Load these only into an isolated test knowledge source and record its actual article IDs/URLs; fixture labels are not live citations. Email tests additionally require the proposed backend and its test context.
 
-| Original asset | Use in this adaptation |
-|---|---|
-| [Source overview](../../HR-Onboarding-Agent/1.Overview.md) and [architecture](../../HR-Onboarding-Agent/2.Architecture.md) | Business scope and source component inventory |
-| [Source runbook](../../HR-Onboarding-Agent/3.Runbook.md) and [prompts](../../HR-Onboarding-Agent/4.Sample-prompts.md) | Actual knowledge, email and onboarding behavior; sample outputs are not evidence |
-| [Connector setup guide](../../HR-Onboarding-Agent/0.Resources/Sample-documents/ServiceNow-Tenant-%26-Copilot-Connector-Setup-Guide.md) | Historical context only; do not follow demo MFA skip, admin/Everyone access or old availability claims |
-| [Contoso Employee Handbook](../../HR-Onboarding-Agent/0.Resources/Sample-documents/Contoso%20Employee%20Handbook.docx) | Optional synthetic demonstration source; remains in original |
-| [Wellness Benefits Sample Knowledge](../../HR-Onboarding-Agent/0.Resources/Sample-documents/Wellness%20Benefits%20Sample%20Knowledge.docx) | Optional synthetic demonstration source; remains in original |
-| Original Images directory | Excluded from target; no claims of fresh screenshots or observed deployment |
+## Knowledge quality requirements
 
-Links to original documents are optional provenance/sample references, not prerequisites for importing the standalone skills. For production, HR supplies approved articles through the configured knowledge source.
+For each production policy, record authority, population, country/entity/category, effective period, owner and permission rules. If permitted evidence conflicts and lacks a priority or supersession rule, preserve the uncertainty rather than choose an entitlement.
 
-## Source quality findings
+Fixtures F3 and F4 intentionally state **15** and **20 vacation days** for the same test cohort without priority metadata. They test conflict handling, not company policy. Fixture F2 omits monthly medical premiums; an answer must say that the value is unspecified rather than claim it is "Included." Prompt coverage does not establish evidence for personal pay dates, bank-detail setup, leave approval or IT provisioning.
 
-The sample handbook says **15 vacation days**, whereas the wellness document says **20 days annually, prorated by start date**. The handbook says **13 national paid holidays** but enumerates ten; the wellness document says **10 company-recognized holidays**. Neither sample provides enough authority/applicability metadata to resolve these differences.
-
-The source's sample prompt table labels medical/dental/vision cost as "Included"; the wellness document instead gives plan cost tiers, not exact monthly premiums. The source's wide prompt coverage does not establish evidence for individual first-paycheck dates, bank-detail setup, leave approval or IT provisioning.
-
-**Gate G2, HR owner:** resolve authoritative production policy by country/entity/category and effective period, or exclude conflicting topics from pilot scope. Do not edit the originals as part of this adaptation. Keep the conflicting samples only in an isolated test corpus if testing abstention. Do not copy sample policy facts, contact addresses, credentials or provider recommendations into runtime instructions.
+**Gate G2, HR owner:** resolve authoritative production policy or exclude conflicting topics from pilot scope. Keep conflict fixtures in the isolated test corpus. Do not copy synthetic policy facts, contact addresses, credentials or provider recommendations into runtime instructions.
 
 ## Official-source verification
 
