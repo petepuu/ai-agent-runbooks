@@ -126,6 +126,11 @@ labels and `<br/>` for line breaks, and label edges with their data or action.
 Use neutral styling and dashed edges for OFF/proposed branches, with explicit text
 labels; color alone must not communicate availability.
 
+In sequence-diagram message and note text, use commas or plain wording instead
+of literal semicolons: Mermaid treats semicolons as statement separators and can
+parse the remaining label as a new, invalid statement. If a semicolon is necessary,
+encode it as `#59;`. Check labels as well as balanced fences before delivery.
+
 Represent skills as procedures used by the agent, never services receiving API
 calls. Retrieval goes to knowledge, not to a fictional search tool. Draw write
 paths only if part of the documented design, and visibly place authorization and
