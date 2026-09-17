@@ -100,9 +100,9 @@ This guide walks through two main tasks:
 > ![Request Instance screen](../Images/016.png)
 >
 
-3. Choose an available supported release approved for the test and click **"Request"**
+3. Select the latest available instance version, such as **Australia** shown in this example, and click **"Request"**.
 
-> ![Request an Instance screen](../Images/017.png)
+> ![Request an Instance screen with Australia selected](../Images/017.png)
 >
 
    > Wait for the instance to report ready; provisioning time varies.
