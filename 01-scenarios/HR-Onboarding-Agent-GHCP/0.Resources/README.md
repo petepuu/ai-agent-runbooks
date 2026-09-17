@@ -1,4 +1,4 @@
-# HR Onboarding Agent (GHCP) - Resources
+# HR Onboarding Agent - Resources
 
 ## Contents and implementation status
 
@@ -31,7 +31,7 @@ Fixtures F3 and F4 intentionally state **15** and **20 vacation days** for the s
 
 The [Workflows overview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flows-overview) documents the new GHCP-powered automation experience, including event triggers and agent calls. More specifically, [Add an agent node to a workflow](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow) is marked for the **GitHub Copilot harness** and documents **Workflows > Agent > An existing agent**, selecting a published agent, passing a **Message**, waiting for completion and using the result downstream. This is evidence of **workflow → agent invocation**, not just an agent calling a tool. The page also describes new inline agents, but this scenario targets the existing published HR agent, not a replacement inline agent.
 
-This documents an inbound invocation pattern in the GHCP Workflows experience; it is **not solely the standard-harness agent-flow page**. During standard setup, integration owners select the exact published HR GHCP agent and record its version, successful isolated invocation, trusted context/result binding, imported skill execution and effective retrieval identity (E1). Product documentation establishes the route, not this tenant's configuration. If the target cannot be selected or invoked, resolve the setup failure before go-live. Do not silently substitute a standard agent or treat a custom value in a connector as proof of support.
+This documents an inbound invocation pattern in the GHCP Workflows experience; it is **not solely the standard-harness agent-flow page**. During standard setup, integration owners select the exact published **HR Onboarding Agent** and record its version, successful isolated invocation, trusted context/result binding, imported skill execution and effective retrieval identity (E1). Product documentation establishes the route, not this tenant's configuration. If the target cannot be selected or invoked, resolve the setup failure before go-live. Do not silently substitute a standard agent or treat a custom value in a connector as proof of support.
 
 The following distinctions prevent false support claims:
 
