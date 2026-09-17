@@ -307,7 +307,6 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 2. Under **Access Permissions**, select **Only people with access to this data source**. Preserve source permissions, not Everyone.
 
-> **Screenshot to replace:** select source-based permissions instead of Everyone.
 > ![Users - Access Permissions screen](../Images/032.png)
 
 
