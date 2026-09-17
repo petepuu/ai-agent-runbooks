@@ -314,13 +314,17 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 ### Step 3-4. Create the Connection
 
-1. Go back to the **"Setup"** tab
-2. Check all required values, scoped authentication, corpus filters, mapping and source-permission settings
-3. Click **"Create"**
+1. If the **Create** button is disabled, verify that the connector is authorized in the **Setup** tab. Sometimes the button remains disabled even when everything is configured correctly. If that happens, click **Save and close**, then follow the next two steps. If **Create** is already enabled, click it and continue to item 4.
 
-> **Screenshot to replace:** approved authentication and source-permission configuration before Create.
-> ![Connection creation screen](../Images/033.png)
->
+> ![Connection setup with Save and close](../Images/033.png)
+
+2. Click **Your connections**, select the connection, and click **Edit**.
+
+> ![Select the saved connection and click Edit](../Images/033-2.png)
+
+3. Review and select **Notice**. You should now be able to click **Create** to create the connection. If the button is still disabled, resolve any authorization or required-field errors before continuing.
+
+> ![Select Notice and create the connection](../Images/033-3.png)
 
 4. The button will display **"Creating connection"** while the process runs
 
