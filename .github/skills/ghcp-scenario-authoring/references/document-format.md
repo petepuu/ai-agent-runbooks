@@ -148,6 +148,9 @@ observed evidence; do not restore stale screenshots or generate fake portal capt
 Keep the logical architecture to about 6-8 nodes. Group skills into one box and
 workflow intake/invocation/validation/delivery into one Workflows box instead of separate operation,
 outbox, status and queue nodes. Use `direction LR` within layers and explicit
+layer placement: users and event channels in layer 1, the agent/instructions/skills
+in layer 2, and Workflows alongside knowledge/index and source systems in layer 3.
+Use
 `USER --> AGENT` and `AGENT --> DATA` ordering. Keep the workflow round trip explicit:
 event channel -> Workflows -> agent -> same Workflows -> response channel -> user.
 Do not combine the event channel with the workflow or hide the agent's return
