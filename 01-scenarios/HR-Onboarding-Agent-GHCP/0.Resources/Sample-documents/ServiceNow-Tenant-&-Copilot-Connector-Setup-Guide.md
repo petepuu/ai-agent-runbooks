@@ -301,22 +301,7 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 ---
 
-### Step 3-3. Authenticate the Connection
-
-1. Complete the selected method's authorization/sign-in process and wait for authentication to complete
-
-> **Screenshot to replace:** the selected authentication method, not shared admin Basic authentication.
-> ![Authentication screen](../Images/030.png)
-
-2. Confirm the connection's successful authentication state. For methods with field validation, inspect its check marks; success alone does not prove correctly scoped data access.
-
-> **Screenshot to replace:** authentication success for the scoped identity.
-> ![Green Check Marks](../Images/031.png)
-
-
----
-
-### Step 3-4. Configure User Access Permissions
+### Step 3-3. Configure User Access Permissions
 
 1. Click the **"Users"** tab at the top of the setup panel
 
@@ -330,7 +315,7 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 ---
 
-### Step 3-5. Create the Connection
+### Step 3-4. Create the Connection
 
 1. Go back to the **"Setup"** tab
 2. Check all required values, scoped authentication, corpus filters, mapping and source-permission settings
@@ -344,7 +329,7 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 ---
 
-### Step 3-6. Add a Connector Description
+### Step 3-5. Add a Connector Description
 
 1. Once the connection is created, a success screen will appear:
    **"Created connection — ServiceNow (ServiceNowKB[X])"**
@@ -419,10 +404,9 @@ Use the following prompts in **M365 Copilot (Teams)** to verify the connector is
 | 2-3 | HR plugin installation complete; four default knowledge bases, including IT, and three HR knowledge bases confirmed | ☐ |
 | 3-1 | New connection added in M365 Admin Center | ☐ |
 | 3-2 | Scoped connection identity, authentication and corpus configured | ☐ |
-| 3-3 | Authentication completed and scoped access verified | ☐ |
-| 3-4 | Source permissions, identity mapping and advanced criteria validated | ☐ |
-| 3-5 | Connection created successfully | ☐ |
-| 3-6 | Connector description added | ☐ |
+| 3-3 | Source permissions, identity mapping and advanced criteria validated | ☐ |
+| 3-4 | Connection created successfully | ☐ |
+| 3-5 | Connector description added | ☐ |
 | 4-1 | Indexed content verified via Microsoft Search | ☐ |
 | 4-2 | M365 Copilot prompts and permitted/denied/revoked identities tested | ☐ |
 
