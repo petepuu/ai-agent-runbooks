@@ -105,9 +105,17 @@ This guide walks through two main tasks:
 > ![Request an Instance screen with Australia selected](../Images/017.png)
 >
 
-   > Wait for the instance to report ready; provisioning time varies.
+4. Click **Run in background** and wait until the instance is ready. This usually takes a short time, but provisioning time can vary.
 
-4. Once the instance is ready, a Manage my instance screen will appear with your instance details:
+> ![Instance provisioning with Run in background option](../Images/017-2.png)
+>
+
+5. When the instance is ready, click **Manage my instance**.
+
+> ![Instance ready with Manage my instance option](../Images/017-3.png)
+>
+
+6. The **Manage my instance** screen shows your instance details:
    - **Instance URL**: `https://dev[XXXXXX].service-now.com`
    - **Username**: `admin`
    - **Current password**: *(auto-generated)*
