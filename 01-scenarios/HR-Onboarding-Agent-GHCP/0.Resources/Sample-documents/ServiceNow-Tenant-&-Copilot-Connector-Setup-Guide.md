@@ -231,11 +231,13 @@ https://graph.microsoft.com/v1.0/servicePrincipals?$filter=appId eq '933838e2-be
 
 > ![Edit the integration user's roles](../Images/103-15.png)
 
-15. Add **knowledge_admin**, **user_criteria_admin**, and **user_admin**, then click **Save**.
+15. Add **knowledge_admin**, **user_criteria_admin**, **user_admin**, and **sn_hr_core.admin**, then click **Save**.
+
+> The **sn_hr_core.admin** role may take some time to appear after the **Human Resources Scoped App: Core** plugin is installed. If it is not visible, confirm that installation has completed, wait a little longer, and refresh the role list before adding it.
 
 > ![Assign the required connector integration roles](../Images/103-16.png)
 
-> These are the roles specified in Microsoft's Federated Auth instructions. If your approved connector setup uses a custom crawling role, assign that role to this integration user as well. Do not assign the general **admin** role to the integration user. Roles do not replace required REST/table ACLs, approved corpus filters or source-permission configuration.
+> The first three roles are specified in Microsoft's Federated Auth instructions; **sn_hr_core.admin** is added for this HR scenario. If your approved connector setup uses a custom crawling role, assign that role to this integration user as well. Do not assign the general **admin** role to the integration user. Roles do not replace required REST/table ACLs, approved corpus filters or source-permission configuration.
 
 Before continuing, confirm that the OIDC integration is **Active**, the client ID and tenant metadata URL are correct, and the integration user's **User ID** and roles match the settings above. In Part 3, select **Federated Auth** for this configuration.
 
