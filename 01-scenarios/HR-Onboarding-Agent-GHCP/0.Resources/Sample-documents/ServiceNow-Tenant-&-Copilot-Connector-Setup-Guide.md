@@ -245,24 +245,16 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 ### Step 2-3. Verify Knowledge Bases are Available
 
-Before verifying the knowledge bases, confirm that the HR plugin installation from Step 2-1 has completed.
-
-1. Click the **"All"** tab in the top navigation
-2. Type **"knowledge bases"** in the search field
-3. Select **"Knowledge Bases"** under **Knowledge > Administration**
+1. Confirm that the **Human Resources Scoped App: Core** plugin installation started in **Step 2-1** has completed successfully before continuing. If it is still running, wait until installation finishes.
+2. Click the **"All"** tab in the top navigation
+3. Type **"knowledge bases"** in the search field
+4. Select **"Knowledge Bases"** under **Knowledge > Administration**
 
 > ![Knowledge Bases selection screen](../Images/024.png)
 
-4. Confirm the following four default Knowledge Bases are listed:
+5. Confirm that the **four default knowledge bases**, including **IT**, and **three HR knowledge bases** are listed.
 
-   | Knowledge Base | Description |
-   |---|---|
-   | KCS Knowledge Base (demo data) | KCS Demo KB |
-   | Known Error | Default knowledge base for Known Errors |
-   | IT | The ACME North America IT Service Desk Knowledge Base |
-   | Knowledge | Knowledge Base for general Knowledge users |
-
-> ![Knowledge Bases list](../Images/025.png)
+> ![Knowledge Bases list showing four default bases and three HR bases](../Images/025.png)
 
    > These are example default bases. Restrict connector ingestion to the approved HR test corpus rather than indexing all demo content. Confirm the actual base inventory, article/base user criteria and required REST/table ACLs.
 
@@ -426,7 +418,7 @@ Use the following prompts in **M365 Copilot (Teams)** to verify the connector is
 | 1-4 | ServiceNow Dev instance requested, ready and opened | ☐ |
 | 2-1 | Human Resources Scoped App: Core installed with demo data in the developer instance | ☐ |
 | 2-2 | Federated Auth OIDC provider and integration user configured | ☐ |
-| 2-3 | Four default Knowledge Bases confirmed | ☐ |
+| 2-3 | HR plugin installation complete; four default knowledge bases, including IT, and three HR knowledge bases confirmed | ☐ |
 | 3-1 | New connection added in M365 Admin Center | ☐ |
 | 3-2 | Scoped connection identity, authentication and corpus configured | ☐ |
 | 3-3 | Authentication completed and scoped access verified | ☐ |
