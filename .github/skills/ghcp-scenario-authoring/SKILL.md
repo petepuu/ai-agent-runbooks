@@ -83,8 +83,10 @@ all-employee HR brief, onboarding is one use case, not a new-hire-only scope.
    extension simply because the documentation does not deploy it. Separate design
    inclusion from implementation status and required setup/go-live checks. Create
    multiple profiles only when requested or actually required by the approved scope.
-   For requested autonomy, verify event -> Workflows -> existing agent -> validated
-   result -> action. Do not substitute agent-calls-workflow tools for inbound
+   For requested autonomy, verify event -> Workflows -> existing agent -> same
+   Workflows -> validated action -> user. Draw one Workflows node with explicit
+   agent-call and response-return edges, separate from the event channel.
+   Do not substitute agent-calls-workflow tools for inbound
    invocation. Retain the approved authorization policy; do not silently add
    per-message human approval to routine autonomous processing. Unsupported or
    uncertain cases need explicit exception handling. Never claim an unsupported
