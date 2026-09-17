@@ -29,7 +29,7 @@ This guide walks through two main tasks:
 
 ## Part 1: Create a Free ServiceNow Developer Instance
 
-### Step 1-1-1. Sign Up for a ServiceNow Developer Account
+### Step 1-1. Sign Up for a ServiceNow Developer Account
 
 1. Open your browser and go to https://developer.servicenow.com
 
@@ -57,7 +57,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-2. Verify Your Email
+### Step 1-2. Verify Your Email
 
 1. Check your inbox for a verification email from `signon@service-now.com`
 2. Click **"Verify Email"** in the email
@@ -77,7 +77,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-3. Complete Initial Setup
+### Step 1-3. Complete Initial Setup
 
 1. In the **"Getting Started"** dialog, click **"No"** (I need a guided experience)
 
@@ -92,7 +92,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-4. Request a ServiceNow Instance
+### Step 1-4. Request a ServiceNow Instance
 
 1. You should now be in your **ServiceNow Developer Dashboard**
 2. Click **"Request Instance"** in the top right corner
@@ -133,7 +133,7 @@ This guide walks through two main tasks:
 
 ## Part 2: Verify Knowledge Bases in ServiceNow
 
-### Step 1-1-5. Verify Knowledge Bases are Available
+### Step 1-5. Verify Knowledge Bases are Available
 
 1. Click the **"All"** tab in the top navigation
 2. Type **"knowledge bases"** in the search field
@@ -160,7 +160,7 @@ This guide walks through two main tasks:
 
 > Use a separate **scoped integration identity** for ingestion, with privileges required by the selected supported authentication method. Setup admin credentials are not the runtime connector identity. Follow the official prerequisite/authentication sections before creating the connection.
 
-### Step 1-1-6. Add a New Connection in M365 Admin Center
+### Step 1-6. Add a New Connection in M365 Admin Center
 
 1. Log in to **M365 Admin Center** → https://admin.microsoft.com
 2. Navigate to **Copilot** → **Connectors** → **Connectors** → **Gallery**
@@ -175,7 +175,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-7. Configure the Connection Settings
+### Step 1-7. Configure the Connection Settings
 
 1. Click **"Custom setup"** in the upper right of the screen
 
@@ -186,7 +186,7 @@ This guide walks through two main tasks:
    | Required Field | Value |
    |---|---|
    | Display name | `ServiceNow` *(or a unique name, e.g., `ServiceNowKB5`)* |
-   | ServiceNow URL | `https://dev[XXXXXX].service-now.com` *(your instance URL from Step 1-1-4)* |
+   | ServiceNow URL | `https://dev[XXXXXX].service-now.com` *(your instance URL from Step 1-4)* |
    | Authentication type | Security-approved method from the current deployment guide; **Federated Auth** is recommended there |
    | Integration identity | Dedicated identity with only the required connector roles and approved corpus access |
    | Authentication material | Configure through the approved connection/secret mechanism; never use shared admin credentials or copy values into this guide |
@@ -199,7 +199,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-8. Authenticate the Connection
+### Step 1-8. Authenticate the Connection
 
 1. Complete the selected method's authorization/sign-in process and wait for authentication to complete
 
@@ -214,7 +214,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-9. Configure User Access Permissions
+### Step 1-9. Configure User Access Permissions
 
 1. Click the **"Users"** tab at the top of the setup panel
 
@@ -228,7 +228,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-10. Create the Connection
+### Step 1-10. Create the Connection
 
 1. Go back to the **"Setup"** tab
 2. Check all required values, scoped authentication, corpus filters, mapping and source-permission settings
@@ -242,7 +242,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-11. Add a Connector Description
+### Step 1-11. Add a Connector Description
 
 1. Once the connection is created, a success screen will appear:
    **"Created connection — ServiceNow (ServiceNowKB[X])"**
@@ -274,7 +274,7 @@ This guide walks through two main tasks:
 
 ## Part 4: Verify the Connection
 
-### Step 1-1-12. Verify Indexed Content via Microsoft Search
+### Step 1-12. Verify Indexed Content via Microsoft Search
 
 1. Navigate to https://microsoft365.com and log in as a permitted **non-maker employee** in the test group
 2. After clicking **`Search*`** on the navigation, type **`KB0*`** in the search, and press **Enter**
@@ -290,7 +290,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-13. Verify via M365 Copilot Prompts
+### Step 1-13. Verify via M365 Copilot Prompts
 
 Use the following prompts in **M365 Copilot (Teams)** to verify the connector is working:
 
@@ -308,19 +308,19 @@ Use the following prompts in **M365 Copilot (Teams)** to verify the connector is
 
 | Step | Task | Status |
 |---|---|---|
-| 1-1-1 | ServiceNow Developer account created | ☐ |
-| 1-1-2 | Email verified and account activated | ☐ |
-| 1-1-3 | Initial setup completed | ☐ |
-| 1-1-4 | ServiceNow Dev instance requested, ready and opened | ☐ |
-| 1-1-5 | Four default Knowledge Bases confirmed | ☐ |
-| 1-1-6 | New connection added in M365 Admin Center | ☐ |
-| 1-1-7 | Scoped connection identity, authentication and corpus configured | ☐ |
-| 1-1-8 | Authentication completed and scoped access verified | ☐ |
-| 1-1-9 | Source permissions, identity mapping and advanced criteria validated | ☐ |
-| 1-1-10 | Connection created successfully | ☐ |
-| 1-1-11 | Connector description added | ☐ |
-| 1-1-12 | Indexed content verified via Microsoft Search | ☐ |
-| 1-1-13 | M365 Copilot prompts and permitted/denied/revoked identities tested | ☐ |
+| 1-1 | ServiceNow Developer account created | ☐ |
+| 1-2 | Email verified and account activated | ☐ |
+| 1-3 | Initial setup completed | ☐ |
+| 1-4 | ServiceNow Dev instance requested, ready and opened | ☐ |
+| 1-5 | Four default Knowledge Bases confirmed | ☐ |
+| 1-6 | New connection added in M365 Admin Center | ☐ |
+| 1-7 | Scoped connection identity, authentication and corpus configured | ☐ |
+| 1-8 | Authentication completed and scoped access verified | ☐ |
+| 1-9 | Source permissions, identity mapping and advanced criteria validated | ☐ |
+| 1-10 | Connection created successfully | ☐ |
+| 1-11 | Connector description added | ☐ |
+| 1-12 | Indexed content verified via Microsoft Search | ☐ |
+| 1-13 | M365 Copilot prompts and permitted/denied/revoked identities tested | ☐ |
 
 ---
 
