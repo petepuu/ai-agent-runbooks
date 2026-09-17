@@ -285,7 +285,7 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 > ![Custom setup screen](../Images/028.png)
 
-2. Fill in the following fields in the **Setup** tab:
+2. Fill in the following fields in the **Setup** tab and then click **Authorize**:
 
    | Required Field | Value |
    |---|---|
