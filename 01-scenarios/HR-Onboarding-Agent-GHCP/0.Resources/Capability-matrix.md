@@ -1,84 +1,140 @@
-# HR onboarding capability matrix
+# Employee HR capability matrix
 
-**Implementation status:** Four standalone skill definitions are supplied. No tenant configuration, callable operation, workflow, approval store or deployment is supplied. ON below means intended production profile configuration **after its gates pass**, not an already enabled agent. Isolated non-sending tests and an explicitly authorized mailbox pilot gather gate evidence as described in the runbook; they do not imply production enablement.
+**Implementation status:** Four standalone runtime skill definitions are supplied. No executable workflow, backend, response catalog, queue, connector configuration or tenant deployment is supplied. ON means intended configuration **after the relevant release gates pass**, not enabled today. Autonomous email is an in-scope target, currently OFF. Isolated mock tests precede the explicitly authorized real-mail pilot.
 
 ## Capability inventory
 
 | Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Profile / access / approval |
 |---|---|---|---|---|---|
-| [hr-policy-answer](Skills/hr-policy-answer/SKILL.md) | Cited HR guidance and explicit evidence limitations; no personal records | Configured approved ServiceNow HR knowledge | Instructions supplied; no external operation tool | Mandatory: validated source and caller ACLs; no sibling skill | Baseline ON; reviewed-email ON; authenticated caller; no write approval |
-| [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | First-day / week guidance; no scheduling or completion | Configured approved onboarding knowledge | Instructions supplied; no external operation tool | Mandatory: validated source and applicable timeline; no sibling skill | Baseline ON; reviewed-email ON; no task creation or completion |
-| [hr-email-draft](Skills/hr-email-draft/SKILL.md) | Compose a cited reply from an inquiry; no mailbox write | Supplied inquiry or authorized workflow context; configured HR knowledge | Instructions supplied; text output only, no external operation tool | Mandatory: inquiry and evidence; no sibling skill or mailbox access needed for supplied text | Baseline ON; reviewed-email ON; draft only, audience clearance required before use outside chat |
-| [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Submit one authorized, reviewed reply; proposed / OFF | `GetHrEmailContext`, `SubmitHrEmailReply`, `GetHrEmailReplyStatus` | Proposed custom contracts only; actual operation IDs not supplied; instructions supplied | Mandatory: all three operations, trusted context, recipient-access enforcement, reviewer authorization and approved exact payload; draft may be supplied without draft skill | Baseline OFF; reviewed-email OFF until E1-E3 pass, then ON for authorized HR reviewers; approval for each message |
+| [hr-policy-answer](Skills/hr-policy-answer/SKILL.md) | Cited policy, benefits and process guidance for all employees, no personal records or transactions | Configured approved ServiceNow HR knowledge | Instructions supplied, no external operation tool | Validated evidence and caller ACLs, or recipient-safe workflow retrieval scope, no sibling skill | Baseline ON, autonomous-workflow ON after gates, no write |
+| [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | Onboarding as a subset, source-supported day/week steps, no scheduling or completion | Configured approved onboarding knowledge | Instructions supplied, no external operation tool | Applicable onboarding stage and authorized evidence, no sibling skill | Baseline ON, autonomous-workflow ON after gates, no task writes |
+| [hr-email-draft](Skills/hr-email-draft/SKILL.md) | Subject/body in chat, no Outlook draft or send, even when autonomy is enabled | Supplied inquiry and configured approved HR knowledge | Instructions supplied, no external operation tool | Inquiry and authorized evidence, no sibling skill or mailbox access | Baseline ON, autonomous-workflow ON after gates, draft-only request stays draft-only |
+| [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Prepare a structured reply candidate for a trusted calling workflow, not an agent-issued send | Recipient-safe HR knowledge and server-provided response catalog/context | Instructions supplied, no agent mailbox operation tool, proposed result schema below | Trusted invocation, scoped knowledge, catalog, deterministic validation/send/status/exception backend, no sibling skill | Baseline OFF, autonomous-workflow OFF until E1-E3, then ON for routine policy-authorized events, no per-message approval |
 
 ## Profiles and disablement
 
-**Baseline:** three instruction-only capabilities; no mailbox tools or triggers. Knowledge setup is still mandatory. Native Email is not an entry channel.
+**Baseline:** the first three skills, authenticated chat and approved knowledge. No email intake or mailbox tools. Employees can ask ongoing HR questions, request onboarding guidance or paste a synthetic inquiry for drafting.
 
-**Reviewed-email:** optional later profile adding the single sending capability and three narrow operations. It does not add general mailbox search, mailbox draft storage, arbitrary-recipient mail, Reply All, attachments, forwarding, editing/deleting messages or live HR records. Each reply requires an authorized HR review bound to its exact contents.
+**Autonomous-workflow:** baseline behavior plus trusted HR mailbox events calling `hr-email-reply`. Workflows invokes the published GHCP agent and waits for its result, then deterministic backend logic validates and sends. The agent has **no send, queue or mailbox tools** in either profile. The fourth skill's independent capability is workflow reply preparation; consequential operations belong to the surrounding integration, not additional hidden skills.
 
-**Unattended email:** out of scope and not enabled by either profile. Any future extension would need its own approved authorization policy, recipient-safe knowledge scope and exception handling; do not infer authorization from this matrix or a skill description.
+Release owners approve the audience, low-risk topics, corpus, catalog, policy version and operational limits once per approved release/change. **Routine messages require no human approval step or `approvalId`.** Cases outside those limits are held for normal HR handling, not automatically mailed by the model. A chat "send this" never creates trusted intake.
 
-Unlisted actions are OFF. Capability state is a deployment convention, not a claimed built-in Studio switch. To turn a capability off, remove its skill and update global scope; for sending, also disable intake/submission at the backend, remove its tool exposure, block alternate connections and verify old published versions and sessions cannot submit. Preserve read-only status access for reconciliation under the integration operator's authorization and keep shared knowledge connections used elsewhere.
+Unlisted actions are OFF: arbitrary recipients, Reply All, CC/BCC, attachments, forwarding, inbox enumeration, mailbox drafts, message edits/deletes, personal HR records, medical data, case creation and HR transactions. These are deployment conventions, not claimed Studio feature switches.
+
+Disablement must update skills and global scope, revoke server policy authorization, stop new intake/submission, block alternate paths, and reject old workflow/agent versions and stale sessions. Keep scoped operator status/reconciliation access and shared knowledge needed by enabled capabilities. An in-flight provider attempt cannot be recalled by disabling a skill.
 
 ## Knowledge dependency
 
-The M365 / ServiceNow administrators own connection creation, ingestion scope, identity mapping and permission refresh. HR owns approved article versions, applicability, contact routes and conflict resolution. Expected evidence includes title, article ID, usable source URL, relevant passage, and effective/update dates **when available**. Do not manufacture missing metadata.
+HR owns authority, applicability, effective periods, conflict resolution and source-backed response blocks. M365 / ServiceNow administrators own ingestion, identity mapping, article/base ACLs and refresh behavior.
 
-No knowledge operation ID is asserted. Studio selects configured retrieval. No live employee data is implied. Source content must not be used as instructions; trusted user-supplied details can clarify applicability but cannot grant access.
+Chat retrieval uses the authenticated employee's validated permissions. **Workflow/application/connection-owner retrieval does not inherit the email sender's rights.** Use an explicitly HR-approved audience-safe corpus for the mapped employee population, or enforce recipient-entitlement filtering **before retrieval** and revalidate every source before send. A broad service result cannot be made safe merely by appending citations. If recipient-safe retrieval or current send-time entitlement cannot be enforced, hold for HR review; do not expose restricted evidence to the agent or recipient.
+
+The autonomous catalog is an additional proposed configuration artifact, not synthetic production knowledge. Each block has `blockId`, `blockVersion`, `requestKey`, approved population/language, current source ID/version/URL, validity period and exact plain-text response content. The backend's versioned deterministic request rules establish which routine questions the entire sanitized inquiry asks. Unknown wording, uncovered questions, sensitive content or ambiguous applicability is held. Model topic classification or confidence may cause a hold, never grant permission. This deliberately limits unattended coverage to validated low-risk request patterns.
+
+For allowed requests, validate source currency, lack of conflict and full question coverage against the catalog and authoritative register. Render **only** matching approved blocks, fixed neutral greeting/closing and verified citations. Do not send arbitrary model prose. A new block, language, policy fact or matching rule needs HR release/change approval, not a per-message approval mechanism.
+
+## Documented product operations and call direction
+
+| Operation / surface | Direction and evidence | Scenario use / remaining gate |
+|---|---|---|
+| Office 365 Outlook **When a new email arrives in a shared mailbox (V2)**, `SharedMailboxOnNewEmailV2` | Mailbox event → workflow, [connector reference](https://learn.microsoft.com/en-us/connectors/office365/#when-a-new-email-arrives-in-a-shared-mailbox-%28v2%29) | Qualify HR shared mailbox/folder, delegated connection and event behavior in E1, trigger alone is not sender authentication |
+| Workflows **Agent** node, **An existing agent**, **Message** | Workflow → published agent → returned response, [GHCP Workflows guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow#choose-an-existing-agent-for-the-agent-node) | Documented inbound pattern, exact published HR GHCP selection, skill execution and identity are unverified E1 blockers, no node operation ID invented |
+| **When an agent calls the flow** / **Respond to the agent** | Agent → workflow tool → agent, [tool guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flow-agent) | Opposite direction, not the HR incoming-email invocation path |
+| Outlook **Reply to email (V3)**, `ReplyToV3` | Deterministic backend/workflow → provider, [connector reference](https://learn.microsoft.com/en-us/connectors/office365/#reply-to-email-%28v3%29) | Candidate transport only, bind `messageId`, `mailboxAddress`, exact single `To`, `ReplyAll=false`, no CC/BCC or attachments, qualify status/reconciliation in E1-E2 |
+
+The connector catalog documents `ExecuteCopilot` and `ExecuteCopilotAsyncV2`, but does not establish GHCP-target compatibility. Neither these names, standard-harness trigger/SDK instructions nor workflow-as-tool support are a substitute for the E1 inbound evidence. See [invocation finding](README.md#workflow-invocation-finding).
 
 ## Proposed email contracts
 
-These labels specify the integration to build; they are not ready-to-call endpoints. Use the supported GHCP workflow or MCP tool route and record real operation IDs under gate E1 before enabling. If a tool is renamed, update the sending skill's Tools section and agent configuration together.
+The following are **custom integration specifications, not delivered endpoints or vendor operation IDs**. All are called by the authenticated deterministic workflow/backend or scoped operator, **not by the agent**. The integration owner must record concrete implementations, schemas, connection ownership and authentication before enablement. No assumed REST/MCP mapping is supplied.
 
-### Common envelope and backend controls
+### Common envelope and enforcement
 
-All operations authenticate the runtime caller or approved workflow identity; the backend independently checks its permitted mailbox and HR role. User-entered names, addresses, approval statements and context IDs do not authenticate anyone. The integration owner owns the connection, service identity, rotation, monitoring and on-call support.
+Authenticate workload callers independently of request text. Accept only the configured tenant, workflow version, mailbox and operation scope. Use separate least-privilege ingestion, invocation, validation, send and operator identities as appropriate. The Office 365 Outlook connector currently documents no service-principal authentication; use an approved delegated connection where that connector is chosen, not a fictional app-only option. Any alternative application-based transport requires separate supported implementation and permission evidence.
 
-Return `status`, `correlationId`, `observedAt` (timestamp with timezone), and a display-safe `reasonCode` on non-success. Do not expose restricted content to explain denial. Reject unknown fields and out-of-scope mailbox/message references. Responses are contract requirements, not sample live outputs.
+Every response includes `status`, `correlationId`, `observedAt` (timestamp with timezone), and display-safe `reasonCode` for non-success. Reject unknown fields, malformed types, expired references and unauthorized context lookups. Status fields absent or unparseable mean **unknown**, not allowed or sent. Neither caller-supplied context IDs nor a model-generated `complete` state confer authorization.
 
-Backend-generated `contextId` binds an authorized mailbox, immutable inbound message identifier, sender identity, allowed recipient, message version and retention policy. The intake service filters automated mail, bounces, loops and external/unverified senders. It does not trust body text or a forged From/Reply-To header as authorization. No arbitrary recipient field is accepted by submission.
-
-Before submission, the backend obtains an authenticated HR approval for the exact context/version, recipient and canonical rendered subject/body with evidence references. Bind it to a payload digest and expiry; a chat "yes" is insufficient unless captured by an authenticated approval mechanism and validated by the backend. Re-check recipient access to each cited source and policy freshness at send time; if impossible, deny. A reviewer cannot override missing recipient access.
-
-### GetHrEmailContext
+### AcceptHrEmailEvent
 
 | Contract area | Requirement |
 |---|---|
-| Inputs | `contextId` only; identity comes from trusted authentication |
-| Outputs on success | `contextId`, `messageVersion`, verified recipient display, sanitized subject/inquiry, verified applicability only if available, `replyState` (`not_submitted`, `pending`, `sent`, `failed`, `unknown`), existing `operationId` if any |
-| Scope | One authorized inbound HR inquiry; no inbox enumeration, attachments, unrelated history or HR records |
-| Identity / owner | Authorized HR reviewer or intake service; mailbox integration owner controls access and connection |
-| Concurrency | Return current version and reply state; reads do not reserve a send |
-| Idempotency / async | Read-only and repeatable; explicit `not_found`, `denied`, `unavailable`, `failed`, `unknown`; no write job is created |
+| Inputs | `eventRef`, `workflowVersion`, provided through authenticated configured intake, not a pasted message |
+| Authoritative validation | Resolve original tenant/mailbox/provider message and version, transport-authenticated sender, employee directory mapping and intended single recipient, reject forwarded/untrusted From or Reply-To redirection, external/unmapped senders, automated mail, bounces, loops, attachments, protected/unreadable or oversized messages |
+| Success outputs | `status=accepted`, `contextId`, `messageVersion`, `recipientBindingId`, sanitized subject/inquiry, permitted applicability, `policyVersion`, `requestKeys`, `retrievalScopeId`, permitted response catalog entries, existing `operationId` and `replyState` if any |
+| Scope / identity | One HR inquiry, integration-owned authenticated intake, no general mailbox browsing or employee HR record access |
+| Concurrency / idempotency | Atomically deduplicate by tenant/mailbox/stable provider message identity, not merely event run ID, return same context/existing attempt for duplicate events, preserve immutable version and fail on conflicting changes |
+| Other outcomes / async | `held`, `denied`, `not_found`, `unavailable`, `failed`, `unknown`, no send job, missing deterministic request match holds for HR |
+
+Intake checks attachment metadata, not just an empty attachment array: Outlook Dynamic Delivery can trigger more than once before content arrives. Do not download/process attachments. When message stability cannot be established, hold. Configure inbound age limits, sender/mailbox rate limits, bounce/auto-response suppression and human-reply detection. If an HR member already handled the inquiry or concurrent manual activity cannot be excluded, reserve it for manual handling instead.
+
+### Agent reply result
+
+`hr-email-reply` returns a JSON object with exactly these fields. This is a proposed application schema, not a promise that an existing-agent node exposes the inline agent's custom structured-output selector. Parse and validate the returned result server-side.
+
+| Field | Type / meaning |
+|---|---|
+| `schemaVersion` | String, `1` |
+| `contextId`, `messageVersion`, `policyVersion` | Strings copied from the trusted invocation envelope, verified against server records |
+| `answerState` | `complete` or `hold`, advisory only |
+| `answerParts` | Array of objects with string `requestKey`, `blockId`, `blockVersion`, `sourceId`, `sourceVersion`, one approved block per required request key |
+| `evidenceRefs` | Array of objects with string `sourceId`, `sourceVersion`, `url`, actual permitted evidence used |
+| `gaps`, `holdReasons` | Arrays of safe strings, empty for a complete candidate, no protected details |
+
+No recipient, mailbox, authorization, HTML, send command or eligibility boolean is accepted in this result. Unknown/invented source or block references fail closed. `complete` is necessary but not sufficient for sending.
+
+### ValidateHrEmailReply
+
+| Contract area | Requirement |
+|---|---|
+| Inputs | `contextId`, `expectedMessageVersion`, `agentResult` using the schema above |
+| Validation | Current enabled policy/workflow/agent version and required capability IDs, authenticated context, exact request-key coverage, low-risk topic and population, source and block authority/version/effective period, non-conflict, recipient entitlement, no personal/sensitive information, no unresolved gaps, schema and size limits |
+| Deterministic result | Independently verify references and matching rules, build canonical subject/body from the approved catalog, safe fixed templates and source links, escape HTML if transport needs it, allow only approved URLs, no model-authored body |
+| Success outputs | `status=authorized`, server-issued `authorizationId`, `validatedResultId`, `contextId`, `messageVersion`, `recipientBindingId`, `policyVersion`, `payloadDigest`, `evidenceDigest`, `expiresAt` |
+| Binding | Persist immutable canonical subject/rendered body, recipient, mailbox, original message/version, source versions, policy version, digests and expiry under these references |
+| Identity / owner | Authenticated workflow only, HR owns policy/catalog, security/identity owners own current recipient checks, agent cannot mint authorization |
+| Concurrency / idempotency | Repeat same candidate against same current state returns same validation or a new bounded authorization record without sending, invalidate on any changed binding or policy revocation |
+| Other outcomes / async | `held`, `denied`, `conflict`, `unavailable`, `failed`, `unknown`, no send job, no fallback "authorized" object |
 
 ### SubmitHrEmailReply
 
 | Contract area | Requirement |
 |---|---|
-| Inputs | `contextId`, `expectedMessageVersion`, `subject`, `bodyHtml`, `evidenceRefs` (source IDs/versions/URLs), backend-issued `approvalId`, stable `idempotencyKey` |
-| Outputs | `operationId`, authoritative `status` (`pending`, `sent`, `denied`, `conflict`, `failed`, `unknown`), `payloadDigest`; provider message reference and `sentAt` only if confirmed |
-| Scope | One reply from the approved HR mailbox to the recipient bound by the backend; no CC/BCC, attachments, arbitrary headers, alternate recipient or forwarding |
-| Identity / owner | Integration service with narrow mailbox-send authorization; invoking reviewer must be authorized; integration owner manages connection; HR owns approval |
-| Validation | Reject stale context, altered/expired approval, changed payload, unsupported sources or recipient access, incomplete/conflicting policy response and unsafe HTML/URLs; sanitize again server-side |
-| Concurrency | Atomically serialize/reserve one reply per inbound message; check message version and existing operation before send; changed target/payload requires new review, not silent merge |
-| Idempotency | Same key and same payload returns the existing operation; changed payload with same key is rejected. Message-level uniqueness also prevents duplicates under different keys |
-| Reconciliation | Persist attempt before provider submission. If provider outcome is uncertain, set `unknown` and block automatic resubmission until provider evidence reconciles it |
-| Async | `pending` returns an operation ID for status tracking, never a claim that the recipient received mail |
+| Inputs | `contextId`, `expectedMessageVersion`, `authorizationId`, `validatedResultId`, stable backend-generated `idempotencyKey` |
+| Scope | Send one stored validated reply from the bound HR mailbox to the bound employee, no caller-supplied recipient/body or alternate headers |
+| Identity / owner | Narrow integration send authorization, connection owned by mailbox integration owner, never exposed as an agent tool |
+| Last-moment checks | Revalidate enabled policy/version, authorization expiry and digests, context/message version, source currency and recipient entitlement, manual handling/reply state and rate limits, fail closed if checks unavailable |
+| Concurrency | Atomically reserve one durable reply operation per inbound message across keys, workflow versions, retries and manual-handling claims, persist attempt before provider call |
+| Idempotency | Same key/bindings returns existing operation, changed bindings with same key gives `conflict`, different keys cannot create a second reply for the same inbound message |
+| Outputs | `operationId`, `status` (`pending`, `sent`, `denied`, `conflict`, `failed`, `unknown`), `payloadDigest`, provider reference and `sentAt` only when confirmed |
+| Async / reconciliation | Lost or ambiguous provider result becomes `unknown`, no automatic retry until provider evidence establishes a definitive non-send and backend grants a safe retry under current authorization |
+
+**Exactly-once is not supplied by a connector.** An atomic outbox prevents duplicate local attempts, not an unknown remote side effect. E2 must prove provider-side reconciliation using a durable correlation/receipt or another supported, narrowly scoped mechanism. Do not assume `ReplyToV3` returns a sent-message ID or honors a custom idempotency header. If that transport cannot reconcile an uncertain outcome, keep it unknown and prevent resend; operational inability to safely meet required reliability blocks release. No blind connector retry after a timeout.
 
 ### GetHrEmailReplyStatus
 
 | Contract area | Requirement |
 |---|---|
-| Inputs | `contextId` and `operationId` when known; context-only lookup must recover an attempt after a lost submit response |
-| Outputs | Current `operationId`, `status` (`not_submitted`, `pending`, `sent`, `failed`, `unknown`), payload digest, observation time, safe failure reason and confirmed provider reference/time if available |
-| Scope | Only the reply associated with that authorized context; no general mail tracking or unrelated delivery records |
-| Identity / owner | Same backend mailbox and reviewer checks; integration operators retain scoped reconciliation access during rollback |
-| Concurrency | Return durable operation state; do not change recipient/payload or create a send |
-| Idempotency / async | Read-only; repeat within backend retry guidance. `sent` means provider-confirmed send, not confirmed recipient delivery |
+| Inputs | `contextId`, optional `operationId`, context-only lookup recovers a lost submission response |
+| Outputs | Current `replyState` (`not_submitted`, `pending`, `sent`, `failed`, `unknown`), actual operation ID and payload digest when present, confirmed provider reference/time if available, backend `retryAfterSeconds` / `retryAllowed` only when established |
+| Scope / identity | Authorized workflow or scoped operator, no general mail tracking, operator access can survive send disablement |
+| Concurrency / idempotency | Read-only durable state, repeated reads never send, `not_submitted` is not itself retry permission |
+| Failure / async | Envelope status distinguishes `ok`, `denied`, `not_found`, `unavailable`, `failed`, `unknown`; a failed status lookup does not overwrite a known pending attempt, provider-confirmed sent is not recipient delivery |
+
+### QueueHrEmailException
+
+| Contract area | Requirement |
+|---|---|
+| Inputs | Authorized `contextId` or trusted intake `eventRef` when no context exists, safe `reasonCode`, optional `operationId` |
+| Scope / identity | Workflow/backend to a fixed restricted HR exception queue, not arbitrary email or an HRIS case, no agent-selected destination or generated outbound explanation |
+| Persisted record | Event/context reference, safe reason, current attempt state, assigned HR handling group, timestamps and minimal authorized evidence references, full body omitted unless retention policy explicitly permits |
+| Success / failure | `status=queued` with real `queueItemId`, otherwise `pending`, `denied`, `unavailable`, `failed`, `unknown`, never claim handoff without confirmed queue persistence |
+| Concurrency / idempotency | Upsert one item per event/context, serialize manual claim with autonomous reservation, pending/unknown provider attempts cannot be manually resent until reconciled |
+| Failure route / owner | Persist a durable failed-handoff/dead-letter record and alert the integration operator through an approved operational mechanism, retain original mailbox item for normal HR handling, no auto-reply fallback; queue/alert implementation is an E1-E2 blocker |
+
+Exception handling is an operational requirement of this single reply capability, not a separately enabled general notification/case-creation skill. HR handles exceptions through its ordinary authorized process. It cannot override denied recipient access or unresolved provider uncertainty.
 
 ## Integration acceptance and ownership
 
-Gate E1 requires actual operation mappings, schemas, identity enforcement and event invocation evidence. E2 requires bound approvals, HTML/link handling, two concurrent submissions producing at most one send, duplicate events, expired approvals, changed payloads and unknown-outcome reconciliation. E3 requires restricted mailbox pilot evidence, retention and a tested backend kill switch. All are owned and tracked in the [runbook](../3.Runbook.md#release-gates).
+E1 requires exact HR GHCP invocation and identity evidence, concrete implementations for all five backend contracts, response parsing, delegated mailbox permissions and the fixed exception queue. E2 requires deterministic request/corpus validation, server authorization, revocation, payload binding, rate/loop controls, duplicate/concurrent-event and manual-claim tests, and provider reconciliation. E3 requires release-level authorization and restricted live-mail pilot evidence, retention, monitoring and an exercised kill switch. G1-G5 cover baseline readiness. All are outstanding in the [runbook](../3.Runbook.md#release-gates).
 
 [Resources](README.md) | [Skill import index](Skills/README.md) | [Architecture](../2.Architecture.md)

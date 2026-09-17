@@ -36,7 +36,7 @@ Whether you're building your first agent or scaling across multiple business dom
 
 - 🤖 [Autonomous Invoice Orchestration Agent](./01-scenarios/Autonomous-invoice-Orchestration-Agent/) — Autonomous agent that helps employees create payment request forms and get them approved by their manager
 - 🧑‍💼 [HR Onboarding Agent](./01-scenarios/HR-Onboarding-Agent/) — Autonomous agent that helps new hires find HR-related information using a ServiceNow Knowledge Base
-- [HR Onboarding Agent (GHCP)](./01-scenarios/HR-Onboarding-Agent-GHCP/1.Overview.md) - Copilot Studio GitHub Copilot harness scenario with four runtime skill definitions, grounded HR guidance, checklists and draft-only email assistance; optional reviewed sending requires backend implementation.
+- [HR Onboarding Agent (GHCP)](./01-scenarios/HR-Onboarding-Agent-GHCP/1.Overview.md) - HR guidance for all employees, onboarding checklists and chat drafts with four runtime skills; intended autonomous Workflows email replies need no per-message approval but remain OFF pending target invocation, backend and release validation.
 - 🔧 [Dynamics 365 Monitoring Agent](./01-scenarios/Dynamics-365-Monitoring-Agent/) — AI-powered monitoring and diagnostics agent for D365 Finance & Supply Chain using Application Insights telemetry
 - 🛒 [Dynamics 365 PO Generation Agent](./01-scenarios/Dynamics-365-PO-Generation-Agent/) — Autonomous agent that creates a purchase order autonomously or manually
 - 🏢 [Workplace Agent](./01-scenarios/Workplace-Agent/) — Declarative agent that handles internal FAQ inquiries and application request workflows using SharePoint, Dataverse, and Power Automate  
