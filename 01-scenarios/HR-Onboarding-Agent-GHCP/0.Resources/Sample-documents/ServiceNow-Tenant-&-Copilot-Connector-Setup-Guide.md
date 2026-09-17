@@ -201,24 +201,7 @@ https://graph.microsoft.com/v1.0/servicePrincipals?$filter=appId eq '933838e2-be
 
 > ![Select the third-party OIDC ID token integration type](../Images/103-7.png)
 
-9. Configure the integration using the values below. Select the existing **Microsoft Entra ID** OIDC provider if it has the correct configuration; otherwise select **Create a new configuration**. Replace `<tenantId>` in the metadata URL with your own **Directory (tenant) ID**, then save the provider configuration and integration.
-
-   | Integration field | Value |
-   |---|---|
-   | Name | `Microsoft Entra ID` |
-   | Provider name | `Microsoft Entra ID` |
-   | Client ID | `933838e2-bec1-440f-a634-9363c82e5b6d` |
-   | Active | Selected |
-   | Scope Restriction / Auth Scope | **Useraccount scoped** (`useraccount`) |
-
-   | OIDC provider configuration field | Value |
-   |---|---|
-   | OIDC Provider Configuration Name | `Microsoft Entra ID` |
-   | OIDC Metadata URL | `https://login.microsoftonline.com/<tenantId>/v2.0/.well-known/openid-configuration` |
-   | OIDC Configuration Cache Lifespan | `120` |
-   | User Claim | `oid` |
-   | User Field | **User ID** |
-   | Enable JTI Verification | Disabled |
+9. Configure the integration as shown in the screenshots below. For **OIDC Metadata URL**, use `https://login.microsoftonline.com/<tenantId>/v2.0/.well-known/openid-configuration`, replacing `<tenantId>` with your own **Directory (tenant) ID**, then save the provider configuration and integration.
 
 > ![Configure the Microsoft Entra ID inbound integration](../Images/103-8.png)
 
@@ -236,13 +219,7 @@ https://graph.microsoft.com/v1.0/servicePrincipals?$filter=appId eq '933838e2-be
 
 > ![Create a new ServiceNow integration user](../Images/103-12.png)
 
-12. Set the following fields and click **Submit**. For **User ID**, paste the **service principal object ID** copied from the Graph Explorer response in item 3.
-
-   | User field | Value |
-   |---|---|
-   | User ID | Tenant-specific **id** GUID returned by the Graph query, not the fixed application/client ID |
-   | Identity Type | **Machine** |
-   | Active | Selected |
+12. Set the values as shown in the screenshot below and click **Submit**. For **User ID**, paste the **service principal object ID** copied from the Graph Explorer response in item 3.
 
 > ![Set the integration user's ID and machine identity type](../Images/103-13.png)
 
