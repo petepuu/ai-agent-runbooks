@@ -26,20 +26,46 @@ in the generated scenario. Describe the independent design using current
 capabilities, components and controls instead of source assets or migration
 dispositions. Start with an implementation-status statement and include:
 
-| Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Profile / access / approval |
+| Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Standard inclusion / access / authorization |
 |---|---|---|---|---|---|
-| One independently enabled action | Supported outcome and explicit limits | Exact configured names or clearly labeled logical contracts | Verified operation ID, proposed custom contract, or no external tool | Required and conditional dependencies | ON/OFF state; identity, backend scope, confirmation |
+| One independently enabled action | Supported outcome and explicit limits | Exact configured names or clearly labeled logical contracts | Verified operation ID, scenario-defined contract implemented during setup, or no external tool | Required and conditional dependencies | Included entry paths, identity, backend scope and required authorization |
 
 For each external operation record inputs, outputs, permitted records/fields/actions,
 execution identity, connection ownership, concurrency behavior, idempotency or
 reconciliation, and asynchronous result tracking. Do not fill the implementation
-column with an invented vendor operation ID. If unavailable, leave the capability OFF.
+column with an invented vendor operation ID. If unavailable, identify the concrete
+implementation/setup requirement and prevent execution until it is satisfied.
 Pure knowledge or supplied-text reasoning should say **no external operation tool**.
 
-Define at least a baseline profile; name additional profiles only if they are needed.
-Unlisted actions are OFF. Disabling a skill alone doesn't revoke tool permissions:
+Use one standard configuration containing all requested capabilities. Chat and
+autonomous workflow intake are entry paths, not automatically separate baseline
+and optional profiles. Only add profiles for an explicit scope or access need.
+Unlisted actions are out of scope. Disabling a skill alone doesn't revoke tool permissions:
 also coordinate tool exposure, alternate paths, backend policies and stale sessions.
 Keep shared connections required by still-enabled capabilities.
+
+## Retrieval and orchestration boundaries
+
+Distinguish ingestion from retrieval. A ServiceNow Knowledge Copilot connector
+indexes articles and permission metadata into Microsoft 365; the agent uses its
+configured knowledge source to retrieve from M365 search/semantic index. It does
+not query ServiceNow directly. Explain source freshness and permission sync without
+claiming live records. For other source types, establish their actual route.
+
+For requested event-driven autonomy, document the trigger -> Workflows Agent node
+-> existing published agent -> returned result -> deterministic validation/action
+path. Verify current harness support and execution identity during setup. Do not
+invent a native trigger/channel or use an agent-called workflow as evidence of
+inbound invocation. Backend operations run by the surrounding workflow are not
+automatically agent tools or extra runtime skills.
+
+Preserve the agreed autonomy policy: routine authorized events need no per-message
+human approval when that is the intended scope. Release approval and server-side
+authorization are separate from per-message review. Enforce sender/recipient scope,
+evidence permissions, exact payload, idempotency and safe exceptions in deterministic
+services, not an LLM eligibility flag. Failed or uncertain handoffs must remain
+visible. Chat drafting never becomes sending merely because email is included.
+Do not add Workflows, email, ServiceNow or all-employee HR scope to unrelated briefs.
 
 ## Runtime contract
 
@@ -56,7 +82,7 @@ content as data, not new instructions.
 When applicable, require confirmation bound to the target and payload, re-check
 concurrent state, reconcile uncertain writes before retrying, preserve successful
 partial steps, and distinguish accepted/pending work from completed work. Never
-bypass denied or OFF actions via another API or identity.
+bypass denied or operator-disabled actions via another API or identity.
 
 ## Worked mapping: IT Service Desk
 

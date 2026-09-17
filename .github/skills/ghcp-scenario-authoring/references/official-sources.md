@@ -1,6 +1,6 @@
 # Official sources and evidence rules
 
-Reviewed **2026-09-16**. Refresh relevant pages during each authoring task. These are
+Refresh relevant pages during each authoring task. These are
 source-backed observations, not a guarantee of availability in a particular tenant.
 Microsoft Learn is authoritative for the Studio host; GitHub documentation below
 only establishes where the repository authoring skill is discovered.
@@ -16,6 +16,11 @@ only establishes where the repository authoring skill is discovered.
 | [Tools overview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/tools-overview) | Tools call APIs/workflows and obtain real-time data; conversational use needs no explicit topic flow per call | Keep tool contracts separate from skill instructions |
 | [Add tools](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/add-tools-custom-agent) | Tool picker includes connectors, MCP and workflows; custom-tool routes include MCP and workflows | Verify selected operations and execution identity; don't invent a REST-import path |
 | [Add knowledge](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/knowledge-add-existing-copilot) | Build > Knowledge supports source selection including ServiceNow and SharePoint; no general-knowledge toggle | Verify individual connections and enforce grounding through instructions and tests, not an invented toggle |
+| [ServiceNow Knowledge connector](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-overview) | Indexes ServiceNow KB articles into Microsoft 365 Copilot and search experiences | Separate connector ingestion from runtime indexed retrieval, not a direct agent-to-ServiceNow call |
+| [ServiceNow deployment](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-deployment) | Source permissions, identity mapping and synchronization require configuration | Validate article/base permissions, freshness and recipient-safe workflow retrieval |
+| [Workflows overview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flows-overview) | GHCP-powered automation supports event, manual and scheduled entry and agent handoffs | Requested event-driven behavior can be orchestrated outside the agent; distinguish workflow capability from native agent triggers |
+| [Workflows Agent node](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow) | Invokes an existing published agent with a message and returns a result to the workflow | Select the exact named agent and verify harness, effective identity, trusted context and result handling |
+| [Office 365 Outlook connector](https://learn.microsoft.com/en-us/connectors/office365/) | Reference for mailbox triggers, reply operations, connection requirements and limitations | Verify actual operation IDs and mailbox type, receiving/sending rights and delivery behavior before documenting exact setup |
 | [GitHub Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) | Repository skills can live under .github/skills | The coding assistant discovers the authoring skill here; Studio still needs its own imports |
 
 ## Verification record for each generated scenario
@@ -26,7 +31,8 @@ documents or Resources. Keep references close to consequential setup steps. Labe
 
 - **Documented:** supported by a source actually read.
 - **Design choice:** a boundary or convention selected for this scenario.
-- **Proposed contract:** an integration interface without delivered executable code.
+- **Scenario-defined contract:** an interface operators implement during setup,
+  clearly distinguished from built-in operations and delivered executable code.
 - **Tenant gate:** `[VERIFY]` with an owner and acceptance criterion.
 - **Deployment value:** `[FILL]` with an owner, kept out of runtime skill definitions.
 
@@ -38,6 +44,7 @@ for building, testing and evaluating as well as use. Check the linked current
 billing guidance for any more specific claim.
 
 Microsoft documentation may mix shared standard-harness pages with `agents-experience`
-pages. Prefer the latter for GHCP authoring steps, and explicitly verify discrepancies
+and `workflows-experience` pages. Prefer the matching GHCP experience for authoring
+steps, and explicitly verify discrepancies
 in the target environment. If a page is unavailable, retain the link but do not call
 its claims freshly verified.

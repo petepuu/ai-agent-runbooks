@@ -29,17 +29,24 @@ source check happened.
 - Existing scenario path or repository URL, or a new scenario brief.
 - Requested outcome and destination (default: `01-scenarios\<source-name>-GHCP`).
 - Audience, products, channels, read/write boundaries, and approval requirements.
+- Exact agent display name, distinct from the `-GHCP` repository folder name.
 - Any approved differences from the source.
 
 Read established answers from the conversation and repository before asking.
 For new briefs, collect the problem, users, evidence sources, independently enabled
 actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by default.
+Use the full approved audience consistently in personas, diagrams, instructions
+and tests. A subset use case does not narrow the whole audience: for an
+all-employee HR brief, onboarding is one use case, not a new-hire-only scope.
 
 ## Procedure
 
 1. **Inspect and protect.** Read repository instructions, Git status, the source's
    four documents, resources, and existing skill definitions. Read relevant indexes
-   and nearby GHCP examples. Resolve repository URLs to the local checkout when they
+   and nearby GHCP examples. Use the current
+   `01-scenarios\HR-Onboarding-Agent-GHCP` as the internal presentation reference
+   for the conventions below, not as a source of mandatory HR features.
+   Resolve repository URLs to the local checkout when they
    name this repository; record its actual revision in working context only, not
    in the generated scenario.
    Use authorized read-only retrieval for other sources. Never overwrite the source.
@@ -71,6 +78,21 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    Preserve deterministic validation, authorization, approvals, and transactions
    in the backend/workflow where needed. Do not force a second agent or introduce
    writes merely to demonstrate the harness.
+   Use one standard configuration containing the requested capabilities by default.
+   Do not turn an in-scope autonomous workflow into an optional, proposed or OFF
+   extension simply because the documentation does not deploy it. Separate design
+   inclusion from implementation status and required setup/go-live checks. Create
+   multiple profiles only when requested or actually required by the approved scope.
+   For requested autonomy, verify event -> Workflows -> existing agent -> validated
+   result -> action. Do not substitute agent-calls-workflow tools for inbound
+   invocation. Retain the approved authorization policy; do not silently add
+   per-message human approval to routine autonomous processing. Unsupported or
+   uncertain cases need explicit exception handling. Never claim an unsupported
+   route works: name the concrete setup blocker in the Runbook/Resources.
+   For indexed knowledge, distinguish source -> connector -> index ingestion from
+   agent -> configured knowledge/index retrieval. ServiceNow Knowledge Copilot
+   connector scenarios retrieve through M365 search/semantic index, not a direct
+   agent-to-ServiceNow connection. Do not impose this path on other retrieval types.
 5. **Create the sibling scenario.** Read all four templates:
    [Overview](templates/1.Overview.md), [Architecture](templates/2.Architecture.md),
    [Runbook](templates/3.Runbook.md), and [Sample prompts](templates/4.Sample-prompts.md).
@@ -86,6 +108,12 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    or original-preservation statement). Describe the host, current scope and
    implementation status in the normal business/architecture sections and put
    contracts/gates under appropriate existing sections or in Resources.
+   Use the exact agent display name in page titles, diagrams, creation/selection
+   steps, runtime identity instructions and references. Do not append GHCP or
+   (GHCP) to the name unless requested; keep harness information in its own field.
+   Default new scenario metadata to `**Status**: 📝 Draft` and
+   `**Harness**: GitHub Copilot`. Use explicit `<br>` after metadata rows except the
+   final row so GitHub does not collapse soft line breaks. Keep the `-GHCP` folder.
    Add the four-page breadcrumb as the first nonblank line of each main
    scenario document: `1. Overview > 2. Architecture > 3. Runbook > 4. Sample Prompts`.
    Bold the current page without a self-link; link the other three to their sibling
@@ -112,8 +140,14 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    Architecture's `How It Works`, plus sequence diagrams under Architecture's
    `Data Flow`, following the source's style and locations. Do not replace these
    with prose, a table, an external diagram link or a copied screenshot. Show the
-   actual GHCP components, skills, knowledge, tools and outputs; label proposed,
-   OFF and tenant-gated paths in the diagrams themselves. No invented integrations.
+   actual components at a business-readable level. Use three stacked architecture
+   layers (1. User and Event, 2. Agent, 3. Data and Integration), typically 6-8
+   nodes. Sequence diagrams show the routine path, typically five participants
+   and 6-8 messages, not nested validation/retry trees. Put operation schemas,
+   approval/authorization details, queue and retry branches in the matrix/runbook
+   and link them below. Standard capabilities use normal solid flowchart styling;
+   reserve deferred/disabled labels for genuinely excluded or operator-paused
+   behavior, not ordinary setup requirements. No invented integrations.
 6. **Write the matrix and runtime skills.** Under `0.Resources`, create a README,
    `Capability-matrix.md`, and `Skills\README.md`. Follow the
    [mapping reference](references/component-mapping.md) for required matrix columns.
@@ -131,7 +165,7 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    use Create from blank or Generate with AI, then inspect the result. Uploading
    Markdown does not create tools, connections, workflows, or authorization.
 8. **Exercise end-to-end behavior.** Give each capability a positive and boundary
-   test, plus a composed example with exact evidence/action sequence. Include OFF,
+   test, plus a composed example with exact evidence/action sequence. Include operator-paused,
    denied, unavailable, empty, partial, pending, unknown, and failed outcomes where
    relevant. Distinguish instructions to test from tests actually run. Do not
    manufacture citations, screenshots, tool outputs, or deployment success.
@@ -156,14 +190,23 @@ actions, and exclusions. Do not inherit ServiceNow or ticket-analysis rules by d
    descriptions for source-scenario links/names/revisions, migration comparisons,
    asset dependencies and opening metadata banners; remove them without losing
    current scope, implementation status, safety boundaries or official citations.
+   Check exact agent-name consistency, full-audience coverage, Draft/Harness
+   metadata with hard breaks, simple diagram node/message counts and all requested
+   capabilities in the standard configuration. Check ingestion vs retrieval and
+   workflow invocation direction in every diagram, not just the architecture.
+   Ensure no contradictory optional/OFF defaults remain in templates, skill indexes,
+   runtime procedures, tests or repository descriptions. Approved read-only scopes
+   remain read-only; these conventions do not add email or writes to every scenario.
 
 ## Results and Failure Handling
 
 Return the authoring/output paths, meaningful adaptations, and actual outstanding
 configuration or evidence gaps. Included definitions are not a deployed agent.
 Preserve partial authored work and identify missing files if interrupted. A blocked
-integration becomes an explicit OFF capability or a release blocker, not a fabricated
-implementation. Do not claim migration parity when behavior or data access differs.
+integration becomes an explicit setup/release blocker, not a fabricated
+implementation or a silently reduced scenario scope. Mark a capability deferred
+only when that is the agreed scope. Do not claim migration parity when behavior
+or data access differs.
 
 ## Example requests
 
