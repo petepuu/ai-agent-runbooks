@@ -152,11 +152,17 @@ This guide walks through two main tasks:
 
 > ![Installation dialog with Load demo data selected](../Images/023-4.png)
 
-> Load demo data only in this isolated developer instance, not a production environment. Wait for installation to complete before continuing.
+> Load demo data only in this isolated developer instance, not a production environment.
+
+6. Installation can take approximately **15–30 minutes**. Leave it running and jump to [Part 3: Install the ServiceNow Knowledge Copilot Connector](#part-3-install-the-servicenow-knowledge-copilot-connector).
+
+> ![HR plugin installation in progress](../Images/023-5.png)
 
 ---
 
 ### Step 2-2. Verify Knowledge Bases are Available
+
+Return to this step once the HR plugin installation has completed.
 
 1. Click the **"All"** tab in the top navigation
 2. Type **"knowledge bases"** in the search field
