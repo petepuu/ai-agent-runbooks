@@ -100,7 +100,7 @@ This guide walks through two main tasks:
 > ![Request Instance screen](../Images/016.png)
 >
 
-3. Select the latest available instance version, such as **Australia** shown in this example, and click **"Request"**.
+3. Select the latest available instance version, such as **Australia** shown in this example, and click **Setup Australia instance**.
 
 > ![Request an Instance screen with Australia selected](../Images/017.png)
 >
