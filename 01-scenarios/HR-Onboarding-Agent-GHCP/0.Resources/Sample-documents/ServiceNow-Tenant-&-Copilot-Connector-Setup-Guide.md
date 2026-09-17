@@ -127,28 +127,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-5. Switch to Admin Role (Skip this step if you have the 'Admin' user role assigned.)
-
-1. Click **"Actions"** in the top right corner and **"Change User Role"** from the dropdown.
-
-> ![Change user role screen](../Images/019.png)
-
-2. In the **"Change User Role"** dialog, select **"Admin"**
-
->![Change user role - admin selection screen](../Images/020.png)
-
-   > ⚠️ **Important**: Admin access is required to configure the ServiceNow instance for the Copilot Connector.
-
-3. Click **"Change"** to confirm
-4. Click **"Done"** once the change is confirmed
-
->![Role change screen](../Images/021.png)
-
-5. Click **"Cancel"** to exit the dialog
-
----
-
-### Step 1-1-6. Secure Admin Credentials
+### Step 1-1-5. Secure Admin Credentials
 
 1. On **"Manage my instance"**, retrieve setup credentials only into your approved secret manager for Part 2. Do not reveal passwords for a screenshot or store them in documentation.
 
@@ -168,19 +147,19 @@ This guide walks through two main tasks:
 
 ## Part 2: Configure Admin Access in ServiceNow Instance
 
-### Step 1-1-7. Log In to Your ServiceNow Instance as Admin
+### Step 1-1-6. Log In to Your ServiceNow Instance as Admin
 
-1. Open your browser and go to your **Instance URL** from Step 1-1-6
+1. Open your browser and go to your **Instance URL** from Step 1-1-5
    `https://dev[XXXXXX].service-now.com`
 2. Log in with:
    - **Username**: `admin`
-   - **Password**: *(from Step 1-1-6)*
+   - **Password**: *(from Step 1-1-5)*
 
 > ![ServiceNow instance login page](../Images/023.png)
 
 ---
 
-### Step 1-1-8. Verify Knowledge Bases are Available
+### Step 1-1-7. Verify Knowledge Bases are Available
 
 1. Click the **"All"** tab in the top navigation
 2. Type **"knowledge bases"** in the search field
@@ -207,7 +186,7 @@ This guide walks through two main tasks:
 
 > Use a separate **scoped integration identity** for ingestion, with privileges required by the selected supported authentication method. Setup admin credentials are not the runtime connector identity. Follow the official prerequisite/authentication sections before creating the connection.
 
-### Step 1-1-9. Add a New Connection in M365 Admin Center
+### Step 1-1-8. Add a New Connection in M365 Admin Center
 
 1. Log in to **M365 Admin Center** → https://admin.microsoft.com
 2. Navigate to **Copilot** → **Connectors** → **Connectors** → **Gallery**
@@ -222,7 +201,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-10. Configure the Connection Settings
+### Step 1-1-9. Configure the Connection Settings
 
 1. Click **"Custom setup"** in the upper right of the screen
 
@@ -233,7 +212,7 @@ This guide walks through two main tasks:
    | Required Field | Value |
    |---|---|
    | Display name | `ServiceNow` *(or a unique name, e.g., `ServiceNowKB5`)* |
-   | ServiceNow URL | `https://dev[XXXXXX].service-now.com` *(your instance URL from Step 1-1-6)* |
+   | ServiceNow URL | `https://dev[XXXXXX].service-now.com` *(your instance URL from Step 1-1-5)* |
    | Authentication type | Security-approved method from the current deployment guide; **Federated Auth** is recommended there |
    | Integration identity | Dedicated identity with only the required connector roles and approved corpus access |
    | Authentication material | Configure through the approved connection/secret mechanism; never use shared admin credentials or copy values into this guide |
@@ -246,7 +225,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-11. Authenticate the Connection
+### Step 1-1-10. Authenticate the Connection
 
 1. Complete the selected method's authorization/sign-in process and wait for authentication to complete
 
@@ -261,7 +240,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-12. Configure User Access Permissions
+### Step 1-1-11. Configure User Access Permissions
 
 1. Click the **"Users"** tab at the top of the setup panel
 
@@ -275,7 +254,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-13. Create the Connection
+### Step 1-1-12. Create the Connection
 
 1. Go back to the **"Setup"** tab
 2. Check all required values, scoped authentication, corpus filters, mapping and source-permission settings
@@ -289,7 +268,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-14. Add a Connector Description
+### Step 1-1-13. Add a Connector Description
 
 1. Once the connection is created, a success screen will appear:
    **"Created connection — ServiceNow (ServiceNowKB[X])"**
@@ -321,7 +300,7 @@ This guide walks through two main tasks:
 
 ## Part 4: Verify the Connection
 
-### Step 1-1-15. Verify Indexed Content via Microsoft Search
+### Step 1-1-14. Verify Indexed Content via Microsoft Search
 
 1. Navigate to https://microsoft365.com and log in as a permitted **non-maker employee** in the test group
 2. After clicking **`Search*`** on the navigation, type **`KB0*`** in the search, and press **Enter**
@@ -337,7 +316,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-1-16. Verify via M365 Copilot Prompts
+### Step 1-1-15. Verify via M365 Copilot Prompts
 
 Use the following prompts in **M365 Copilot (Teams)** to verify the connector is working:
 
@@ -359,18 +338,17 @@ Use the following prompts in **M365 Copilot (Teams)** to verify the connector is
 | 1-1-2 | Email verified and account activated | ☐ |
 | 1-1-3 | Initial setup completed | ☐ |
 | 1-1-4 | ServiceNow Dev instance requested and ready | ☐ |
-| 1-1-5 | User role changed to Admin | ☐ |
-| 1-1-6 | Admin setup credentials secured in the approved secret manager | ☐ |
-| 1-1-7 | Logged in to ServiceNow instance as Admin | ☐ |
-| 1-1-8 | Four default Knowledge Bases confirmed | ☐ |
-| 1-1-9 | New connection added in M365 Admin Center | ☐ |
-| 1-1-10 | Scoped connection identity, authentication and corpus configured | ☐ |
-| 1-1-11 | Authentication completed and scoped access verified | ☐ |
-| 1-1-12 | Source permissions, identity mapping and advanced criteria validated | ☐ |
-| 1-1-13 | Connection created successfully | ☐ |
-| 1-1-14 | Connector description added | ☐ |
-| 1-1-15 | Indexed content verified via Microsoft Search | ☐ |
-| 1-1-16 | M365 Copilot prompts and permitted/denied/revoked identities tested | ☐ |
+| 1-1-5 | Admin setup credentials secured in the approved secret manager | ☐ |
+| 1-1-6 | Logged in to ServiceNow instance as Admin | ☐ |
+| 1-1-7 | Four default Knowledge Bases confirmed | ☐ |
+| 1-1-8 | New connection added in M365 Admin Center | ☐ |
+| 1-1-9 | Scoped connection identity, authentication and corpus configured | ☐ |
+| 1-1-10 | Authentication completed and scoped access verified | ☐ |
+| 1-1-11 | Source permissions, identity mapping and advanced criteria validated | ☐ |
+| 1-1-12 | Connection created successfully | ☐ |
+| 1-1-13 | Connector description added | ☐ |
+| 1-1-14 | Indexed content verified via Microsoft Search | ☐ |
+| 1-1-15 | M365 Copilot prompts and permitted/denied/revoked identities tested | ☐ |
 
 ---
 
