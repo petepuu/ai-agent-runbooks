@@ -290,16 +290,14 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
    | Required Field | Value |
    |---|---|
    | Display name | `ServiceNow` *(or a unique name, e.g., `ServiceNowKB5`)* |
+   | User criteria | **Simple** |
    | ServiceNow URL | `https://dev[XXXXXX].service-now.com` *(your instance URL from Step 1-4)* |
-   | Authentication type | **Federated Auth**, using the configuration from [Step 2-2](#step-2-2-configure-federated-credentials-for-servicenow-copilot-connector) |
-   | Integration identity | Dedicated identity with only the required connector roles and approved corpus access |
-   | Authentication material | Configure through the approved connection/secret mechanism; never use shared admin credentials or copy values into this guide |
+   | Authentication type | **Federated Credentials (Recommended)**, using the configuration from [Step 2-2](#step-2-2-configure-federated-credentials-for-servicenow-copilot-connector) |
    | Notice | Review and acknowledge the actual notice after verifying permissions |
 
-   > Complete the Federated Auth setup in Step 2-2 before authenticating. If organizational policy requires a different method, follow its distinct prerequisites in [connector deployment](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-deployment#choose-authentication-type). Do not infer authentication from the Basic/admin screenshot.
+   > Complete the federated credentials setup in Step 2-2 before authenticating. Use **Simple** only when the knowledge-base and article user criteria do not use advanced scripts; otherwise configure **Advanced** and its required REST API setup. If organizational policy requires a different authentication method, follow its distinct prerequisites in [connector deployment](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-deployment#choose-authentication-type).
 
-> **Screenshot to replace:** approved authentication method and scoped integration identity.
-> ![Custom setup screen](../Images/029.png)
+> ![Setup tab with user criteria and federated credentials authentication](../Images/029.png)
 
 ---
 
