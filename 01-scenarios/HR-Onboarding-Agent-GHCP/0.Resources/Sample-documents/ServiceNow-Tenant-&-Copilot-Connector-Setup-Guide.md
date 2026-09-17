@@ -310,8 +310,6 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 > **Screenshot to replace:** select source-based permissions instead of Everyone.
 > ![Users - Access Permissions screen](../Images/032.png)
 
-3. Configure employee identity mapping and verify knowledge-base and article user criteria. If any advanced scripts are present, configure **Advanced** flow and its required ServiceNow REST setup; Simple flow does not evaluate them correctly. Validate HRSD criteria where applicable and restrict the corpus before ingestion.
-4. Test source access as permitted, denied and revoked employees after identity/content synchronization. Broad ingestion identity access must not become employee access.
 
 ---
 
