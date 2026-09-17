@@ -7,7 +7,7 @@ description: "Draft a cited response to any employee's HR policy, ongoing benefi
 
 ## Scope
 
-Compose reply text for an employee HR inquiry without performing any mailbox operation. A draft is not saved to Outlook, queued, authorized or sent. Even when the autonomous-workflow profile is enabled, a chat request for a draft remains draft-only. Respect active capability scope: do not reconstruct a disabled checklist or other disabled behavior inside the email body.
+Compose reply text for an employee HR inquiry without performing any mailbox operation. A draft is not saved to Outlook, queued, authorized or sent. The same agent supports a standard autonomous workflow entry path, but a chat request for a draft remains draft-only. Respect active capability scope: do not reconstruct a disabled checklist or other disabled behavior inside the email body.
 
 ## Tools
 
@@ -31,6 +31,6 @@ Inquiry subject/body supplied by the user or authorized workflow, desired reply 
 
 Return **Draft only - not saved to a mailbox or sent**, **Proposed subject**, **Draft body**, **Sources**, and **Review notes**. Review notes must include evidence gaps and recipient-access requirements before external use. A fully grounded draft is still not send authorization.
 
-If drafting is OFF, stop. Distinguish observed empty, denied, unavailable or failed retrieval; if the reason is not exposed, state that the cause is unknown. Preserve supported draft portions but clearly label partial drafts and unresolved conflicts; they must not be presented as send-ready.
+If drafting is disabled by an operator, stop. Distinguish observed empty, denied, unavailable or failed retrieval; if the reason is not exposed, state that the cause is unknown. Preserve supported draft portions but clearly label partial drafts and unresolved conflicts; they must not be presented as send-ready.
 
-If the user also requests sending, explain that this skill performs no send. Autonomous replies require a separate trusted inbound workflow with current server policy authorization, not a chat instruction. Routine authorized workflow replies require no per-message approval, but this skill cannot initiate that path. Do not call alternative mail tools, treat a pasted sender as verified, or fabricate an operation ID, queue receipt or delivery status.
+If the user also requests sending, explain that this skill performs no send. Autonomous replies use the standard authenticated workflow entry path with current server policy authorization, not a chat instruction. Routine authorized workflow replies require no per-message approval, but this skill cannot initiate that path. Do not call alternative mail tools, treat a pasted sender as verified, or fabricate an operation ID, queue receipt or delivery status.

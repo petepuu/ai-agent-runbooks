@@ -31,7 +31,7 @@ The requested stage (before joining, first day or first week) and any already kn
 
 Return the requested timeframe, cited checklist and a short gaps section when needed. If the user reports completing a step, it may be noted separately as **user-reported**, never verified or written to a system. Do not ask for passwords, account secrets or personal HR records.
 
-If OFF, do not construct the checklist through another skill. If retrieval is empty, denied, unavailable or failed, report the observed limitation without restricted details. If the cause is hidden, report unknown rather than assuming an empty source. Preserve valid earlier steps when only part of the evidence is available; do not present a partial checklist as exhaustive.
+If disabled by an operator, do not construct the checklist through another skill. If retrieval is empty, denied, unavailable or failed, report the observed limitation without restricted details. If the cause is hidden, report unknown rather than assuming an empty source. Preserve valid earlier steps when only part of the evidence is available; do not present a partial checklist as exhaustive.
 
 No source result proves a meeting was booked, equipment ordered or account created. Do not bypass source ACLs, reuse another user's evidence or fabricate policy tasks, citations or contact links.
 

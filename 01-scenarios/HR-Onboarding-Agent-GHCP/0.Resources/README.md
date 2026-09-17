@@ -4,12 +4,12 @@
 
 | Artifact | Purpose |
 |---|---|
-| [Capability matrix](Capability-matrix.md) | Four capabilities, profiles, dependencies and proposed operation contracts |
+| [Capability matrix](Capability-matrix.md) | Four standard capabilities, entry paths, dependencies and email integration contracts |
 | [Skill index](Skills/README.md) | Standalone Studio upload files in matrix order |
 | [Runbook](../3.Runbook.md) | Agent instructions, configuration, owner-assigned gates and release procedure |
 | [Acceptance cases](../4.Sample-prompts.md) | Evidence and action expectations, not executed test results |
 
-These files are authoring deliverables for HR support for all employees, not a solution package. No connector, tool, workflow, authorization service or exception queue is created by importing a skill. No runtime skill links to repository-only supporting files.
+These files document one standard scenario for all-employee HR chat and autonomous shared-mailbox replies, with onboarding as a subset and all four skills included by default. They are authoring deliverables, not a solution package. Operators configure and test the dependencies during setup; importing a skill creates no connector, tool, workflow, authorization service or exception queue. No runtime skill links to repository-only supporting files.
 
 ## Knowledge and test resources
 
@@ -31,7 +31,7 @@ Fixtures F3 and F4 intentionally state **15** and **20 vacation days** for the s
 
 The [Workflows overview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flows-overview) documents the new GHCP-powered automation experience, including event triggers and agent calls. More specifically, [Add an agent node to a workflow](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow) is marked for the **GitHub Copilot harness** and documents **Workflows > Agent > An existing agent**, selecting a published agent, passing a **Message**, waiting for completion and using the result downstream. This is evidence of **workflow → agent invocation**, not just an agent calling a tool. The page also describes new inline agents, but this scenario targets the existing published HR agent, not a replacement inline agent.
 
-This documents an inbound invocation pattern in the GHCP Workflows experience; it is **not solely the standard-harness agent-flow page**. However, the page does not provide an explicit target-harness compatibility matrix or prove that this tenant exposes this exact HR GHCP agent with its imported skills and required identity behavior. **E1 remains a release blocker:** integration owners must record the selected published target/version, successful isolated invocation, trusted context/result binding, skill execution and effective retrieval identity. If the target cannot be selected or invoked, keep autonomous-workflow OFF and record the missing supported invocation/adapter implementation. Do not call the intended design impossible, silently substitute a standard agent, or treat a custom value in a connector as proof of support.
+This documents an inbound invocation pattern in the GHCP Workflows experience; it is **not solely the standard-harness agent-flow page**. During standard setup, integration owners select the exact published HR GHCP agent and record its version, successful isolated invocation, trusted context/result binding, imported skill execution and effective retrieval identity (E1). Product documentation establishes the route, not this tenant's configuration. If the target cannot be selected or invoked, resolve the setup failure before go-live. Do not silently substitute a standard agent or treat a custom value in a connector as proof of support.
 
 The following distinctions prevent false support claims:
 
@@ -46,9 +46,9 @@ The [Outlook connector reference](https://learn.microsoft.com/en-us/connectors/o
 
 Use the actual Exchange shared HR mailbox, not a Microsoft 365 group address. Validate delegated connector access separately from send permissions; the connector documents no service-principal authentication. Choose the correct folder, set **Include Attachments = No**, and validate authoritative attachment metadata before allowing a reply. Do not trust From filters as sender authentication. Protected, oversized or invalid messages may be skipped; bursts may miss events and Dynamic Delivery can create duplicate events. HR must retain its normal mailbox coverage, and the integration owner must monitor missed/held events without promising every incoming mail is processed.
 
-The backend must qualify the exact recipient/thread behavior and provider reconciliation of any chosen transport. `ReplyToV3` documentation does not promise a sent-message ID or exactly-once execution. Never invent a transport receipt or blind-retry an uncertain send. All five proposed contracts, durable authorization/outbox state and the fixed exception queue remain unimplemented. A queue failure requires durable failure recording and an approved operator alert, not an unverified "handed to HR" statement.
+The backend must qualify the exact recipient/thread behavior and provider reconciliation of any chosen transport. `ReplyToV3` documentation does not promise a sent-message ID or exactly-once execution. Never invent a transport receipt or blind-retry an uncertain send. All five scenario-defined contracts, durable authorization/outbox state and the fixed exception queue are implemented during setup; executable implementations are not supplied here. A queue failure requires durable failure recording and an approved operator alert, not an unverified "handed to HR" statement.
 
-The [workflow designer guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flow-designer#test-your-workflow) warns that node tests call connector APIs and whole-workflow tests run against the live runtime, may save/publish and install connections. **Mock inputs do not make a live send node non-sending.** Isolate the backend and replace mail/queue side effects with test doubles before testing. Do not enable the agent node's optional emailed human-assistance path as a substitute for the fixed HR exception queue.
+The [workflow designer guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flow-designer#test-your-workflow) warns that node tests call connector APIs and whole-workflow tests run against the live runtime, may save/publish and install connections. **Mock inputs do not make a live send node non-sending.** Isolate the backend and replace mail/queue side effects with test doubles before testing. Do not enable the agent node's emailed human-assistance setting as a substitute for the fixed HR exception queue.
 
 ## Official-source verification
 
@@ -77,6 +77,6 @@ The [workflow designer guidance](https://learn.microsoft.com/en-us/microsoft-cop
 | [Standard event triggers](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-trigger-event) | Scope explicitly standard harness, author-credential risk | E1: no copied direct GHCP trigger setup / identity and integration owners |
 | [Standard SDK integration](https://learn.microsoft.com/en-us/microsoft-copilot-studio/publication-integrate-web-or-native-app-m365-agents-sdk) | Scope explicitly standard harness | E1: no assumed GHCP invocation fallback / integration owner |
 
-**Design choices:** one HR agent, all-employee audience, baseline read-only, memory off initially, four independent skills and an in-scope autonomous-workflow target with no per-message approval for routine policy-authorized replies. **Proposed contracts:** the five workflow/backend interfaces and agent result schema in the matrix. **Deployment values and tenant gates:** only in the runbook; no unresolved placeholders are embedded in runtime skills. No actual workflow, source-ACL or tenant testing is claimed.
+**Design choices:** one HR agent, all-employee audience, onboarding as a subset, interactive chat with draft-only replies, autonomous shared-mailbox replies without per-message approval, all four independent skills imported by default, and memory off initially. **Email integration contracts:** the five scenario-defined workflow/backend interfaces and agent result schema in the matrix, implemented during setup rather than claimed as built-in operations. **Deployment values and checks:** only in the runbook; no unresolved placeholders are embedded in runtime skills. No actual workflow, source-ACL or tenant testing is claimed.
 
 [Overview](../1.Overview.md) | [Architecture](../2.Architecture.md) | [Runbook](../3.Runbook.md) | [Prompts](../4.Sample-prompts.md)

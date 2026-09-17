@@ -1,27 +1,27 @@
 # Employee HR capability matrix
 
-**Implementation status:** Four standalone runtime skill definitions are supplied. No executable workflow, backend, response catalog, queue, connector configuration or tenant deployment is supplied. ON means intended configuration **after the relevant release gates pass**, not enabled today. Autonomous email is an in-scope target, currently OFF. Isolated mock tests precede the explicitly authorized real-mail pilot.
+**Implementation status:** All four standalone runtime skill definitions belong to one standard scenario with interactive chat and autonomous shared-mailbox entry paths. No executable workflow, backend, response catalog, queue, connector configuration or tenant deployment is supplied. Operators implement and test these dependencies during setup, using isolated mocks before an explicitly authorized real-mail pilot. Included by default describes the design, not a claim of deployment.
 
 ## Capability inventory
 
-| Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Profile / access / approval |
+| Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Standard entry path / access / approval |
 |---|---|---|---|---|---|
-| [hr-policy-answer](Skills/hr-policy-answer/SKILL.md) | Cited policy, benefits and process guidance for all employees, no personal records or transactions | Configured approved ServiceNow HR knowledge | Instructions supplied, no external operation tool | Validated evidence and caller ACLs, or recipient-safe workflow retrieval scope, no sibling skill | Baseline ON, autonomous-workflow ON after gates, no write |
-| [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | Onboarding as a subset, source-supported day/week steps, no scheduling or completion | Configured approved onboarding knowledge | Instructions supplied, no external operation tool | Applicable onboarding stage and authorized evidence, no sibling skill | Baseline ON, autonomous-workflow ON after gates, no task writes |
-| [hr-email-draft](Skills/hr-email-draft/SKILL.md) | Subject/body in chat, no Outlook draft or send, even when autonomy is enabled | Supplied inquiry and configured approved HR knowledge | Instructions supplied, no external operation tool | Inquiry and authorized evidence, no sibling skill or mailbox access | Baseline ON, autonomous-workflow ON after gates, draft-only request stays draft-only |
-| [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Prepare a structured reply candidate for a trusted calling workflow, not an agent-issued send | Recipient-safe HR knowledge and server-provided response catalog/context | Instructions supplied, no agent mailbox operation tool, proposed result schema below | Trusted invocation, scoped knowledge, catalog, deterministic validation/send/status/exception backend, no sibling skill | Baseline OFF, autonomous-workflow OFF until E1-E3, then ON for routine policy-authorized events, no per-message approval |
+| [hr-policy-answer](Skills/hr-policy-answer/SKILL.md) | Cited policy, benefits and process guidance for all employees, no personal records or transactions | Configured approved ServiceNow HR knowledge | Instructions supplied, no external operation tool | Validated evidence and caller ACLs, or recipient-safe workflow retrieval scope, no sibling skill | Included by default, chat and workflow evidence, no write |
+| [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | Onboarding as a subset, source-supported day/week steps, no scheduling or completion | Configured approved onboarding knowledge | Instructions supplied, no external operation tool | Applicable onboarding stage and authorized evidence, no sibling skill | Included by default, chat and workflow evidence, no task writes |
+| [hr-email-draft](Skills/hr-email-draft/SKILL.md) | Subject/body in chat, no Outlook draft or send | Supplied inquiry and configured approved HR knowledge | Instructions supplied, no external operation tool | Inquiry and authorized evidence, no sibling skill or mailbox access | Included by default, chat draft requests remain draft-only |
+| [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Prepare a structured reply candidate for a trusted calling workflow, not an agent-issued send | Recipient-safe HR knowledge and server-provided response catalog/context | Instructions supplied, no agent mailbox operation tool, scenario-defined result schema below | Trusted invocation, scoped knowledge, catalog, deterministic validation/send/status/exception backend, no sibling skill | Included by default, authenticated workflow events only, routine policy-authorized replies need no per-message approval |
 
-## Profiles and disablement
+## Standard configuration and entry-path boundaries
 
-**Baseline:** the first three skills, authenticated chat and approved knowledge. No email intake or mailbox tools. Employees can ask ongoing HR questions, request onboarding guidance or paste a synthetic inquiry for drafting.
+Import all four skills into the same HR agent. **Interactive chat** uses authenticated employee access to approved knowledge. Employees can ask ongoing HR questions, request onboarding guidance or paste an inquiry for draft-only text. Chat cannot create an authenticated email event or initiate sending.
 
-**Autonomous-workflow:** baseline behavior plus trusted HR mailbox events calling `hr-email-reply`. Workflows invokes the published GHCP agent and waits for its result, then deterministic backend logic validates and sends. The agent has **no send, queue or mailbox tools** in either profile. The fourth skill's independent capability is workflow reply preparation; consequential operations belong to the surrounding integration, not additional hidden skills.
+**Autonomous email** uses trusted HR mailbox events calling `hr-email-reply`. Workflows invokes the same published GHCP agent and waits for its result, then deterministic backend logic validates and sends. The agent has **no send, queue or mailbox tools** on either entry path. The fourth skill's independent capability is workflow reply preparation; consequential operations belong to the surrounding integration, not additional hidden skills.
 
 Release owners approve the audience, low-risk topics, corpus, catalog, policy version and operational limits once per approved release/change. **Routine messages require no human approval step or `approvalId`.** Cases outside those limits are held for normal HR handling, not automatically mailed by the model. A chat "send this" never creates trusted intake.
 
-Unlisted actions are OFF: arbitrary recipients, Reply All, CC/BCC, attachments, forwarding, inbox enumeration, mailbox drafts, message edits/deletes, personal HR records, medical data, case creation and HR transactions. These are deployment conventions, not claimed Studio feature switches.
+Excluded actions are arbitrary recipients, Reply All, CC/BCC, attachments, forwarding, inbox enumeration, mailbox drafts, message edits/deletes, personal HR records, medical data, case creation and HR transactions. These are scope boundaries, not claimed Studio feature switches.
 
-Disablement must update skills and global scope, revoke server policy authorization, stop new intake/submission, block alternate paths, and reject old workflow/agent versions and stale sessions. Keep scoped operator status/reconciliation access and shared knowledge needed by enabled capabilities. An in-flight provider attempt cannot be recalled by disabling a skill.
+For an explicit maintenance pause or rollback, operator disablement must update skills and global scope, revoke server policy authorization, stop new intake/submission, block alternate paths, and reject old workflow/agent versions and stale sessions. Keep scoped operator status/reconciliation access and shared knowledge needed by enabled capabilities. An in-flight provider attempt cannot be recalled by disabling a skill.
 
 ## Knowledge dependency
 
@@ -29,7 +29,7 @@ HR owns authority, applicability, effective periods, conflict resolution and sou
 
 Chat retrieval uses the authenticated employee's validated permissions. **Workflow/application/connection-owner retrieval does not inherit the email sender's rights.** Use an explicitly HR-approved audience-safe corpus for the mapped employee population, or enforce recipient-entitlement filtering **before retrieval** and revalidate every source before send. A broad service result cannot be made safe merely by appending citations. If recipient-safe retrieval or current send-time entitlement cannot be enforced, hold for HR review; do not expose restricted evidence to the agent or recipient.
 
-The autonomous catalog is an additional proposed configuration artifact, not synthetic production knowledge. Each block has `blockId`, `blockVersion`, `requestKey`, approved population/language, current source ID/version/URL, validity period and exact plain-text response content. The backend's versioned deterministic request rules establish which routine questions the entire sanitized inquiry asks. Unknown wording, uncovered questions, sensitive content or ambiguous applicability is held. Model topic classification or confidence may cause a hold, never grant permission. This deliberately limits unattended coverage to validated low-risk request patterns.
+The autonomous catalog is a required setup artifact, not synthetic production knowledge. Each block has `blockId`, `blockVersion`, `requestKey`, approved population/language, current source ID/version/URL, validity period and exact plain-text response content. The backend's versioned deterministic request rules establish which routine questions the entire sanitized inquiry asks. Unknown wording, uncovered questions, sensitive content or ambiguous applicability is held. Model topic classification or confidence may cause a hold, never grant permission. This deliberately limits unattended coverage to validated low-risk request patterns.
 
 For allowed requests, validate source currency, lack of conflict and full question coverage against the catalog and authoritative register. Render **only** matching approved blocks, fixed neutral greeting/closing and verified citations. Do not send arbitrary model prose. A new block, language, policy fact or matching rule needs HR release/change approval, not a per-message approval mechanism.
 
@@ -38,15 +38,15 @@ For allowed requests, validate source currency, lack of conflict and full questi
 | Operation / surface | Direction and evidence | Scenario use / remaining gate |
 |---|---|---|
 | Office 365 Outlook **When a new email arrives in a shared mailbox (V2)**, `SharedMailboxOnNewEmailV2` | Mailbox event → workflow, [connector reference](https://learn.microsoft.com/en-us/connectors/office365/#when-a-new-email-arrives-in-a-shared-mailbox-%28v2%29) | Qualify HR shared mailbox/folder, delegated connection and event behavior in E1, trigger alone is not sender authentication |
-| Workflows **Agent** node, **An existing agent**, **Message** | Workflow → published agent → returned response, [GHCP Workflows guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow#choose-an-existing-agent-for-the-agent-node) | Documented inbound pattern, exact published HR GHCP selection, skill execution and identity are unverified E1 blockers, no node operation ID invented |
+| Workflows **Agent** node, **An existing agent**, **Message** | Workflow → published agent → returned response, [GHCP Workflows guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow#choose-an-existing-agent-for-the-agent-node) | Documented inbound pattern, verify exact published HR GHCP selection, skill execution and identity during E1 setup, no node operation ID invented |
 | **When an agent calls the flow** / **Respond to the agent** | Agent → workflow tool → agent, [tool guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flow-agent) | Opposite direction, not the HR incoming-email invocation path |
 | Outlook **Reply to email (V3)**, `ReplyToV3` | Deterministic backend/workflow → provider, [connector reference](https://learn.microsoft.com/en-us/connectors/office365/#reply-to-email-%28v3%29) | Candidate transport only, bind `messageId`, `mailboxAddress`, exact single `To`, `ReplyAll=false`, no CC/BCC or attachments, qualify status/reconciliation in E1-E2 |
 
 The connector catalog documents `ExecuteCopilot` and `ExecuteCopilotAsyncV2`, but does not establish GHCP-target compatibility. Neither these names, standard-harness trigger/SDK instructions nor workflow-as-tool support are a substitute for the E1 inbound evidence. See [invocation finding](README.md#workflow-invocation-finding).
 
-## Proposed email contracts
+## Email integration contracts
 
-The following are **custom integration specifications, not delivered endpoints or vendor operation IDs**. All are called by the authenticated deterministic workflow/backend or scoped operator, **not by the agent**. The integration owner must record concrete implementations, schemas, connection ownership and authentication before enablement. No assumed REST/MCP mapping is supplied.
+The following are **scenario-defined interface contracts implemented during setup, not delivered endpoints or verified built-in operation IDs**. All are called by the authenticated deterministic workflow/backend or scoped operator, **not by the agent**. The integration owner records concrete implementations, schemas, connection ownership and authentication as part of standard setup. No vendor API or assumed REST/MCP mapping is invented.
 
 ### Common envelope and enforcement
 
@@ -69,7 +69,7 @@ Intake checks attachment metadata, not just an empty attachment array: Outlook D
 
 ### Agent reply result
 
-`hr-email-reply` returns a JSON object with exactly these fields. This is a proposed application schema, not a promise that an existing-agent node exposes the inline agent's custom structured-output selector. Parse and validate the returned result server-side.
+`hr-email-reply` returns a JSON object with exactly these fields. This is the scenario-defined application schema, not a promise that an existing-agent node exposes the inline agent's custom structured-output selector. Implement parsing and validation of the returned result server-side during setup.
 
 | Field | Type / meaning |
 |---|---|
@@ -135,6 +135,6 @@ Exception handling is an operational requirement of this single reply capability
 
 ## Integration acceptance and ownership
 
-E1 requires exact HR GHCP invocation and identity evidence, concrete implementations for all five backend contracts, response parsing, delegated mailbox permissions and the fixed exception queue. E2 requires deterministic request/corpus validation, server authorization, revocation, payload binding, rate/loop controls, duplicate/concurrent-event and manual-claim tests, and provider reconciliation. E3 requires release-level authorization and restricted live-mail pilot evidence, retention, monitoring and an exercised kill switch. G1-G5 cover baseline readiness. All are outstanding in the [runbook](../3.Runbook.md#release-gates).
+E1 requires exact HR GHCP invocation and identity evidence, concrete implementations for all five backend contracts, response parsing, delegated mailbox permissions and the fixed exception queue. E2 requires deterministic request/corpus validation, server authorization, revocation, payload binding, rate/loop controls, duplicate/concurrent-event and manual-claim tests, and provider reconciliation. E3 requires release-level authorization and restricted live-mail pilot evidence, retention, monitoring and an exercised kill switch. G1-G5 cover environment, knowledge, chat acceptance and publishing. These are required deployment checks for the whole standard scenario, with D1-D3 recording its configuration. All remain to be completed by the deployment team in the [runbook](../3.Runbook.md#release-gates).
 
 [Resources](README.md) | [Skill import index](Skills/README.md) | [Architecture](../2.Architecture.md)
