@@ -131,9 +131,32 @@ This guide walks through two main tasks:
 
 ---
 
-## Part 2: Verify Knowledge Bases in ServiceNow
+## Part 2: Install the HR Plugin and Verify Knowledge Bases
 
-### Step 1-5. Verify Knowledge Bases are Available
+### Step 2-1. Install HR plugin
+
+1. Select the **All** tab in the top navigation.
+2. Search for **plugin** and select **Plugins**.
+
+> ![Search for plugin and select Plugins](../Images/023.png)
+
+3. Search for **Human resources**.
+
+> ![Search plugins for Human resources](../Images/023-2.png)
+
+4. Select **Human Resources Scoped App: Core** and click **Install**.
+
+> ![Human Resources Scoped App Core with Install option](../Images/023-3.png)
+
+5. Scroll all the way down in the installation dialog, select **Load demo data**, and then click **Install**.
+
+> ![Installation dialog with Load demo data selected](../Images/023-4.png)
+
+> Load demo data only in this isolated developer instance, not a production environment. Wait for installation to complete before continuing.
+
+---
+
+### Step 2-2. Verify Knowledge Bases are Available
 
 1. Click the **"All"** tab in the top navigation
 2. Type **"knowledge bases"** in the search field
@@ -160,7 +183,7 @@ This guide walks through two main tasks:
 
 > Use a separate **scoped integration identity** for ingestion, with privileges required by the selected supported authentication method. Setup admin credentials are not the runtime connector identity. Follow the official prerequisite/authentication sections before creating the connection.
 
-### Step 1-6. Add a New Connection in M365 Admin Center
+### Step 3-1. Add a New Connection in M365 Admin Center
 
 1. Log in to **M365 Admin Center** → https://admin.microsoft.com
 2. Navigate to **Copilot** → **Connectors** → **Connectors** → **Gallery**
@@ -175,7 +198,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-7. Configure the Connection Settings
+### Step 3-2. Configure the Connection Settings
 
 1. Click **"Custom setup"** in the upper right of the screen
 
@@ -199,7 +222,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-8. Authenticate the Connection
+### Step 3-3. Authenticate the Connection
 
 1. Complete the selected method's authorization/sign-in process and wait for authentication to complete
 
@@ -214,7 +237,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-9. Configure User Access Permissions
+### Step 3-4. Configure User Access Permissions
 
 1. Click the **"Users"** tab at the top of the setup panel
 
@@ -228,7 +251,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-10. Create the Connection
+### Step 3-5. Create the Connection
 
 1. Go back to the **"Setup"** tab
 2. Check all required values, scoped authentication, corpus filters, mapping and source-permission settings
@@ -242,7 +265,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-11. Add a Connector Description
+### Step 3-6. Add a Connector Description
 
 1. Once the connection is created, a success screen will appear:
    **"Created connection — ServiceNow (ServiceNowKB[X])"**
@@ -274,7 +297,7 @@ This guide walks through two main tasks:
 
 ## Part 4: Verify the Connection
 
-### Step 1-12. Verify Indexed Content via Microsoft Search
+### Step 4-1. Verify Indexed Content via Microsoft Search
 
 1. Navigate to https://microsoft365.com and log in as a permitted **non-maker employee** in the test group
 2. After clicking **`Search*`** on the navigation, type **`KB0*`** in the search, and press **Enter**
@@ -290,7 +313,7 @@ This guide walks through two main tasks:
 
 ---
 
-### Step 1-13. Verify via M365 Copilot Prompts
+### Step 4-2. Verify via M365 Copilot Prompts
 
 Use the following prompts in **M365 Copilot (Teams)** to verify the connector is working:
 
@@ -312,15 +335,16 @@ Use the following prompts in **M365 Copilot (Teams)** to verify the connector is
 | 1-2 | Email verified and account activated | ☐ |
 | 1-3 | Initial setup completed | ☐ |
 | 1-4 | ServiceNow Dev instance requested, ready and opened | ☐ |
-| 1-5 | Four default Knowledge Bases confirmed | ☐ |
-| 1-6 | New connection added in M365 Admin Center | ☐ |
-| 1-7 | Scoped connection identity, authentication and corpus configured | ☐ |
-| 1-8 | Authentication completed and scoped access verified | ☐ |
-| 1-9 | Source permissions, identity mapping and advanced criteria validated | ☐ |
-| 1-10 | Connection created successfully | ☐ |
-| 1-11 | Connector description added | ☐ |
-| 1-12 | Indexed content verified via Microsoft Search | ☐ |
-| 1-13 | M365 Copilot prompts and permitted/denied/revoked identities tested | ☐ |
+| 2-1 | Human Resources Scoped App: Core installed with demo data in the developer instance | ☐ |
+| 2-2 | Four default Knowledge Bases confirmed | ☐ |
+| 3-1 | New connection added in M365 Admin Center | ☐ |
+| 3-2 | Scoped connection identity, authentication and corpus configured | ☐ |
+| 3-3 | Authentication completed and scoped access verified | ☐ |
+| 3-4 | Source permissions, identity mapping and advanced criteria validated | ☐ |
+| 3-5 | Connection created successfully | ☐ |
+| 3-6 | Connector description added | ☐ |
+| 4-1 | Indexed content verified via Microsoft Search | ☐ |
+| 4-2 | M365 Copilot prompts and permitted/denied/revoked identities tested | ☐ |
 
 ---
 
