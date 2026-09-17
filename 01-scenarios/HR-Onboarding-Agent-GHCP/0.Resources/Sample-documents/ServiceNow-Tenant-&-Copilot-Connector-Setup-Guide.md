@@ -154,15 +154,119 @@ This guide walks through two main tasks:
 
 > Load demo data only in this isolated developer instance, not a production environment.
 
-6. Installation can take approximately **15–30 minutes**. Leave it running and jump to [Part 3: Install the ServiceNow Knowledge Copilot Connector](#part-3-install-the-servicenow-knowledge-copilot-connector).
+6. Installation can take approximately **15–30 minutes**. Leave it running and jump to the [next step](#step-2-2-configure-federated-credentials-for-servicenow-copilot-connector).
 
 > ![HR plugin installation in progress](../Images/023-5.png)
 
 ---
 
-### Step 2-2. Verify Knowledge Bases are Available
+### Step 2-2. Configure Federated Credentials for ServiceNow Copilot Connector
 
-Return to this step once the HR plugin installation has completed.
+Configure **Federated Auth** so the connector can authenticate to ServiceNow without storing or rotating a client secret. These steps follow [Microsoft's Federated Auth setup instructions](https://learn.microsoft.com/en-gb/microsoft-365/copilot/connectors/servicenow-knowledge-deployment#federated-auth-federated-identity-credentials) and use the **New Inbound Integration Experience** available in Zurich and later releases, including Australia.
+
+> Use a ServiceNow admin account authorized to create OIDC providers and users. Have your Microsoft Entra **Directory (tenant) ID** ready; find it under **Microsoft Entra ID > Overview** in the Azure portal. Use your own tenant values, not the example GUIDs in screenshots.
+
+1. Open [Microsoft Graph Explorer](https://aka.ms/ge).
+2. Sign in with your tenant's admin account.
+
+> ![Sign in to Microsoft Graph Explorer](../Images/103.png)
+
+3. Select **GET**, paste the following URL into the query text box, and click **Run query**. In the response, copy the **id** GUID from the matching entry in the **value** array.
+
+```text
+https://graph.microsoft.com/v1.0/servicePrincipals?$filter=appId eq '933838e2-bec1-440f-a634-9363c82e5b6d'
+```
+
+> ![Graph Explorer query for the connector service principal](../Images/103-2.png)
+
+> **Keep the two IDs distinct:** `933838e2-bec1-440f-a634-9363c82e5b6d` is Microsoft's fixed **application (client) ID**. The response's **id** is the **service principal object ID in your tenant**; save that value for the ServiceNow integration user's **User ID**. Do not create a new app registration for this flow. If Graph Explorer reports a permissions error, use **Modify permissions** and obtain authorized consent for the required permissions. If the query returns no matching entry, resolve the missing service principal before continuing; do not substitute another GUID.
+
+4. In the ServiceNow portal, open **All**, search for **oauth**, and select **System OAuth > Application Registry**.
+
+> ![Find Application Registry under System OAuth](../Images/103-3.png)
+
+5. Select **New**.
+
+> ![Create a new Application Registry entry](../Images/103-4.png)
+
+6. Select **New Inbound Integration Experience**.
+
+> ![Select New Inbound Integration Experience](../Images/103-5.png)
+
+7. Click **New integration**.
+
+> ![Create a new inbound integration](../Images/103-6.png)
+
+8. Select **Third party ID token issued by OIDC supporting identity provider**.
+
+> ![Select the third-party OIDC ID token integration type](../Images/103-7.png)
+
+9. Configure the integration using the values below. Select the existing **Microsoft Entra ID** OIDC provider if it has the correct configuration; otherwise select **Create a new configuration**. Replace `<tenantId>` in the metadata URL with your own **Directory (tenant) ID**, then save the provider configuration and integration.
+
+   | Integration field | Value |
+   |---|---|
+   | Name | `Microsoft Entra ID` |
+   | Provider name | `Microsoft Entra ID` |
+   | Client ID | `933838e2-bec1-440f-a634-9363c82e5b6d` |
+   | Active | Selected |
+   | Scope Restriction / Auth Scope | **Useraccount scoped** (`useraccount`) |
+
+   | OIDC provider configuration field | Value |
+   |---|---|
+   | OIDC Provider Configuration Name | `Microsoft Entra ID` |
+   | OIDC Metadata URL | `https://login.microsoftonline.com/<tenantId>/v2.0/.well-known/openid-configuration` |
+   | OIDC Configuration Cache Lifespan | `120` |
+   | User Claim | `oid` |
+   | User Field | **User ID** |
+   | Enable JTI Verification | Disabled |
+
+> ![Configure the Microsoft Entra ID inbound integration](../Images/103-8.png)
+
+> ![Configure the OIDC provider and tenant metadata URL](../Images/103-9.png)
+
+> ![Review OIDC integration settings](../Images/103-10.png)
+
+> **User mapping:** this walkthrough uses `oid` to match the service principal object ID saved in the ServiceNow user's **User ID**. Microsoft also documents `sub` for subject-based matching. Do not leave **User Claim** empty; if user resolution fails, verify the claim-to-user mapping against the official guide rather than substituting the application/client ID.
+
+10. Open **All**, search for **users**, and select **System Security > Users and Groups > Users**. Depending on the ServiceNow release, this can appear under **User Administration > Users**.
+
+> ![Find Users in the ServiceNow navigation](../Images/103-11.png)
+
+11. Click **New** to create an integration user.
+
+> ![Create a new ServiceNow integration user](../Images/103-12.png)
+
+12. Set the following fields and click **Submit**. For **User ID**, paste the **service principal object ID** copied from the Graph Explorer response in item 3.
+
+   | User field | Value |
+   |---|---|
+   | User ID | Tenant-specific **id** GUID returned by the Graph query, not the fixed application/client ID |
+   | Identity Type | **Machine** |
+   | Active | Selected |
+
+> ![Set the integration user's ID and machine identity type](../Images/103-13.png)
+
+13. Find and select the new user.
+
+> ![Select the newly created integration user](../Images/103-14.png)
+
+14. In the **Roles** related list, click **Edit...**.
+
+> ![Edit the integration user's roles](../Images/103-15.png)
+
+15. Add **knowledge_admin**, **user_criteria_admin**, and **user_admin**, then click **Save**.
+
+> ![Assign the required connector integration roles](../Images/103-16.png)
+
+> These are the roles specified in Microsoft's Federated Auth instructions. If your approved connector setup uses a custom crawling role, assign that role to this integration user as well. Do not assign the general **admin** role to the integration user. Roles do not replace required REST/table ACLs, approved corpus filters or source-permission configuration.
+
+Before continuing, confirm that the OIDC integration is **Active**, the client ID and tenant metadata URL are correct, and the integration user's **User ID** and roles match the settings above. In Part 3, select **Federated Auth** for this configuration.
+
+---
+
+### Step 2-3. Verify Knowledge Bases are Available
+
+Before verifying the knowledge bases, confirm that the HR plugin installation from Step 2-1 has completed.
 
 1. Click the **"All"** tab in the top navigation
 2. Type **"knowledge bases"** in the search field
@@ -216,12 +320,12 @@ Return to this step once the HR plugin installation has completed.
    |---|---|
    | Display name | `ServiceNow` *(or a unique name, e.g., `ServiceNowKB5`)* |
    | ServiceNow URL | `https://dev[XXXXXX].service-now.com` *(your instance URL from Step 1-4)* |
-   | Authentication type | Security-approved method from the current deployment guide; **Federated Auth** is recommended there |
+   | Authentication type | **Federated Auth**, using the configuration from [Step 2-2](#step-2-2-configure-federated-credentials-for-servicenow-copilot-connector) |
    | Integration identity | Dedicated identity with only the required connector roles and approved corpus access |
    | Authentication material | Configure through the approved connection/secret mechanism; never use shared admin credentials or copy values into this guide |
    | Notice | Review and acknowledge the actual notice after verifying permissions |
 
-   > Complete the selected method's prerequisites in [connector deployment](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-deployment#choose-authentication-type). Federated Auth, OAuth 2.0 and Microsoft Entra ID OpenID Connect have distinct setup requirements. Do not infer authentication from the Basic/admin screenshot.
+   > Complete the Federated Auth setup in Step 2-2 before authenticating. If organizational policy requires a different method, follow its distinct prerequisites in [connector deployment](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-deployment#choose-authentication-type). Do not infer authentication from the Basic/admin screenshot.
 
 > **Screenshot to replace:** approved authentication method and scoped integration identity.
 > ![Custom setup screen](../Images/029.png)
@@ -342,7 +446,8 @@ Use the following prompts in **M365 Copilot (Teams)** to verify the connector is
 | 1-3 | Initial setup completed | ☐ |
 | 1-4 | ServiceNow Dev instance requested, ready and opened | ☐ |
 | 2-1 | Human Resources Scoped App: Core installed with demo data in the developer instance | ☐ |
-| 2-2 | Four default Knowledge Bases confirmed | ☐ |
+| 2-2 | Federated Auth OIDC provider and integration user configured | ☐ |
+| 2-3 | Four default Knowledge Bases confirmed | ☐ |
 | 3-1 | New connection added in M365 Admin Center | ☐ |
 | 3-2 | Scoped connection identity, authentication and corpus configured | ☐ |
 | 3-3 | Authentication completed and scoped access verified | ☐ |
