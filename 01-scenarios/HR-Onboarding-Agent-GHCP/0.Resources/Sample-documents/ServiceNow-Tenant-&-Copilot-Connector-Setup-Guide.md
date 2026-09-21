@@ -364,17 +364,18 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 ### Step 4-1. Verify Indexed Content via Microsoft Search
 
-1. Navigate to https://microsoft365.com and log in as a permitted **non-maker employee** in the test group
-2. After clicking **`Search*`** on the navigation, type **`KB0*`** in the search, and press **Enter**
+1. Open the connector to see the indexing progress, which normally takes a few minutes to complete. Refresh to see items being crawled and indexed. Wait for indexing to complete before checking the search results.
 
-> ![Microsoft 365 search results showing KB articles from ServiceNow](../Images/037.png)
+> ![Connector indexing progress showing items crawled and indexed](../Images/037.png)
 
-3. Click **"All Sources"** filter → Select your ServiceNow connector (e.g., `ServiceNow-KB`)
-4. Confirm that KB articles from ServiceNow are listed in the results
+2. Navigate to https://microsoft365.com and log in as a permitted **non-maker employee** in the test group
+3. After clicking **`Search*`** on the navigation, type **`KB0*`** in the search, and press **Enter**
+4. Click **"All Sources"** filter → Select your ServiceNow connector (e.g., `ServiceNow-KB`)
+5. Confirm that KB articles from ServiceNow are listed in the results
 
 >![Search results filtered by ServiceNow-KB showing knowledge articles](../Images/038.png)
 
-5. Verify known HR article IDs, source URLs, applicability and versions. Repeat as denied and revoked employees, including parent-base changes. For workflow use, prove recipient-safe filtering before retrieval and current entitlement before send; the workflow connection owner's rights do not establish the email sender's rights.
+6. Verify known HR article IDs, source URLs, applicability and versions. Repeat as denied and revoked employees, including parent-base changes. For workflow use, prove recipient-safe filtering before retrieval and current entitlement before send; the workflow connection owner's rights do not establish the email sender's rights.
 
 ---
 
