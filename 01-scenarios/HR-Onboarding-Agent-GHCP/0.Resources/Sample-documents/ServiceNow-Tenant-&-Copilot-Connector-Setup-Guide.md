@@ -441,7 +441,7 @@ For additional troubleshooting, refer to:
 ## Related Resources
 
 - [Step-by-step runbook](../../3.Runbook.md)
-- [Run a full crawl on the ServiceNow connector](../../3.Runbook.md#step-1-2-run-a-full-crawl-on-the-servicenow-copilot-connector)
+- [Create the agent in Copilot Studio](../../3.Runbook.md#phase-2-agent-creation-in-copilot-studio)
 - [Release readiness](../Release-readiness.md)
 - [ServiceNow Developer Program](https://developer.servicenow.com)
 - [Microsoft 365 Admin Center](https://admin.microsoft.com)
