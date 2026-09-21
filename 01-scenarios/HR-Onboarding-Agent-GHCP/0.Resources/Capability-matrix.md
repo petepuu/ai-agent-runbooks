@@ -1,6 +1,6 @@
 # Employee HR capability matrix
 
-**Implementation status:** All four standalone runtime skill definitions belong to one standard scenario with interactive chat and autonomous shared-mailbox entry paths. No executable workflow, backend, response catalog, queue, connector configuration or tenant deployment is supplied. Operators implement and test these dependencies during setup, using isolated mocks before an explicitly authorized real-mail pilot. Included by default describes the design, not a claim of deployment.
+**Implementation status:** All four standalone runtime skill definitions belong to one standard scenario with interactive chat and autonomous shared-mailbox entry paths. No executable workflow, backend, queue, connector configuration or tenant deployment is supplied. Operators implement and test these dependencies during setup, using isolated mocks before an explicitly authorized real-mail pilot. Included by default describes the design, not a claim of deployment.
 
 ## Capability inventory
 
@@ -9,7 +9,7 @@
 | [hr-policy-answer](Skills/hr-policy-answer/SKILL.md) | Cited policy, benefits and process guidance for all employees, no personal records or transactions | Configured approved ServiceNow HR knowledge | Instructions supplied, no external operation tool | Validated evidence and caller ACLs, or recipient-safe workflow retrieval scope, no sibling skill | Included by default, chat and workflow evidence, no write |
 | [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | Onboarding as a subset, source-supported day/week steps, no scheduling or completion | Configured approved onboarding knowledge | Instructions supplied, no external operation tool | Applicable onboarding stage and authorized evidence, no sibling skill | Included by default, chat and workflow evidence, no task writes |
 | [hr-email-draft](Skills/hr-email-draft/SKILL.md) | Subject/body in chat, no Outlook draft or send | Supplied inquiry and configured approved HR knowledge | Instructions supplied, no external operation tool | Inquiry and authorized evidence, no sibling skill or mailbox access | Included by default, chat draft requests remain draft-only |
-| [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Prepare a structured reply candidate for a trusted calling workflow, not an agent-issued send | Recipient-safe HR knowledge and server-provided response catalog/context | Instructions supplied, no agent mailbox operation tool, scenario-defined result schema below | Trusted invocation, scoped knowledge, catalog, deterministic validation/send/status/exception backend, no sibling skill | Included by default, authenticated workflow events only, routine policy-authorized replies need no per-message approval |
+| [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Compose a grounded HTML email with a references table and agent sign-off for the calling workflow, no agent-issued send | Recipient-safe HR knowledge and trusted inquiry/context | Instructions supplied, no agent mailbox operation tool, version 2 result schema below | Trusted invocation, scoped knowledge, content/HTML validation and workflow-owned send/status/exception backend, no sibling skill | Included by default, authenticated workflow events only, routine policy-authorized replies need no per-message approval |
 
 ## Standard configuration and entry-path boundaries
 
@@ -17,7 +17,7 @@ Import all four skills into the same HR agent. **Interactive chat** uses authent
 
 **Autonomous email** uses trusted HR mailbox events calling `hr-email-reply`. Workflows invokes the same published GHCP agent and waits for its result, then deterministic backend logic validates and sends. The agent has **no send, queue or mailbox tools** on either entry path. The fourth skill's independent capability is workflow reply preparation; consequential operations belong to the surrounding integration, not additional hidden skills.
 
-Release owners approve the audience, low-risk topics, corpus, catalog, policy version and operational limits once per approved release/change. **Routine messages require no human approval step or `approvalId`.** Cases outside those limits are held for normal HR handling, not automatically mailed by the model. A chat "send this" never creates trusted intake.
+Release owners approve the audience, low-risk topics, corpus, policy version and operational limits once per approved release/change. **Routine messages require no human approval step or `approvalId`.** Cases outside those limits are held for normal HR handling, not automatically mailed by the model. A chat "send this" never creates trusted intake.
 
 Excluded actions are arbitrary recipients, Reply All, CC/BCC, attachments, forwarding, inbox enumeration, mailbox drafts, message edits/deletes, personal HR records, medical data, case creation and HR transactions. These are scope boundaries, not claimed Studio feature switches.
 
@@ -25,15 +25,15 @@ For an explicit maintenance pause or rollback, operator disablement must update 
 
 ## Knowledge dependency
 
-HR owns authority, applicability, effective periods, conflict resolution and source-backed response blocks. M365 / ServiceNow administrators own ingestion, identity mapping, article/base ACLs and refresh behavior.
+HR owns authority, applicability, effective periods, conflict resolution and approved knowledge. M365 / ServiceNow administrators own ingestion, identity mapping, article/base ACLs and refresh behavior.
 
 The [ServiceNow Knowledge Copilot connector](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-overview) ingests KB articles and permission metadata into Microsoft 365. The agent retrieves indexed article information through its configured knowledge source using M365 search/semantic index; it does not query ServiceNow directly. Connector ingestion and runtime retrieval are separate paths, and index freshness depends on synchronization.
 
 Chat retrieval uses the authenticated employee's validated permissions. **Workflow/application/connection-owner retrieval does not inherit the email sender's rights.** Use an explicitly HR-approved audience-safe corpus for the mapped employee population, or enforce recipient-entitlement filtering **before retrieval** and revalidate every source before send. A broad service result cannot be made safe merely by appending citations. If recipient-safe retrieval or current send-time entitlement cannot be enforced, hold for HR review; do not expose restricted evidence to the agent or recipient.
 
-The autonomous catalog is a required setup artifact, not synthetic production knowledge. Each block has `blockId`, `blockVersion`, `requestKey`, approved population/language, current source ID/version/URL, validity period and exact plain-text response content. The backend's versioned deterministic request rules establish which routine questions the entire sanitized inquiry asks. Unknown wording, uncovered questions, sensitive content or ambiguous applicability is held. Model topic classification or confidence may cause a hold, never grant permission. This deliberately limits unattended coverage to validated low-risk request patterns.
+The agent writes a natural-language answer from current approved evidence; no response-block catalog is required. The workflow's versioned request rules limit routine unattended replies to approved low-risk topics and populations. Unknown wording, uncovered questions, sensitive content or ambiguous applicability is held. Model confidence cannot grant send permission.
 
-For allowed requests, validate source currency, lack of conflict and full question coverage against the catalog and authoritative register. Render **only** matching approved blocks, fixed neutral greeting/closing and verified citations. Do not send arbitrary model prose. A new block, language, policy fact or matching rule needs HR release/change approval, not a per-message approval mechanism.
+The email starts with a greeting, uses readable paragraphs or lists with numbered citations, then includes a **References** table (**#**, **Source**, **Link**) containing every source used, deduplicated in citation order. It ends with **Kind regards,** and **HR Onboarding Agent**. The workflow independently validates factual support, full question coverage, source access and HTML before authorizing the exact payload. Schema-valid HTML and valid citations alone do not prove the answer is correct; unvalidated content must be held. Content-validation implementation and its acceptance evidence are release requirements, not capabilities delivered by this repository.
 
 ## Documented product operations and call direction
 
@@ -62,7 +62,7 @@ Every response includes `status`, `correlationId`, `observedAt` (timestamp with 
 |---|---|
 | Inputs | `eventRef`, `workflowVersion`, provided through authenticated configured intake, not a pasted message |
 | Authoritative validation | Resolve original tenant/mailbox/provider message and version, transport-authenticated sender, employee directory mapping and intended single recipient, reject forwarded/untrusted From or Reply-To redirection, external/unmapped senders, automated mail, bounces, loops, attachments, protected/unreadable or oversized messages |
-| Success outputs | `status=accepted`, `contextId`, `messageVersion`, `recipientBindingId`, sanitized subject/inquiry, permitted applicability, `policyVersion`, `requestKeys`, `retrievalScopeId`, permitted response catalog entries, existing `operationId` and `replyState` if any |
+| Success outputs | `status=accepted`, `contextId`, `messageVersion`, `recipientBindingId`, sanitized subject/inquiry, permitted applicability, `policyVersion`, `requestKeys`, `retrievalScopeId`, permitted topics and response language, existing `operationId` and `replyState` if any |
 | Scope / identity | One HR inquiry, integration-owned authenticated intake, no general mailbox browsing or employee HR record access |
 | Concurrency / idempotency | Atomically deduplicate by tenant/mailbox/stable provider message identity, not merely event run ID, return same context/existing attempt for duplicate events, preserve immutable version and fail on conflicting changes |
 | Other outcomes / async | `held`, `denied`, `not_found`, `unavailable`, `failed`, `unknown`, no send job, missing deterministic request match holds for HR |
@@ -75,25 +75,25 @@ Intake checks attachment metadata, not just an empty attachment array: Outlook D
 
 | Field | Type / meaning |
 |---|---|
-| `schemaVersion` | String, `1` |
+| `schemaVersion` | String, `2` |
 | `contextId`, `messageVersion`, `policyVersion` | Strings copied from the trusted invocation envelope, verified against server records |
 | `answerState` | `complete` or `hold`, advisory only |
-| `answerParts` | Array of objects with string `requestKey`, `blockId`, `blockVersion`, `sourceId`, `sourceVersion`, one approved block per required request key |
-| `evidenceRefs` | Array of objects with string `sourceId`, `sourceVersion`, `url`, actual permitted evidence used |
-| `gaps`, `holdReasons` | Arrays of safe strings, empty for a complete candidate, no protected details |
+| `bodyHtml` | Complete HTML email with greeting, grounded answer, references table and agent sign-off; empty string for a hold |
+| `evidenceRefs` | Array of objects with string `sourceId`, `title`, `url` and string or null `sourceVersion`; actual permitted evidence used, empty for a hold |
+| `holdReasons` | Array of safe strings, empty for a complete reply; at least one reason for a hold, no protected details |
 
-No recipient, mailbox, authorization, HTML, send command or eligibility boolean is accepted in this result. Unknown/invented source or block references fail closed. `complete` is necessary but not sufficient for sending.
+No recipient, mailbox, authorization, send command or eligibility boolean is accepted in this result. Unknown/invented source references fail closed. `complete` is necessary but not sufficient for sending. Version 1 block-selection results are not compatible: update the agent, parser and validator together before enabling version 2.
 
 ### ValidateHrEmailReply
 
 | Contract area | Requirement |
 |---|---|
 | Inputs | `contextId`, `expectedMessageVersion`, `agentResult` using the schema above |
-| Validation | Current enabled policy/workflow/agent version and required capability IDs, authenticated context, exact request-key coverage, low-risk topic and population, source and block authority/version/effective period, non-conflict, recipient entitlement, no personal/sensitive information, no unresolved gaps, schema and size limits |
-| Deterministic result | Independently verify references and matching rules, build canonical subject/body from the approved catalog, safe fixed templates and source links, escape HTML if transport needs it, allow only approved URLs, no model-authored body |
+| Validation | Current enabled policy/workflow/agent version and required capability IDs, authenticated context, full inquiry coverage, low-risk topic and population, factual support for all claims, source authority/currency/effective period, non-conflict, recipient entitlement, no personal/sensitive information, no unresolved gaps, schema and size limits. Resolve null source versions against authoritative freshness evidence or hold |
+| Canonical result | Validate and sanitize `bodyHtml` server-side with an HTML parser. Allow only `p`, `br`, `strong`, `h3`, `ul`, `ol`, `li`, `table`, `thead`, `tbody`, `tr`, `th`, `td`, `a`; only `href` attributes with verified HTTPS source URLs. Reject scripts, styles, images, forms, event handlers, tracking and unapproved links. Require one reference row per evidence entry, matching citation numbers, source titles and URLs, followed by the agent sign-off. Bind the sanitized body only after content validation; derive the reply subject from the trusted original message |
 | Success outputs | `status=authorized`, server-issued `authorizationId`, `validatedResultId`, `contextId`, `messageVersion`, `recipientBindingId`, `policyVersion`, `payloadDigest`, `evidenceDigest`, `expiresAt` |
 | Binding | Persist immutable canonical subject/rendered body, recipient, mailbox, original message/version, source versions, policy version, digests and expiry under these references |
-| Identity / owner | Authenticated workflow only, HR owns policy/catalog, security/identity owners own current recipient checks, agent cannot mint authorization |
+| Identity / owner | Authenticated workflow only, HR owns policy/knowledge, security/identity owners own current recipient checks, agent cannot mint authorization |
 | Concurrency / idempotency | Repeat same candidate against same current state returns same validation or a new bounded authorization record without sending, invalidate on any changed binding or policy revocation |
 | Other outcomes / async | `held`, `denied`, `conflict`, `unavailable`, `failed`, `unknown`, no send job, no fallback "authorized" object |
 

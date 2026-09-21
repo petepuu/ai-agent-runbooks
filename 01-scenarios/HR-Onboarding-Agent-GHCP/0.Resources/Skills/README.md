@@ -9,7 +9,7 @@ All four skills are imported during standard setup into the same HR agent. The r
 | 1 | [hr-policy-answer](hr-policy-answer/SKILL.md) | Chat guidance and workflow evidence | Approved HR knowledge with caller ACLs or enforced recipient-safe workflow scope |
 | 2 | [hr-onboarding-checklist](hr-onboarding-checklist/SKILL.md) | Chat checklist and workflow evidence | Applicable approved onboarding knowledge, including role changes only where supported |
 | 3 | [hr-email-draft](hr-email-draft/SKILL.md) | Draft-only chat response | Inquiry text and authorized evidence, chat drafting never sends |
-| 4 | [hr-email-reply](hr-email-reply/SKILL.md) | Structured response to authenticated workflow intake | Trusted invocation/context, recipient-safe knowledge, response catalog, deterministic validation/send/status/exception backend configured during setup |
+| 4 | [hr-email-reply](hr-email-reply/SKILL.md) | HTML email with a grounded answer, references table and agent sign-off | Trusted invocation/context, recipient-safe knowledge, answer/HTML validation and workflow-owned sending/status/exception handling configured during setup |
 
 Each skill is standalone with its declared dependencies; none requires a sibling skill. The workflow-reply skill prepares structured evidence/block references, not mail. It does not implicitly enable another capability. No agent mailbox tools are used. All five scenario-defined backend contracts are implemented during setup and called by the surrounding workflow/operator, not imported with a skill.
 
