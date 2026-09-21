@@ -379,7 +379,15 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 ### Step 4-2. Verify via M365 Copilot Prompts
 
-Use the following prompts in **M365 Copilot (Teams)** to verify the connector is working:
+1. Select **New chat** and click **+** to change data sources.
+
+> ![Select New chat and open the data source picker](../Images/038-2.png)
+
+2. Click **Disable all** and select only **ServiceNow**.
+
+> ![Disable all data sources and select only ServiceNow](../Images/038-3.png)
+
+3. Use the following prompts to verify the connector is working:
 
 > Restrict the test to the configured HR source and inspect citations and access. Do not treat a web-content switch as proof of grounding; GHCP has no general-knowledge toggle.
 
@@ -388,6 +396,8 @@ Use the following prompts in **M365 Copilot (Teams)** to verify the connector is
 | Test basic retrieval | `Find the approved employee handbook and wellness articles. List their titles, source links and applicable populations.` |
 | Test thematic analysis | `What do the approved HR articles say about onboarding? Cite each supported step and mark missing details.` |
 | Test content drafting | `Draft a reply about the published wellness benefit. Cite the applicable source; do not send or save an email.` |
+
+> ![Verify the ServiceNow connector using Copilot prompts](../Images/038-4.png)
 
 ---
 
