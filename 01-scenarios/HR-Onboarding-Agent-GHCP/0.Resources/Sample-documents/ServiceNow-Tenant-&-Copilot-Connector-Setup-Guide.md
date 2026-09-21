@@ -368,13 +368,12 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 > ![Connector indexing progress showing items crawled and indexed](../Images/037.png)
 
-2. Navigate to https://copilot.cloud.microsoft/search and log in as a permitted **non-maker employee** in the test group
-3. Type **KB000013\*** in the search, and press **Enter**.
+2. Navigate to https://copilot.cloud.microsoft/search.
+3. Type **KB000013\*** in the search, press **Enter** and from the sources on the right side, select **ServiceNow**.
 
 > ![Search for KB000013* in Microsoft 365 Copilot Search](../Images/038.png)
 
-4. From the sources on the right side, select **ServiceNow**.
-5. Confirm that KB articles from ServiceNow are listed in the results
+4. Confirm that KB articles from ServiceNow are listed in the results
 
 ---
 
