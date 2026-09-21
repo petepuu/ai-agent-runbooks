@@ -441,7 +441,7 @@ For additional troubleshooting, refer to:
 ## Related Resources
 
 - [Step-by-step runbook](../../3.Runbook.md)
-- [Add HR documents to ServiceNow](../../3.Runbook.md#step-1-2-add-hr-documents-to-servicenow-knowledge-base)
+- [Run a full crawl on the ServiceNow connector](../../3.Runbook.md#step-1-2-run-a-full-crawl-on-the-servicenow-copilot-connector)
 - [Release readiness](../Release-readiness.md)
 - [ServiceNow Developer Program](https://developer.servicenow.com)
 - [Microsoft 365 Admin Center](https://admin.microsoft.com)
