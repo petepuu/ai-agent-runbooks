@@ -368,14 +368,13 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 
 > ![Connector indexing progress showing items crawled and indexed](../Images/037.png)
 
-2. Navigate to https://microsoft365.com and log in as a permitted **non-maker employee** in the test group
-3. After clicking **`Search*`** on the navigation, type **`KB0*`** in the search, and press **Enter**
-4. Click **"All Sources"** filter → Select your ServiceNow connector (e.g., `ServiceNow-KB`)
+2. Navigate to https://copilot.cloud.microsoft/search and log in as a permitted **non-maker employee** in the test group
+3. Type **KB000013\*** in the search, and press **Enter**.
+
+> ![Search for KB000013* in Microsoft 365 Copilot Search](../Images/038.png)
+
+4. From the sources on the right side, select **ServiceNow**.
 5. Confirm that KB articles from ServiceNow are listed in the results
-
->![Search results filtered by ServiceNow-KB showing knowledge articles](../Images/038.png)
-
-6. Verify known HR article IDs, source URLs, applicability and versions. Repeat as denied and revoked employees, including parent-base changes. For workflow use, prove recipient-safe filtering before retrieval and current entitlement before send; the workflow connection owner's rights do not establish the email sender's rights.
 
 ---
 
