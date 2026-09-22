@@ -6,14 +6,16 @@ Both skills are imported during standard setup into the same HR agent. The reque
 
 | Matrix order | Capability / upload file | Standard use | Dependency |
 |---|---|---|---|
-| 1 | [hr-onboarding-checklist](hr-onboarding-checklist/SKILL.md) | Chat-only numbered onboarding plan grouped into phases | Supplied new-hire details; generic suggestions and placeholders, no retrieval or operation tools |
-| 2 | [hr-email-reply](hr-email-reply/SKILL.md) | HTML email with a grounded answer, references table and agent sign-off | Trusted invocation/context, recipient-safe knowledge, answer/HTML validation and workflow-owned sending/status/exception handling configured during setup |
+| 1 | [hr-onboarding-checklist.md](hr-onboarding-checklist.md) | Chat-only numbered onboarding plan grouped into phases | Supplied new-hire details and placeholders for unknown specifics |
+| 2 | [hr-email-reply.md](hr-email-reply.md) | HTML email body with a source table | ServiceNow article content already retrieved by the agent; this skill does not search ServiceNow |
 
 Ordinary HR questions and follow-up conversation use global instructions and configured knowledge, not separate skills.
 
-Each skill is standalone with its declared dependencies; none requires a sibling skill. The workflow-reply skill prepares HTML and evidence references in a structured result, not a sent message. It does not implicitly enable another capability. No agent mailbox tools are used. All five scenario-defined backend contracts are implemented during setup and called by the surrounding workflow/operator, not imported with a skill.
+The two Markdown files are the supplied attachments, preserved unchanged. They replace the former skill subfolders. The email skill returns HTML directly, not the previous version 2 JSON envelope. The older JSON/backend contracts and related acceptance cases in the scenario documents are not the output contract of these replacement files.
 
-In the new agent, use **Build > Skills > Add skill > Upload a skill** and upload both `SKILL.md` files separately in matrix order. No ZIP or additional assets are needed for these files. If adding support files later, package `SKILL.md` and those files together in a ZIP and keep references inside that package.
+The supplied checklist still names `hr-servicenow-email-composer`; the email skill included in this scenario is `hr-email-reply`. The email sample also refers to a standard drafting skill that is not included. Review these references before importing; neither reference installs another skill.
+
+In the new agent, use **Build > Skills > Add skill > Upload a skill** and upload `hr-email-reply.md` and `hr-onboarding-checklist.md` separately. No ZIP or additional assets are needed for these files.
 
 Alternatively use **Create from blank**, copying YAML name/description into the corresponding fields and the Markdown body into Instructions, or **Generate with AI**, then inspect the complete result. Validate the installed name and body, not just the upload success message.
 

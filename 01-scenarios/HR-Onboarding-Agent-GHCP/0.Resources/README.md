@@ -2,6 +2,8 @@
 
 ## Contents and implementation status
 
+The current skill downloads are [hr-email-reply.md](Skills/hr-email-reply.md) and [hr-onboarding-checklist.md](Skills/hr-onboarding-checklist.md), preserved from the supplied attachments. They replace the former skill folders. The email skill now outputs HTML directly; older JSON-envelope/backend design notes and tests elsewhere in the scenario require adaptation and must not be treated as the current files' output contract. See the [skill index](Skills/README.md) for remaining reference mismatches in the supplied samples.
+
 | Artifact | Purpose |
 |---|---|
 | [Capability matrix](Capability-matrix.md) | Two runtime skills, entry paths, dependencies and email integration contracts |

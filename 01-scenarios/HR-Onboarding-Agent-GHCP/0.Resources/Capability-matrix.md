@@ -4,10 +4,12 @@
 
 ## Capability inventory
 
-| Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Standard entry path / access / approval |
+The current [downloadable skills](Skills/README.md) replace the former folder-based definitions. The email attachment returns HTML directly. The version 2 JSON schema and backend contracts below describe the earlier design and require adaptation before they can be used with this replacement; they are not implemented by uploading these files.
+
+| Capability ID / linked Markdown file | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Standard entry path / access / approval |
 |---|---|---|---|---|---|
-| [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | Numbered planning suggestions grouped by onboarding phase, placeholders for unknown specifics; not company policy or completed work | User-supplied new-hire details, no tools or retrieval required | Instructions supplied, no external operation tool | Role/start/location/equipment details when known, no sibling skill | Included by default, chat only; no email composition or task writes |
-| [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Compose a grounded HTML email with a references table and agent sign-off for the calling workflow, no agent-issued send | Recipient-safe HR knowledge and trusted inquiry/context | Instructions supplied, no agent mailbox operation tool, version 2 result schema below | Trusted invocation, scoped knowledge, content/HTML validation and workflow-owned send/status/exception backend, no sibling skill | Included by default, authenticated workflow events only, routine policy-authorized replies need no per-message approval |
+| [hr-onboarding-checklist](Skills/hr-onboarding-checklist.md) | Numbered onboarding checklist grouped into phases, placeholders for unknown specifics | Supplied new-hire details, no tools or retrieval required | Supplied Markdown attachment | Role/start/location/equipment details when known | Chat only; no email composition or task writes |
+| [hr-email-reply](Skills/hr-email-reply.md) | Format supplied ServiceNow article content as a short HTML email with a source table | Already retrieved ServiceNow article text, KB numbers and links | Supplied Markdown attachment; HTML output, not JSON | Agent retrieves applicable knowledge before composition; workflow owns sending | Workflow email preparation, no mailbox tool installed by this file |
 
 ## Standard configuration and entry-path boundaries
 
