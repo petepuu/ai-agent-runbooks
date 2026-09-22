@@ -9,7 +9,9 @@ description: "Compose a clear, friendly HTML email answering an HR inquiry from 
 
 Answer routine employee HR questions using approved knowledge, including policies,
 benefits, wellness, leave processes and onboarding. Prepare the email for the
-calling workflow to validate and send. Chat requests remain draft-only.
+calling workflow to validate and send. This skill is for trusted workflow intake
+only; direct chat uses normal conversational answers, not email formatting or this
+skill's JSON result.
 Do not access personal HR records, make individual eligibility decisions or
 perform HR transactions.
 

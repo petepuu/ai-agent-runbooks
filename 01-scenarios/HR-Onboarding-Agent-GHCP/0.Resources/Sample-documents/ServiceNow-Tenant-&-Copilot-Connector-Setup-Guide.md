@@ -395,7 +395,7 @@ Before continuing, confirm that the OIDC integration is **Active**, the client I
 |---|---|
 | Test basic retrieval | `Find the approved employee handbook and wellness articles. List their titles, source links and applicable populations.` |
 | Test thematic analysis | `What do the approved HR articles say about onboarding? Cite each supported step and mark missing details.` |
-| Test content drafting | `Draft a reply about the published wellness benefit. Cite the applicable source; do not send or save an email.` |
+| Test follow-up conversation | `What supporting documents are required for that wellness benefit? Cite the applicable source.` |
 
 > ![Verify the ServiceNow connector using Copilot prompts](../Images/038-4.png?v=d2add109c1c6&refresh=20260921T184148Z)
 

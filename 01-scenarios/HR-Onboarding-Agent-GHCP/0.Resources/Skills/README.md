@@ -9,7 +9,7 @@ Both skills are imported during standard setup into the same HR agent. The reque
 | 1 | [hr-onboarding-checklist](hr-onboarding-checklist/SKILL.md) | Chat checklist and workflow evidence | Applicable approved onboarding knowledge, including role changes only where supported |
 | 2 | [hr-email-reply](hr-email-reply/SKILL.md) | HTML email with a grounded answer, references table and agent sign-off | Trusted invocation/context, recipient-safe knowledge, answer/HTML validation and workflow-owned sending/status/exception handling configured during setup |
 
-Ordinary HR questions and draft-only chat replies use global instructions and configured knowledge, not separate skills.
+Ordinary HR questions and follow-up conversation use global instructions and configured knowledge, not separate skills.
 
 Each skill is standalone with its declared dependencies; none requires a sibling skill. The workflow-reply skill prepares HTML and evidence references in a structured result, not a sent message. It does not implicitly enable another capability. No agent mailbox tools are used. All five scenario-defined backend contracts are implemented during setup and called by the surrounding workflow/operator, not imported with a skill.
 

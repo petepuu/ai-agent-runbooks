@@ -1,6 +1,6 @@
 # Employee HR capability matrix
 
-**Implementation status:** Both standalone runtime skill definitions belong to one standard scenario with interactive chat and autonomous shared-mailbox entry paths. No executable workflow, backend, queue, connector configuration or tenant deployment is supplied. Operators implement and test these dependencies during setup, using isolated mocks before an explicitly authorized real-mail pilot. Included by default describes the design, not a claim of deployment.
+**Implementation status:** Both standalone runtime skill definitions belong to one standard scenario with interactive chat and autonomous user-mailbox entry paths. No executable workflow, backend, queue, connector configuration or tenant deployment is supplied. Operators implement and test these dependencies during setup, using isolated mocks before an explicitly authorized real-mail pilot. Included by default describes the design, not a claim of deployment.
 
 ## Capability inventory
 
@@ -11,11 +11,11 @@
 
 ## Standard configuration and entry-path boundaries
 
-Ordinary HR policy answers and draft-only chat replies are baseline agent behavior governed by global instructions and configured knowledge, not separately imported skills. They retain source, privacy and no-send boundaries.
+Ordinary HR policy answers and follow-up conversation are baseline agent behavior governed by global instructions and configured knowledge, not separately imported skills. They retain source, privacy and no-send boundaries.
 
-Import both skills into the same HR agent. **Interactive chat** uses authenticated employee access to approved knowledge. Employees can ask ongoing HR questions, request onboarding guidance or paste an inquiry for draft-only text. Chat cannot create an authenticated email event or initiate sending.
+Import both skills into the same HR agent. **Interactive chat** uses authenticated employee access to approved knowledge. Employees can ask ongoing HR questions, request onboarding guidance and continue with contextual follow-ups. Respond conversationally, not with email subjects, sign-offs or workflow JSON. Chat cannot create an authenticated email event or initiate sending.
 
-**Autonomous email** uses trusted HR mailbox events calling `hr-email-reply`. Workflows invokes the same published GHCP agent and waits for its result, then deterministic backend logic validates and sends. The agent has **no send, queue or mailbox tools** on either entry path. The reply skill's independent capability is workflow reply preparation; consequential operations belong to the surrounding integration, not additional hidden skills.
+**Autonomous email** uses trusted connected user-mailbox events calling `hr-email-reply`. Workflows invokes the same published GHCP agent and waits for its result, then deterministic backend logic validates and sends. The agent has **no send, queue or mailbox tools** on either entry path. The reply skill's independent capability is workflow reply preparation; consequential operations belong to the surrounding integration, not additional hidden skills.
 
 Release owners approve the audience, low-risk topics, corpus, policy version and operational limits once per approved release/change. **Routine messages require no human approval step or `approvalId`.** Cases outside those limits are held for normal HR handling, not automatically mailed by the model. A chat "send this" never creates trusted intake.
 
@@ -39,7 +39,7 @@ The email starts with a greeting, uses readable paragraphs or lists with numbere
 
 | Operation / surface | Direction and evidence | Scenario use / remaining gate |
 |---|---|---|
-| Office 365 Outlook **When a new email arrives in a shared mailbox (V2)**, `SharedMailboxOnNewEmailV2` | Mailbox event → workflow, [connector reference](https://learn.microsoft.com/en-us/connectors/office365/#when-a-new-email-arrives-in-a-shared-mailbox-%28v2%29) | Qualify HR shared mailbox/folder, delegated connection and event behavior in E1, trigger alone is not sender authentication |
+| Office 365 Outlook **When a new email arrives** | Connected user-mailbox event → workflow, [connector reference](https://learn.microsoft.com/en-us/connectors/office365/) | Qualify connected account/folder, Subject filter **HR question** and event behavior in E1; trigger alone is not sender authentication; no shared mailbox |
 | Workflows **Agent** node, **An existing agent**, **Message** | Workflow → published agent → returned response, [GHCP Workflows guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow#choose-an-existing-agent-for-the-agent-node) | Documented inbound pattern, verify exact published HR GHCP selection, skill execution and identity during E1 setup, no node operation ID invented |
 | **When an agent calls the flow** / **Respond to the agent** | Agent → workflow tool → agent, [tool guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flow-agent) | Opposite direction, not the HR incoming-email invocation path |
 | Outlook **Reply to email (V3)**, `ReplyToV3` | Deterministic backend/workflow → provider, [connector reference](https://learn.microsoft.com/en-us/connectors/office365/#reply-to-email-%28v3%29) | Candidate transport only, bind `messageId`, `mailboxAddress`, exact single `To`, `ReplyAll=false`, no CC/BCC or attachments, qualify status/reconciliation in E1-E2 |
@@ -102,7 +102,7 @@ No recipient, mailbox, authorization, send command or eligibility boolean is acc
 | Contract area | Requirement |
 |---|---|
 | Inputs | `contextId`, `expectedMessageVersion`, `authorizationId`, `validatedResultId`, stable backend-generated `idempotencyKey` |
-| Scope | Send one stored validated reply from the bound HR mailbox to the bound employee, no caller-supplied recipient/body or alternate headers |
+| Scope | Send one stored validated reply from the bound connected user mailbox to the bound employee, no caller-supplied recipient/body or alternate headers |
 | Identity / owner | Narrow integration send authorization, connection owned by mailbox integration owner, never exposed as an agent tool |
 | Last-moment checks | Revalidate enabled policy/version, authorization expiry and digests, context/message version, source currency and recipient entitlement, manual handling/reply state and rate limits, fail closed if checks unavailable |
 | Concurrency | Atomically reserve one durable reply operation per inbound message across keys, workflow versions, retries and manual-handling claims, persist attempt before provider call |
