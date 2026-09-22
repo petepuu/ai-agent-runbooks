@@ -6,7 +6,7 @@
 
 | Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Standard entry path / access / approval |
 |---|---|---|---|---|---|
-| [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | Onboarding as a subset, source-supported day/week steps, no scheduling or completion | Configured approved onboarding knowledge | Instructions supplied, no external operation tool | Applicable onboarding stage and authorized evidence, no sibling skill | Included by default, chat and workflow evidence, no task writes |
+| [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | Numbered planning suggestions grouped by onboarding phase, placeholders for unknown specifics; not company policy or completed work | User-supplied new-hire details, no tools or retrieval required | Instructions supplied, no external operation tool | Role/start/location/equipment details when known, no sibling skill | Included by default, chat only; no email composition or task writes |
 | [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Compose a grounded HTML email with a references table and agent sign-off for the calling workflow, no agent-issued send | Recipient-safe HR knowledge and trusted inquiry/context | Instructions supplied, no agent mailbox operation tool, version 2 result schema below | Trusted invocation, scoped knowledge, content/HTML validation and workflow-owned send/status/exception backend, no sibling skill | Included by default, authenticated workflow events only, routine policy-authorized replies need no per-message approval |
 
 ## Standard configuration and entry-path boundaries

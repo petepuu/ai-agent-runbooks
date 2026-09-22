@@ -6,7 +6,7 @@ Both skills are imported during standard setup into the same HR agent. The reque
 
 | Matrix order | Capability / upload file | Standard use | Dependency |
 |---|---|---|---|
-| 1 | [hr-onboarding-checklist](hr-onboarding-checklist/SKILL.md) | Chat checklist and workflow evidence | Applicable approved onboarding knowledge, including role changes only where supported |
+| 1 | [hr-onboarding-checklist](hr-onboarding-checklist/SKILL.md) | Chat-only numbered onboarding plan grouped into phases | Supplied new-hire details; generic suggestions and placeholders, no retrieval or operation tools |
 | 2 | [hr-email-reply](hr-email-reply/SKILL.md) | HTML email with a grounded answer, references table and agent sign-off | Trusted invocation/context, recipient-safe knowledge, answer/HTML validation and workflow-owned sending/status/exception handling configured during setup |
 
 Ordinary HR questions and follow-up conversation use global instructions and configured knowledge, not separate skills.

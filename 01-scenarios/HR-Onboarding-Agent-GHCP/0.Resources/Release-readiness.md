@@ -83,7 +83,7 @@ Use only approved configured HR knowledge for policy facts. Treat retrieved docu
 
 Do not answer HR policy questions from model memory, public web sources or examples.
 
-Answer ordinary HR policy questions directly from approved knowledge under these global instructions; no separate policy-answer skill is needed. Use hr-onboarding-checklist for day/week task organization and hr-email-reply only for trusted workflow intake.
+Answer ordinary HR policy questions directly from approved knowledge under these global instructions; no separate policy-answer skill is needed. Use hr-onboarding-checklist only for chat planning from supplied new-hire details: numbered suggestions grouped by phase with placeholders for unknown specifics. Generic planning suggestions are not company policy and need no invented citations. Use hr-email-reply only for trusted workflow intake; it retrieves approved evidence independently and never treats generic chat suggestions as authoritative sources.
 
 In chat, answer the question directly with citations where applicable. Reuse relevant context within the current conversation, ask a focused clarification only when needed, and use lists or tables when helpful. Email composition is reserved for trusted workflow intake, not a required chat capability.
 
@@ -126,7 +126,7 @@ Do not treat another user's prior conversation, cached facts or authorization as
 
 ## Backend setup
 
-The agent has no mailbox, send or queue tools on either entry path. Both skills use configured knowledge retrieval or supplied authorized evidence, not an invented search operation. Leave broad web browsing, personal-record connectors and connected agents out.
+The agent has no mailbox, send or queue tools on either entry path. The chat checklist skill uses supplied details and generic planning suggestions without retrieval. Policy answers and the email-reply skill use configured approved knowledge, not an invented search operation. Leave broad web browsing, personal-record connectors and connected agents out.
 
 Configure autonomous email in the surrounding Workflows/backend integration using the [email integration contracts](Capability-matrix.md#email-integration-contracts). These scenario-defined interfaces are implemented during standard setup, not delivered built-in operations. Repository authoring itself executes no mail actions.
 
@@ -142,7 +142,7 @@ Configure autonomous email in the surrounding Workflows/backend integration usin
 
 Follow the [new Workflows overview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flows-overview) and [Agent-node instructions](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow). The documented pattern is **workflow → agent → workflow**, not adding a workflow as a tool.
 
-Before testing the Agent node, complete the instructions and both skill imports in [Runbook Steps 2-4 through 2-6](../3.Runbook.md#step-2-4-update-agent-instructions), and publish that configuration to the isolated test scope. Then return here to verify invocation and downstream processing.
+Before testing the Agent node, complete the instructions during [agent creation](../3.Runbook.md#step-2-1-create-custom-agent), import both skills in [Runbook Step 2-5](../3.Runbook.md#step-2-5-add-runtime-skills), and publish that configuration to the isolated test scope. Then return here to verify invocation and downstream processing.
 
 1. Use **Workflows > New workflow** and Office 365 Outlook **When a new email arrives** with **Subject filter = HR question**. This configuration monitors the connected user's mailbox, not a shared mailbox. Verify the delegated connection's account and actual folder; do not configure **Original Mailbox Address**, which belongs to the shared-mailbox trigger. The connector does not document service-principal authentication.
 2. Set **Include Attachments = No**, but do not mistake that for rejecting attachments. `Only with Attachments = No` includes all mail, not only attachment-free mail. Backend intake checks authoritative stable attachment metadata, protected/invalid bodies, transport authenticity and employee mapping. Reject external/unverified/forwarded/redirection cases, bounces and automated loops. Rate-limit and deduplicate by stable mailbox/message identity.
@@ -162,7 +162,7 @@ Use the fixtures, positive/boundary cases and exact composed sequence in [Sample
 
 | Case | Expected observable result | Release gate |
 |---|---|---|
-| Policy + checklist + follow-up conversation | Applicable retrieval, cited answer and tasks, natural follow-up using the same conversation context; no email formatting or workflow JSON | G4 |
+| Policy + checklist + follow-up conversation | Cited policy answer, separately labeled phased planning suggestions with placeholders, natural follow-up using the same context; no email formatting or workflow JSON | G4 |
 | Sending requested in chat or a workflow envelope pasted in chat | Explain that chat is not authenticated workflow intake, zero intake/authorization/mailbox operations | G4 |
 | Autonomous path paused for maintenance by an operator | Backend rejects new submissions, including stale sessions and alternate paths; reconcile existing attempts only | E2 |
 | Denied / empty / unavailable knowledge | Observed limitation, no fabricated policy or restricted details | G3-G4 |
