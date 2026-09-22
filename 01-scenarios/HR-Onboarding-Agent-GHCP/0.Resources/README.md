@@ -4,7 +4,7 @@
 
 | Artifact | Purpose |
 |---|---|
-| [Capability matrix](Capability-matrix.md) | Four standard capabilities, entry paths, dependencies and email integration contracts |
+| [Capability matrix](Capability-matrix.md) | Two runtime skills, entry paths, dependencies and email integration contracts |
 | [Skill index](Skills/README.md) | Standalone Studio upload files in matrix order |
 | [Runbook](../3.Runbook.md) | Agent instructions, configuration, owner-assigned gates and release procedure |
 | [Release readiness](Release-readiness.md) | Complete global instructions, deployment gates, detailed workflow/backend setup, acceptance and rollback |
@@ -13,7 +13,7 @@
 | [Screenshot placeholders](Images) | Runbook and connector-guide illustrations retained for manual UI replacement |
 | [Acceptance cases](../4.Sample-prompts.md) | Evidence and action expectations, not executed test results |
 
-These files document one standard scenario for all-employee HR chat and autonomous shared-mailbox replies, with onboarding as a subset and all four skills included by default. They are authoring deliverables, not a solution package. Operators configure and test the dependencies during setup; importing a skill creates no connector, tool, workflow, authorization service or exception queue. No runtime skill links to repository-only supporting files.
+These files document one standard scenario for all-employee HR chat and autonomous shared-mailbox replies, with onboarding as a subset and both skills included by default. They are authoring deliverables, not a solution package. Operators configure and test the dependencies during setup; importing a skill creates no connector, tool, workflow, authorization service or exception queue. No runtime skill links to repository-only supporting files.
 
 ## Knowledge and test resources
 
@@ -85,6 +85,6 @@ The [workflow designer guidance](https://learn.microsoft.com/en-us/microsoft-cop
 | [Standard event triggers](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-trigger-event) | Scope explicitly standard harness, author-credential risk | E1: no copied direct GHCP trigger setup / identity and integration owners |
 | [Standard SDK integration](https://learn.microsoft.com/en-us/microsoft-copilot-studio/publication-integrate-web-or-native-app-m365-agents-sdk) | Scope explicitly standard harness | E1: no assumed GHCP invocation fallback / integration owner |
 
-**Design choices:** one HR agent, all-employee audience, onboarding as a subset, interactive chat with draft-only replies, autonomous shared-mailbox replies without per-message approval, all four independent skills imported by default, and memory off initially. **Email integration contracts:** the five scenario-defined workflow/backend interfaces and agent result schema in the matrix, implemented during setup rather than claimed as built-in operations. **Deployment values and checks:** in the runbook and its linked [release-readiness resource](Release-readiness.md#release-gates); no unresolved placeholders are embedded in runtime skills. No actual workflow, source-ACL or tenant testing is claimed.
+**Design choices:** one HR agent, all-employee audience, onboarding as a subset, interactive chat with draft-only replies, autonomous shared-mailbox replies without per-message approval, both independent skills imported by default, and memory off initially. **Email integration contracts:** the five scenario-defined workflow/backend interfaces and agent result schema in the matrix, implemented during setup rather than claimed as built-in operations. **Deployment values and checks:** in the runbook and its linked [release-readiness resource](Release-readiness.md#release-gates); no unresolved placeholders are embedded in runtime skills. No actual workflow, source-ACL or tenant testing is claimed.
 
 [Overview](../1.Overview.md) | [Architecture](../2.Architecture.md) | [Runbook](../3.Runbook.md) | [Prompts](../4.Sample-prompts.md)

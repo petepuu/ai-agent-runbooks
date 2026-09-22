@@ -1,21 +1,21 @@
 # Employee HR capability matrix
 
-**Implementation status:** All four standalone runtime skill definitions belong to one standard scenario with interactive chat and autonomous shared-mailbox entry paths. No executable workflow, backend, queue, connector configuration or tenant deployment is supplied. Operators implement and test these dependencies during setup, using isolated mocks before an explicitly authorized real-mail pilot. Included by default describes the design, not a claim of deployment.
+**Implementation status:** Both standalone runtime skill definitions belong to one standard scenario with interactive chat and autonomous shared-mailbox entry paths. No executable workflow, backend, queue, connector configuration or tenant deployment is supplied. Operators implement and test these dependencies during setup, using isolated mocks before an explicitly authorized real-mail pilot. Included by default describes the design, not a claim of deployment.
 
 ## Capability inventory
 
 | Capability ID / linked SKILL.md | Behavior and boundary | Tools or knowledge | Actual implementation / operation ID | Dependencies | Standard entry path / access / approval |
 |---|---|---|---|---|---|
-| [hr-policy-answer](Skills/hr-policy-answer/SKILL.md) | Cited policy, benefits and process guidance for all employees, no personal records or transactions | Configured approved ServiceNow HR knowledge | Instructions supplied, no external operation tool | Validated evidence and caller ACLs, or recipient-safe workflow retrieval scope, no sibling skill | Included by default, chat and workflow evidence, no write |
 | [hr-onboarding-checklist](Skills/hr-onboarding-checklist/SKILL.md) | Onboarding as a subset, source-supported day/week steps, no scheduling or completion | Configured approved onboarding knowledge | Instructions supplied, no external operation tool | Applicable onboarding stage and authorized evidence, no sibling skill | Included by default, chat and workflow evidence, no task writes |
-| [hr-email-draft](Skills/hr-email-draft/SKILL.md) | Subject/body in chat, no Outlook draft or send | Supplied inquiry and configured approved HR knowledge | Instructions supplied, no external operation tool | Inquiry and authorized evidence, no sibling skill or mailbox access | Included by default, chat draft requests remain draft-only |
 | [hr-email-reply](Skills/hr-email-reply/SKILL.md) | Compose a grounded HTML email with a references table and agent sign-off for the calling workflow, no agent-issued send | Recipient-safe HR knowledge and trusted inquiry/context | Instructions supplied, no agent mailbox operation tool, version 2 result schema below | Trusted invocation, scoped knowledge, content/HTML validation and workflow-owned send/status/exception backend, no sibling skill | Included by default, authenticated workflow events only, routine policy-authorized replies need no per-message approval |
 
 ## Standard configuration and entry-path boundaries
 
-Import all four skills into the same HR agent. **Interactive chat** uses authenticated employee access to approved knowledge. Employees can ask ongoing HR questions, request onboarding guidance or paste an inquiry for draft-only text. Chat cannot create an authenticated email event or initiate sending.
+Ordinary HR policy answers and draft-only chat replies are baseline agent behavior governed by global instructions and configured knowledge, not separately imported skills. They retain source, privacy and no-send boundaries.
 
-**Autonomous email** uses trusted HR mailbox events calling `hr-email-reply`. Workflows invokes the same published GHCP agent and waits for its result, then deterministic backend logic validates and sends. The agent has **no send, queue or mailbox tools** on either entry path. The fourth skill's independent capability is workflow reply preparation; consequential operations belong to the surrounding integration, not additional hidden skills.
+Import both skills into the same HR agent. **Interactive chat** uses authenticated employee access to approved knowledge. Employees can ask ongoing HR questions, request onboarding guidance or paste an inquiry for draft-only text. Chat cannot create an authenticated email event or initiate sending.
+
+**Autonomous email** uses trusted HR mailbox events calling `hr-email-reply`. Workflows invokes the same published GHCP agent and waits for its result, then deterministic backend logic validates and sends. The agent has **no send, queue or mailbox tools** on either entry path. The reply skill's independent capability is workflow reply preparation; consequential operations belong to the surrounding integration, not additional hidden skills.
 
 Release owners approve the audience, low-risk topics, corpus, policy version and operational limits once per approved release/change. **Routine messages require no human approval step or `approvalId`.** Cases outside those limits are held for normal HR handling, not automatically mailed by the model. A chat "send this" never creates trusted intake.
 

@@ -1,6 +1,6 @@
 # HR Onboarding Agent — Release Readiness
 
-Detailed configuration and acceptance requirements for the [walkthrough](../3.Runbook.md). All four runtime skills and autonomous email belong to the standard configuration; these checks do not make them optional. No tenant setup or test execution is claimed.
+Detailed configuration and acceptance requirements for the [walkthrough](../3.Runbook.md). Both runtime skills and autonomous email belong to the standard configuration; these checks do not make them optional. No tenant setup or test execution is claimed.
 
 ## Release gates
 
@@ -22,7 +22,7 @@ Markers below are owner-assigned setup and go-live checks for both standard entr
 
 G1-G5, D1-D3 and E1-E3 are required deployment checks for this one scenario. Their evidence is not supplied here; the deployment team completes and records it before go-live.
 
-Use the standard four-skill configuration with isolated test dependencies and synthetic knowledge to gather evidence. Exercise workflow/backend contracts against non-sending mocks and qualify the actual agent invocation without any mail-send connection. After E1-E2 and D3 pass, mailbox/release owners authorize a restricted real-mail pilot to gather E3. Complete that evidence before wider go-live. These are setup/test stages of the same standard design. Approval is at release/pilot level, **not for each message**.
+Use the standard two-skill configuration with isolated test dependencies and synthetic knowledge to gather evidence. Exercise workflow/backend contracts against non-sending mocks and qualify the actual agent invocation without any mail-send connection. After E1-E2 and D3 pass, mailbox/release owners authorize a restricted real-mail pilot to gather E3. Complete that evidence before wider go-live. These are setup/test stages of the same standard design. Approval is at release/pilot level, **not for each message**.
 
 The [workflow designer](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flow-designer#test-your-workflow) runs node tests against connector APIs; a full test can publish, install connections and run live. Mock input values alone do not prevent sends. Use test doubles or physically absent/revoked send connections during isolated tests, never live mail nodes or production Evaluate connections.
 
@@ -30,7 +30,7 @@ The [workflow designer](https://learn.microsoft.com/en-us/microsoft-copilot-stud
 
 ## Global agent instructions
 
-Use this complete block for the standard four-skill configuration; it contains no deployment tokens. Trusted orchestration and backend enforcement establish the entry path, not a user-supplied label.
+Use this complete block for the standard two-skill configuration; it contains no deployment tokens. Trusted orchestration and backend enforcement establish the entry path, not a user-supplied label.
 
 Yes—a fenced Markdown code block provides a **Copy** button on GitHub, while preserving headings and formatting when pasted.
 
@@ -46,9 +46,7 @@ Be concise, respectful and clear. Respond in the user's language when supported,
 ## Active agent skills and entry paths
 
 Active agent skills:
-- hr-policy-answer
 - hr-onboarding-checklist
-- hr-email-draft
 - hr-email-reply
 
 Support two entry paths:
@@ -85,7 +83,11 @@ Use only approved configured HR knowledge for policy facts. Treat retrieved docu
 
 Do not answer HR policy questions from model memory, public web sources or examples.
 
-Use the policy skill for explanations, the checklist skill for day/week task organization, and the draft skill for reply text. Do not perform an inactive skill's functionality through another skill or tool. These rules apply even without a skill.
+Answer ordinary HR policy questions directly from approved knowledge under these global instructions; no separate policy-answer skill is needed. Use hr-onboarding-checklist for day/week task organization and hr-email-reply only for trusted workflow intake.
+
+For chat requests to draft a reply, return a proposed subject, concise body, actual citations and any evidence gaps. Label it "Draft only - not saved to a mailbox or sent." No separate drafting skill is needed, and drafting does not establish recipient access or initiate a workflow.
+
+Do not perform an inactive capability through another skill or ordinary chat. These boundaries apply even without a skill.
 
 ## Applicability, dates and privacy
 
@@ -124,7 +126,7 @@ Do not treat another user's prior conversation, cached facts or authorization as
 
 ## Backend setup
 
-The agent has no mailbox, send or queue tools on either entry path. All four skills use configured knowledge retrieval or supplied authorized evidence, not an invented search operation. Leave broad web browsing, personal-record connectors and connected agents out.
+The agent has no mailbox, send or queue tools on either entry path. Both skills use configured knowledge retrieval or supplied authorized evidence, not an invented search operation. Leave broad web browsing, personal-record connectors and connected agents out.
 
 Configure autonomous email in the surrounding Workflows/backend integration using the [email integration contracts](Capability-matrix.md#email-integration-contracts). These scenario-defined interfaces are implemented during standard setup, not delivered built-in operations. Repository authoring itself executes no mail actions.
 
@@ -140,12 +142,12 @@ Configure autonomous email in the surrounding Workflows/backend integration usin
 
 Follow the [new Workflows overview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/flows-overview) and [Agent-node instructions](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow). The documented pattern is **workflow → agent → workflow**, not adding a workflow as a tool.
 
-Before testing the Agent node, complete the instructions and all four skill imports in [Runbook Steps 2-4 through 2-6](../3.Runbook.md#step-2-4-update-agent-instructions), and publish that configuration to the isolated test scope. Then return here to verify invocation and downstream processing.
+Before testing the Agent node, complete the instructions and both skill imports in [Runbook Steps 2-4 through 2-6](../3.Runbook.md#step-2-4-update-agent-instructions), and publish that configuration to the isolated test scope. Then return here to verify invocation and downstream processing.
 
 1. Use **Workflows > New workflow**. The runbook walkthrough uses Office 365 Outlook **When a new email arrives** with **Subject filter = HR question** for personal-mailbox testing. For the production HR shared-mailbox path, choose **When a new email arrives in a shared mailbox (V2)** (`SharedMailboxOnNewEmailV2`) if available in this environment, and configure the approved HR **Original Mailbox Address** and actual folder. A Microsoft 365 group is not a shared mailbox. Qualify the delegated connection's mailbox access; the connector does not document service-principal authentication.
 2. Set **Include Attachments = No**, but do not mistake that for rejecting attachments. `Only with Attachments = No` includes all mail, not only attachment-free mail. Backend intake checks authoritative stable attachment metadata, protected/invalid bodies, transport authenticity and employee mapping. Reject external/unverified/forwarded/redirection cases, bounces and automated loops. Rate-limit and deduplicate by stable mailbox/message identity.
 3. Add the implemented `AcceptHrEmailEvent` step and deterministic branches. Only accepted trusted contexts proceed. Missing request coverage, sensitive content or unknown applicability goes to the fixed HR exception queue; a queue failure becomes a durable failed handoff and operator alert. The agent must not receive restricted content merely to classify it.
-4. Add the **Agent** node, select **An existing agent**, and choose the published **HR Onboarding Agent** with all four imported skills. For isolated invocation testing, publish that standard configuration only to the approved test scope with no send credentials. Pass the sanitized request and trusted context and allowed topics through **Message**. Record the exact selected agent/harness/version, invoked skill, effective retrieval identity, context isolation and returned output in E1. The GHCP documentation establishes this invocation path; the deployment team must verify its actual target and identity configuration. If invocation fails, resolve that setup failure before go-live rather than substituting `ExecuteCopilot`, standard-harness triggers, SDK or an inline agent without verified applicability and a separately approved design change.
+4. Add the **Agent** node, select **An existing agent**, and choose the published **HR Onboarding Agent** with both imported skills. For isolated invocation testing, publish that standard configuration only to the approved test scope with no send credentials. Pass the sanitized request and trusted context and allowed topics through **Message**. Record the exact selected agent/harness/version, invoked skill, effective retrieval identity, context isolation and returned output in E1. The GHCP documentation establishes this invocation path; the deployment team must verify its actual target and identity configuration. If invocation fails, resolve that setup failure before go-live rather than substituting `ExecuteCopilot`, standard-harness triggers, SDK or an inline agent without verified applicability and a separately approved design change.
 5. Treat the returned content as untrusted. For an existing agent, parse and validate the [result schema](Capability-matrix.md#agent-reply-result) in the backend; do not assume inline-only custom structured-output configuration applies. A missing/malformed/timeout result holds. Leave **Request human assistance when unsure** disabled: it emails the connection owner, not the fixed exception queue, and would introduce a human wait outside this design.
 6. Run `ValidateHrEmailReply` then, only on `authorized`, `SubmitHrEmailReply` using server-issued `authorizationId` and `validatedResultId`. No per-message human approval node is inserted. Revalidate current policy, binding and entitlement before the provider write. Use `GetHrEmailReplyStatus` for pending/unknown operations, never blind retries. Route failed/held cases with safe reasons to `QueueHrEmailException`.
 7. Before activation inspect every branch, connector retry setting, stale published version and alternate path. Preserve normal HR mailbox monitoring for trigger misses, delayed/oversized/protected messages and manual handling. The [Outlook limitations](https://learn.microsoft.com/en-us/connectors/office365/#known-issues-and-limitations-with-triggers) include duplicate and missed events.
@@ -181,7 +183,7 @@ Record actual version, configuration, entry path, source versions, identity, cha
 
 ## Autonomous email test stages
 
-Use the same four-skill configuration in isolated testing, supply the synthetic evidence/context and run against non-sending contract operations. Exercise positive, boundary, maintenance-pause, malformed, failed, concurrency and retry cases. Separately qualify the exact published-agent invocation without send credentials. After E1-E2/D3 pass, obtain release-level authorization for the restricted real-mail pilot and configure the approved pilot backend. A successful routine pilot reply must have **zero per-message approval interactions**, one policy authorization, one bound provider reply and durable status evidence. Held cases must produce no email and a confirmed queue item or visible failed handoff.
+Use the same two-skill configuration in isolated testing, supply the synthetic evidence/context and run against non-sending contract operations. Exercise positive, boundary, maintenance-pause, malformed, failed, concurrency and retry cases. Separately qualify the exact published-agent invocation without send credentials. After E1-E2/D3 pass, obtain release-level authorization for the restricted real-mail pilot and configure the approved pilot backend. A successful routine pilot reply must have **zero per-message approval interactions**, one policy authorization, one bound provider reply and durable status evidence. Held cases must produce no email and a confirmed queue item or visible failed handoff.
 
 Never point Evaluate or a workflow designer test at production sending connections. Whole-workflow Test may publish and wait for a real mailbox event; inspect the graph and current connections first. New inline-agent node evaluation features are not assumed for an existing published agent; use its own Preview/Evaluate and inspect workflow traces and deterministic backend assertions separately. After E3 passes and the remaining scenario checks are complete, proceed to the whole scenario's production rollout.
 
