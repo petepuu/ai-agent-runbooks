@@ -46,7 +46,7 @@ The repository organizes AI Agent scenarios by business domain and agent type. T
 | Domain | Agent Name | Description |
 |--------|------------|-------------|
 | Human Resources | HR Onboarding Agent | Guides new employees through onboarding tasks, policy acknowledgments, and first-day workflows |
-| Human Resources | [HR Onboarding Agent](../01-scenarios/HR-Onboarding-Agent-GHCP/1.Overview.md) | One standard design with four GHCP skills for all-employee HR guidance, onboarding, draft-only chat and autonomous shared-mailbox Workflows replies without per-message approval; dependencies are configured and tested during setup |
+| Human Resources | [HR Onboarding Agent](../01-scenarios/HR-Onboarding-Agent-GHCP/1.Overview.md) | Normal HR conversation, onboarding plans and connected user-mailbox replies using two GHCP skills and an Outlook workflow; development walkthrough with explicit operational limitations |
 | Employee Experience | [Employee Self-Service (GHCP)](../01-scenarios/Employee-Self-Service-Agent-GHCP/1.Overview.md) | Draft Copilot Studio GitHub Copilot harness scenario with read-only HR/IT guidance and request navigation; own IT request status is a proposed, OFF caller-authorized extension |
 
 Additional scenarios across IT & Operations, Customer Service, Finance, Legal, and Sales domains are planned for future releases.

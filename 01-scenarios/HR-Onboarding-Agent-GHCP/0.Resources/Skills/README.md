@@ -98,8 +98,8 @@ The useful inputs are the employee's question, their first name when available, 
 
 1. Read the supplied articles and identify the content that answers the question.
 2. Write a short, friendly answer using only that content.
-3. Include a source-supported next step and numbered references.
-4. Add an HTML source table with links to the articles used.
+3. Include a next step only when supported, and number references in first-use order.
+4. Add an HTML source table with links to the articles used, omitting it when no usable sources exist.
 5. Return **HTML only** for the workflow's email body, without exposing the input JSON.
 
 If the articles do not cover part of the question, the skill instructs the agent to say so rather than invent an answer. That instruction does not itself implement an exception queue, a hold status or a send authorization check.
@@ -108,12 +108,12 @@ If the articles do not cover part of the question, the skill instructs the agent
 
 | Part | Content |
 |---|---|
-| Greeting | Employee's first name when available; configure a neutral fallback rather than inventing a name |
+| Greeting | Employee's first name when supplied; otherwise **Hello,** |
 | Question | The employee's question |
 | Answer | A short, plain-language explanation supported by the supplied articles |
-| Next step | An action from the source, not an invented process |
+| Next step | An action from the source; omit if unsupported |
 | Sources | A real HTML table containing each cited article once, with reference number, KB number, title and clickable link |
-| Closing | A courtesy phrase and configured HR sender name; the supplied template currently uses `[HR team]` |
+| Closing | **Kind regards,** followed by **HR Onboarding Agent** |
 
 HTML source text must be escaped, and citation numbers must match the correct article. Keep source links tied to the retrieved evidence. The source table makes the answer traceable; it does not independently prove the answer is correct or that the recipient may read the source.
 
@@ -127,13 +127,13 @@ The current [walkthrough](../../3.Runbook.md#step-2-3-add-workflow-for-autonomou
 | **Subject** | **Answer to your HR inquiry** |
 | **Body** | **Result** from the Agent node |
 
-Although the skill's Purpose mentions "subject + body," its actual output template is an HTML body. In this walkthrough the subject is set separately in the Outlook action. An HTML result is prepared content, not evidence that an email was sent; verify the workflow action's outcome separately.
+The skill returns the HTML body only. The subject is set separately in the Outlook action. An HTML result is prepared content, not evidence that an email was sent; verify the workflow action's outcome separately.
 
 Customize the greeting, length, source-table columns and closing in the downloaded file. Preserve source-only factual content and HTML escaping. Decide how to handle missing names, absent next steps and unsupported questions before enabling delivery; do not leave template placeholders in a real email.
 
 ## Uploading and updating the skills
 
-1. Download both Markdown files and review their contents, including the sample issues listed below.
+1. Download both Markdown files and review their scope, examples and the customization notes below.
 2. In the agent, select **Skills**, then **Upload a skill**, or drag and drop the files into the upload area. Upload each file separately; no ZIP is needed for these standalone files.
 3. Inspect the imported name, description and complete instructions. Upload success alone does not confirm correct routing or output.
 4. To change a skill, edit the downloaded Markdown file locally, then use **Replace** to upload the revised file.
@@ -158,24 +158,23 @@ These are suggested checks, not recorded test results.
 
 Test composition without sending first. Workflow actions can call real services; a test message or sample input does not make a live send action harmless. Use an authorized test recipient and inspect the workflow before testing actual delivery.
 
-## Current sample limitations
+## Customization and limitations
 
-The two skill files are the supplied attachments, preserved unchanged. This README explains their behavior; it does not silently repair their examples or install missing dependencies.
+The supplied samples have been aligned with this scenario: the checklist names the
+included email skill, both HTML examples use four source columns, citations point to
+the correct articles, and the email closing uses **HR Onboarding Agent**.
 
-| Item to review | Detail |
-|---|---|
-| Checklist email-skill reference | The checklist names `hr-servicenow-email-composer`, but the included email skill is `hr-email-reply`. Correct that reference in the file you import. |
-| Non-HR drafting reference | The email file mentions a "standard email drafting skill"; no such skill is included in this scenario. |
-| Source-table example | The email template omits the Ref column, while the worked example has four headers but only three cells per source row. Align the template and example to Ref, KB number, Title and Link. |
-| Citation mapping | In the email worked example, the pay claim and application next step point to the wrong article numbers. Match each claim to the article that actually supports it. |
-| Sender and policy examples | Replace `[HR team]` with the approved sender label. Sample names, links and parental-leave values are examples, not verified company policy or individual entitlement. |
-| Earlier JSON design | The replacement email skill returns HTML directly, not the earlier version 2 JSON envelope. Older JSON/backend contracts and related acceptance cases require adaptation; they are not this file's output contract. |
+- Sample names, links and parental-leave values illustrate formatting, not current company policy or personal entitlement.
+- Keep the neutral greeting and omission rules for missing names, next steps and sources; never send unresolved template placeholders.
+- The checklist uses placeholders intentionally for unknown planning details and must label generic tasks as suggestions.
+- These are model instructions, not a factual validator, HTML sanitizer, source-permission filter or send-blocking mechanism.
+- Updating files in Git does not update the live agent. Replace the imported skills, save and republish, then repeat the non-sending checks before enabling the email workflow.
 
 ## Related resources
 
 | Resource | Purpose |
 |---|---|
 | [Runbook: Add Runtime Skills](../../3.Runbook.md#step-2-4-add-runtime-skills) | Screenshot-based download, upload, replacement and save steps |
-| [Capability matrix](../Capability-matrix.md) | Capability boundaries and separately documented integration design; note the earlier JSON-contract limitations above |
-| [Sample prompts](../../4.Sample-prompts.md) | HR questions and scenario examples; older JSON-envelope cases do not apply unchanged to the current HTML formatter |
+| [Capability matrix](../Capability-matrix.md) | Capability boundaries, actual workflow mappings and operational limitations |
+| [Sample prompts](../../4.Sample-prompts.md) | HR questions, HTML output examples and chat/workflow acceptance checks |
 | [Microsoft: Upload existing skills](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/skills-add-existing) | Product guidance for importing skill files |
