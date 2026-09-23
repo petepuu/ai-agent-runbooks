@@ -6,7 +6,7 @@
 
 | Capability / linked Markdown file | Behavior and boundary | Tools or knowledge | Dependencies | Entry path |
 |---|---|---|---|---|
-| [hr-onboarding-checklist](Skills/hr-onboarding-checklist.md) | Numbered onboarding planning suggestions grouped into phases, with placeholders for unknown details; no task writes | No tools; supplied new-hire details | Name, role, start date, location and equipment needs when known | Interactive chat |
+| [hr-onboarding-checklist](Skills/hr-onboarding-checklist.md) | Search configured knowledge, then return a phased numbered onboarding checklist with placeholders for unknown details; no task writes | Configured agent knowledge and supplied new-hire details; no action tools | Available onboarding knowledge; name, role, start date, location and equipment needs when known | Interactive chat, including general onboarding questions |
 | [hr-email-reply](Skills/hr-email-reply.md) | Short HTML email body with numbered citations and a source table; no sending | No tools; article content already retrieved by the agent | Employee question and applicable ServiceNow article text, KB numbers, titles and links | Workflow response preparation |
 
 Ordinary HR policy answers and follow-up conversation use global instructions and configured knowledge, not a separate skill. Skills guide behavior; they do not create connections, grant permissions or enforce workflow controls.

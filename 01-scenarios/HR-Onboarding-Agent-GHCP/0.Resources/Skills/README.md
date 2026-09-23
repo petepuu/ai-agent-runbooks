@@ -6,7 +6,7 @@ These two Markdown files provide reusable task instructions for **HR Onboarding 
 
 | Capability / upload file | Standard use | Dependency |
 |---|---|---|
-| [hr-onboarding-checklist.md](hr-onboarding-checklist.md) | Chat-only numbered onboarding plan grouped into phases | Supplied new-hire details and placeholders for unknown specifics |
+| [hr-onboarding-checklist.md](hr-onboarding-checklist.md) | Search knowledge and return a phased, numbered onboarding plan in chat | Configured onboarding knowledge, supplied details and placeholders for unknown specifics |
 | [hr-email-reply.md](hr-email-reply.md) | HTML email body with a source table | ServiceNow article content already retrieved by the agent; this skill does not search ServiceNow |
 
 Download the [onboarding checklist](https://raw.githubusercontent.com/petepuu/ai-agent-runbooks/main/01-scenarios/HR-Onboarding-Agent-GHCP/0.Resources/Skills/hr-onboarding-checklist.md) or [email reply](https://raw.githubusercontent.com/petepuu/ai-agent-runbooks/main/01-scenarios/HR-Onboarding-Agent-GHCP/0.Resources/Skills/hr-email-reply.md) as raw Markdown. If the browser displays text, press **Ctrl+S** and keep the corresponding `.md` filename.
@@ -44,11 +44,11 @@ Global instructions must keep these paths distinct. Ordinary chat should not bec
 
 This skill turns the details supplied by a manager, HR colleague or new hire into a readable onboarding plan. It uses the person's **name, role, start date, location, remote/office arrangement and equipment needs** when available.
 
-It does not look up policy or employee records. The standard onboarding areas in its example are planning suggestions, not evidence that a company requires those tasks. Unknown company-specific details stay as placeholders such as `[manager name]`, `[HR portal]` and `[CRM tool]`.
+It also supports general questions such as **What is the onboarding process?** The supplied version requires a search of the agent's configured knowledge before answering either type of request. It does not access employee records or perform tasks. Its sample tasks are not evidence of company requirements; unknown details stay as placeholders such as `[manager name]`, `[HR portal]` and `[CRM tool]`.
 
 ### How it works
 
-1. Read the known details from the request.
+1. Read the known details and search configured agent knowledge before answering.
 2. Group tasks into **Before Day 1**, **Day 1**, **First Week** and **First Month**, dropping phases with no content.
 3. Number items sequentially within each phase, restarting at **1** for the next phase.
 4. Use placeholders instead of guessing tools, portals, contacts or other missing specifics.
@@ -148,7 +148,7 @@ These are suggested checks, not recorded test results.
 | Check | Expected result |
 |---|---|
 | Ask a normal HR question, then a follow-up | Natural conversation using applicable knowledge; no email formatting |
-| Describe a new hire with role, location and laptop needs | A phased checklist with numbering restarted per phase |
+| Describe a new hire, or ask "What is the onboarding process?" | Knowledge retrieval followed by a phased checklist with numbering restarted per phase |
 | Omit the manager's name and portal URL | Neutral placeholders, not invented company details |
 | Ask the checklist to order equipment | No actual order or claim that provisioning completed |
 | Supply an HR question and authorized article text to email composition | HTML body with a supported answer, source references and closing |
@@ -160,9 +160,10 @@ Test composition without sending first. Workflow actions can call real services;
 
 ## Customization and limitations
 
-The supplied samples have been aligned with this scenario: the checklist names the
-included email skill, both HTML examples use four source columns, citations point to
-the correct articles, and the email closing uses **HR Onboarding Agent**.
+The checklist is the latest supplied version, including separate examples for
+new-hire details and a general onboarding question. Both require a knowledge search.
+The email skill's HTML examples use four source columns, matching citations and the
+**HR Onboarding Agent** closing.
 
 - Sample names, links and parental-leave values illustrate formatting, not current company policy or personal entitlement.
 - Keep the neutral greeting and omission rules for missing names, next steps and sources; never send unresolved template placeholders.
