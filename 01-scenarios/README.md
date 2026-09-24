@@ -29,6 +29,12 @@ Each scenario folder is self-contained and follows a standardized structure so t
 │   ├── 2.Architecture.md
 │   ├── 3.Runbook.md
 │   └── 4.Sample-prompts.md
+├── 📂 Copilot-License-Lifecycle-Agent-GHCP/ ← 📝 Draft; tenant validation required
+│   ├── 📂 0.Resources/                   ← Capability matrix and ten runtime skills
+│   ├── 1.Overview.md
+│   ├── 2.Architecture.md
+│   ├── 3.Runbook.md
+│   └── 4.Sample-prompts.md
 ├── 📂 CRM-Account-Planning-Cowork-Agent/   ← ✅ Available
 │   ├── 📂 0.Resources/
 │   ├── 1.Overview.md
@@ -170,6 +176,7 @@ Below is the standard structure, using **HR Onboarding Agent** as the reference 
 |----------|------|-------------|----------|--------|
 | [Autonomous-Invoice-Orchestration-Ageny](./Autonomous-Invoice-Orchestration-Agent/) | Payment Approval Automation | Automates the payment request and approval process.| Microsoft Copilot Studios, Power Automate|✅ Available |
 | [Copilot-License-Lifecycle-Agent](./Copilot-License-Lifecycle-Agent/) | IT Operations / FinOps for Copilot | Copilot Studio agent that manages the Microsoft 365 Copilot licence estate — inventory, dormancy detection, notification and reclaim with approvals, and waitlist management — with a full audit trail in Dataverse. Also works well as a Copilot Studio enablement asset for customer teams. | Microsoft Copilot Studio, Power Automate, Microsoft Graph, Dataverse | ✅ Available |
+| [Copilot-License-Lifecycle-Agent-GHCP](./Copilot-License-Lifecycle-Agent-GHCP/1.Overview.md) | IT Operations / FinOps for Copilot | Ten runtime skills for licence reporting, waitlist intake/review, confirmed notifications, reclaim, assignment, cancellation and disputes. Scoped backend contracts preserve human approvals and audit; implementation and tenant validation are required. | Microsoft Copilot Studio, GitHub Copilot harness, scoped MCP tools, Power Automate, Microsoft Graph, Dataverse | 📝 Draft |
 | [CRM-Account-Planning-Cowork-Agent](./CRM-Account-Planning-Cowork-Agent/) | Sales Productivity / Revenue Operations | Copilot Cowork connected to the CRM through a purpose-built MCP server that exposes custom objects and composed queries the standard connector cannot reach. Produces branded account plans, QBR decks, and pipeline models as Office artifacts, with approval gates on write-back. | Microsoft 365 Copilot Cowork, MCP server, Salesforce, Organization Asset Library | ✅ Available |
 | [Client-Meeting-Preparation-Agent](./Client-Meeting-Preparation-Agent/) | Client Advisory / Relationship Management | Pre-meeting briefings and post-meeting file notes for advisers, relationship managers, and account teams. Assembles positions, relationship history, outstanding items, and watch-outs from the book of record, correspondence, and the client file — with hard advice boundaries, information barrier enforcement, and full citation. Generalises across wealth, banking, insurance, subscriptions, and durable assets. | Microsoft 365 Copilot, Copilot connectors or MCP server, SharePoint, Microsoft Purview | ✅ Available |
 | [Contract-and-Legal-Intelligence-Agent](./Contract-and-Legal-Intelligence-Agent/) | Legal Operations / Contract Lifecycle | Clause extraction, risk flagging against documented standard positions, tracked-changes redlines, and evidence retrieval across a document corpus — with a hard legal-advice boundary and a qualified human on every decision. Covers DPA and NDA review, negotiation support, resolutions, and claim evidence assembly. | Copilot Studio, Microsoft Foundry / Document Intelligence, SharePoint, Word | ✅ Available |
