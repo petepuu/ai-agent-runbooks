@@ -34,24 +34,23 @@ Assemble a JSON object with exactly these keys, using the values extracted/compu
 
 | Key | Source |
 |---|---|
-| invoiceNumber | extracted InvoiceNumber |
-| vendorName | extracted VendorName |
-| vendorId | extracted VendorID |
-| invoiceDate | extracted InvoiceDate |
-| dueDate | extracted DueDate |
-| purchaseOrderNumber | extracted PurchaseOrderNumber |
-| subtotal | extracted Subtotal |
-| tax | extracted Tax |
-| totalAmountDue | extracted TotalAmountDue |
-| currency | extracted Currency |
-| glCode | extracted AccountingGLCode |
-| decision | computed Decision |
-| issues | computed IssuesFound |
-| summary | computed Summary |
+| invoiceNumber | InvoiceNumber (Table column) |
+| vendorName | VendorName (Table column) |
+| vendorId | VendorID (Table column) |
+| invoiceDate | InvoiceDate (Table column) |
+| dueDate | DueDate (Table column) |
+| purchaseOrderNumber | PurchaseOrderNumber (Table column) |
+| subtotal | Subtotal (Table column) |
+| tax | Tax (Table column) |
+| totalAmountDue | TotalAmountDue (Table column) |
+| currency | Currency (Table column) |
+| glCode | AccountingGLCode (Table column) |
+| decision | Decision (Table column) |
+| issues | IssuesFound (Table column) |
+| summary | Summary (Table column) |
 | emailSubject | passed in the prompt |
 | emailSender | passed in the prompt |
-| sourcePdfPath | passed in the prompt |
-| sourcePdfLink | passed in the prompt |
+| sourceLink | SourceLink (Table column) |
 
 Leave any field that was not found on the invoice as an empty string, matching how it was recorded in the Dataverse row. Do not add, rename, or drop keys.
 
