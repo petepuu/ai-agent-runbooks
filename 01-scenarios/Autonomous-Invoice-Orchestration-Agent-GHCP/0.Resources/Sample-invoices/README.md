@@ -7,7 +7,7 @@ Four synthetic, single-page invoices for testing the Invoice Processing Agent, a
 | `Fabrikam-INV-2026-0417-complete.pdf` | Complete invoice with every field printed | Decision `READY_FOR_APPROVAL`, no issues, approval starts |
 | `Fabrikam-INV-2026-0418-missing-po.pdf` | Same layout, no purchase order number | Purchase Order Number missing, Decision `NEEDS_REVIEW`, email to Finance, no approval |
 | `Complete_Test_Invoice_READY_FOR_APPROVAL.pdf` | Complete invoice with a table layout, line items and an accounting section | Decision `READY_FOR_APPROVAL`, no issues, approval starts |
-| `Incomplete_Test_Invoice_NEEDS_REVIEW.pdf` | Exception path: the invoice date, due date, accounting/GL code and billed-to legal entity are printed as `NOT PROVIDED`, and no vendor ID or purchase order is printed | Decision `NEEDS_REVIEW`, Issues Found lists vendor ID, invoice date, due date, purchase order and GL code, email to Finance with the sender in CC, no approval |
+| `Incomplete_Test_Invoice_NEEDS_REVIEW.pdf` | Exception path: the invoice date, due date, accounting/GL code and billed-to legal entity are printed as `NOT PROVIDED`, and no vendor ID or purchase order is printed | Decision `NEEDS_REVIEW`, Issues Found lists vendor ID, invoice date, due date, purchase order and GL code, email to Finance with the submitter in CC, no approval |
 
 The file names of the second pair state the expected decision. The agent must decide from the content of the PDF, not from its name.
 
