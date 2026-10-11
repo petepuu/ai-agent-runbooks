@@ -120,26 +120,26 @@ One table, **Auto Invoice Review**, in the **Autonomous Invoice Orchestration** 
 
 | Display Name | Data Type | Options | Skill field | Set by |
 |---|---|---|---|---|
-| Accounting GL Code | Text | 100 | `GL_CODE` | invoice-extraction-review |
+| Accounting GL Code | Text | 100 | `AccountingGLCode` | invoice-extraction-review |
 | Auto Invoice Review ID | GUID | Native primary key. Created by Dataverse, not in the Copilot prompt | — | Dataverse |
 | Billed to Legal Entity | Boolean | Yes/No | — | No skill |
-| Currency | Text | 100 | `CURRENCY` | invoice-extraction-review |
-| Decision | Choice | NEEDS_REVIEW, READY_FOR_APPROVAL | `DECISION` | invoice-extraction-review |
-| Due Date | Date Only | — | `DUE_DATE` | invoice-extraction-review |
-| Invoice Date | Date Only | — | `INVOICE_DATE` | invoice-extraction-review |
-| Invoice Number | Text | 100 | `INVOICE_NUMBER` | invoice-extraction-review |
-| Issues Found | Multiline Text | At least 4000 (raised after the table is saved) | `ISSUES_FOUND` | invoice-extraction-review |
-| Purchase Order Number | Text | 100 | `PURCHASE_ORDER_NUMBER` | invoice-extraction-review |
-| Review Link | URL | 200 | `REVIEW_LINK` | save-invoice-json-to-sharepoint |
-| Source Link | URL | 200 | `SOURCE_LINK` | invoice-extraction-review |
-| Subtotal | Decimal | Precision 2 | `SUBTOTAL` | invoice-extraction-review |
-| Summary | Multiline Text | 2000 | `SUMMARY` | invoice-extraction-review |
-| Tax | Decimal | Precision 2 | `TAX` | invoice-extraction-review |
-| Total Amount Due | Decimal | Precision 2 | `TOTAL_AMOUNT_DUE` | invoice-extraction-review |
-| Vendor ID | Text | 100 | `VENDOR_ID` | invoice-extraction-review |
-| Vendor Name | Text | 100 | `VENDOR_NAME` | invoice-extraction-review |
+| Currency | Text | 100 | `Currency` | invoice-extraction-review |
+| Decision | Choice | NEEDS_REVIEW, READY_FOR_APPROVAL | `Decision` | invoice-extraction-review |
+| Due Date | Date Only | — | `DueDate` | invoice-extraction-review |
+| Invoice Date | Date Only | — | `InvoiceDate` | invoice-extraction-review |
+| Invoice Number | Text | 100 | `InvoiceNumber` | invoice-extraction-review |
+| Issues Found | Multiline Text | At least 4000 (raised after the table is saved) | `IssuesFound` | invoice-extraction-review |
+| Purchase Order Number | Text | 100 | `PurchaseOrderNumber` | invoice-extraction-review |
+| Review Link | URL | 200 | `ReviewLink` | save-invoice-json-to-sharepoint |
+| Source Link | URL | 200 | `SourceLink` | invoice-extraction-review |
+| Subtotal | Decimal | Precision 2 | `Subtotal` | invoice-extraction-review |
+| Summary | Multiline Text | 2000 | `Summary` | invoice-extraction-review |
+| Tax | Decimal | Precision 2 | `Tax` | invoice-extraction-review |
+| Total Amount Due | Decimal | Precision 2 | `TotalAmountDue` | invoice-extraction-review |
+| Vendor ID | Text | 100 | `VendorID` | invoice-extraction-review |
+| Vendor Name | Text | 100 | `VendorName` | invoice-extraction-review |
 
-- `invoice-extraction-review` writes 15 columns and `save-invoice-json-to-sharepoint` writes the Review Link. No skill sets Billed to Legal Entity, so it stays empty until a skill is extended. The skill's `INVOICE_NUMBER` field holds the invoice number as printed and is saved in the Invoice Number column.
+- `invoice-extraction-review` writes 15 columns and `save-invoice-json-to-sharepoint` writes the Review Link. No skill sets Billed to Legal Entity, so it stays empty until a skill is extended. The skill's `InvoiceNumber` field holds the invoice number as printed and is saved in the Invoice Number column.
 - Every column is optional. Any business-required flag (a red `*` in the data grid) must be cleared, so an invoice that lacks a value is still saved with Decision `NEEDS_REVIEW` and Finance can follow up.
 - Copilot chooses the table's primary name column from the 17 listed columns, most likely Vendor Name. The skills never read or write by it, and whether a row is still created when that column is empty is `[VERIFY]` G4.
 - The Copilot prompt in Step 2-2 of the Runbook asks for 17 columns. The Auto Invoice Review ID is the table's native primary key that Dataverse creates itself, and its display name in the maker portal can be the table name. This scenario always calls it Auto Invoice Review ID.

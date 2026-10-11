@@ -34,20 +34,20 @@ Assemble a JSON object with exactly these keys, using the values extracted/compu
 
 | Key | Source |
 |---|---|
-| invoiceNumber | extracted INVOICE_NUMBER |
-| vendorName | extracted VENDOR_NAME |
-| vendorId | extracted VENDOR_ID |
-| invoiceDate | extracted INVOICE_DATE |
-| dueDate | extracted DUE_DATE |
-| purchaseOrderNumber | extracted PURCHASE_ORDER_NUMBER |
-| subtotal | extracted SUBTOTAL |
-| tax | extracted TAX |
-| totalAmountDue | extracted TOTAL_AMOUNT_DUE |
-| currency | extracted CURRENCY |
-| glCode | extracted GL_CODE |
-| decision | computed DECISION |
-| issues | computed ISSUES_FOUND |
-| summary | computed SUMMARY |
+| invoiceNumber | extracted InvoiceNumber |
+| vendorName | extracted VendorName |
+| vendorId | extracted VendorID |
+| invoiceDate | extracted InvoiceDate |
+| dueDate | extracted DueDate |
+| purchaseOrderNumber | extracted PurchaseOrderNumber |
+| subtotal | extracted Subtotal |
+| tax | extracted Tax |
+| totalAmountDue | extracted TotalAmountDue |
+| currency | extracted Currency |
+| glCode | extracted AccountingGLCode |
+| decision | computed Decision |
+| issues | computed IssuesFound |
+| summary | computed Summary |
 | emailSubject | passed in the prompt |
 | emailSender | passed in the prompt |
 | sourcePdfPath | passed in the prompt |
@@ -78,8 +78,8 @@ Use the Create SharePoint File tool to create the file with:
 
 ## Step 6 - Create sharing link
 
-Use 'CreateSharingLink' tool with file's ItemId, the SharePoint site URL and the document library resolved in Step 2 to create sharing link to be used as file's REVIEW_LINK
+Use 'CreateSharingLink' tool with file's ItemId, the SharePoint site URL and the document library resolved in Step 2 to create sharing link to be used as file's ReviewLink
 
 ## Step 7 — Update Dataverse record
 
-Update table record REVIEW_LINK with sharing link
+Update table record ReviewLink with sharing link
