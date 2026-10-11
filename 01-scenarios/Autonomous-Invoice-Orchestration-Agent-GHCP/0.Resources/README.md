@@ -7,7 +7,7 @@
 | [Capability-matrix.md](Capability-matrix.md) | Two included capabilities, the workflow-owned operations, the JSON response contract, the decision rule, the Dataverse data model and the limits |
 | [Skills/README.md](Skills/README.md) | Runtime import order, tool dependencies and upload notes |
 | `Skills/<capability-id>/SKILL.md` | Standalone skill instructions, not tools or connection installers |
-| [Sample-invoices](Sample-invoices/README.md) | Two synthetic fixture invoices and what each one tests |
+| [Sample-invoices](Sample-invoices/README.md) | Four synthetic fixture invoices and what each one tests |
 | [Sample Prompts](../4.Sample-prompts.md) | Acceptance cases, with every result recorded as Not run |
 
 Delivered assets are documentation, runtime definitions and synthetic fixtures only. No deployed agent, workflow export, connection, service credentials, real invoice data or successful tenant test evidence is included. Keep operational evidence and environment values in the organization's access-controlled delivery record.
