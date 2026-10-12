@@ -9,7 +9,7 @@ This folder holds the **unmanaged** Power Platform solution **Autonomous Invoice
 | Dataverse table | **Auto Invoice Review**, with the 18 columns and the native row ID of the [data model](../Capability-matrix.md#dataverse-data-model) |
 | Environment variables | `FinanceEmailAddress`, `ReviewsFolderPath`, `SourceFolderPath`, `SharePointDocumentLibrary` and `SharePointSiteURL`. `SourceFolderPath` and `ReviewsFolderPath` have the default values `/Invoices/Sources` and `/Invoices/Reviews` |
 | Connection references | **SharePoint** (two), **Work IQ SharePoint MCP**, **Microsoft Dataverse**, **Office 365 Users**, **Office 365 Outlook**, **Standard approvals** and **Agents** |
-| Workflows | **Invoice Intake** and **Invoice Approval**, both exported turned on |
+| Workflows | **Invoice Approval** and **Invoice Intake**. After the import only **Invoice Approval** is turned on, and **Invoice Intake** must be published and turned on explicitly |
 | Agent | **Invoice Processing Agent**, with its instructions, the model Claude Sonnet 5, the tools SharePoint MCP, Dataverse MCP, `CreateFile`, `CreateSharingLink` and `GetMyProfile`, and the [invoice-extraction-review](../Skills/invoice-extraction-review/SKILL.md) skill |
 
 ## What it does not contain
