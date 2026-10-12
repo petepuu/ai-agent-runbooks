@@ -57,7 +57,7 @@ Do not reduce a gate to an instruction telling the model to be careful. The deci
 
 ## Design choices and operational records
 
-- Two workflows and one agent. The intake workflow calls the agent and ends there. The agent has no end-user channel, calls no workflow and has no email or approval tool. The Dataverse row that the agent writes is the only link to the approval workflow.
+- Two workflows and one agent. The intake workflow calls the agent and ends there. A user can also upload an invoice in a chat with the agent in Copilot Studio, and the agent is not published to Teams, Microsoft 365 Copilot or any other end-user channel. The agent calls no workflow and has no email or approval tool. The Dataverse row that the agent writes is the only link to the approval workflow.
 - The approval workflow decides from the row's Decision. The approval starts only when Decision is `READY_FOR_APPROVAL`, which the skill sets only when all 11 invoice fields were found. Any other Decision sends a manual review email to Finance with the submitter in CC. This is a **scenario-defined contract**.
 - Every row that is added to the table and owned by the approval workflow's owner starts the approval workflow, including rows from tests and rows that the owner adds by hand. Keep it off while you test the agent.
 - Routine intake has no per-message human approval before the extraction and the row are written. A person approves each invoice that is ready for approval, and the submitter gets an approved or rejected email afterwards.
