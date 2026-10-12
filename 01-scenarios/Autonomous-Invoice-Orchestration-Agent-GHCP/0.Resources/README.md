@@ -1,4 +1,4 @@
-# Invoice Processing Agent — Resources
+# Autonomous Invoice Orchestration Agent — Resources
 
 ## Contents and implementation status
 

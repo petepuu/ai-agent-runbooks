@@ -1,4 +1,4 @@
-# Invoice Processing Agent — Capability and Integration Contracts
+# Autonomous Invoice Orchestration Agent — Capability and Integration Contracts
 
 ## Implementation status
 

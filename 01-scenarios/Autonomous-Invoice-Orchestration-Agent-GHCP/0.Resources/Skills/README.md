@@ -1,4 +1,4 @@
-# Invoice Processing Agent — Runtime Skills
+# Autonomous Invoice Orchestration Agent — Runtime Skills
 
 The standard configuration has one skill. Import it before the workflows are turned on. The file is self-contained with its declared tool dependencies, and the agent's instructions run it for every invoice.
 
