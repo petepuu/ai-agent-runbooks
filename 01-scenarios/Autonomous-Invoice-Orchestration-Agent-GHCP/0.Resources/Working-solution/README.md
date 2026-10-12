@@ -7,7 +7,7 @@ This folder holds the **unmanaged** Power Platform solution **Autonomous Invoice
 | Component | Name |
 |---|---|
 | Dataverse table | **Auto Invoice Review**, with the 18 columns and the native row ID of the [data model](../Capability-matrix.md#dataverse-data-model) |
-| Environment variables | `FinanceEmailAddress`, `ReviewsFolderPath`, `SourceFolderPath`, `SharePointDocumentLibrary` and `SharePointSiteURL`. Only `SourceFolderPath` has a default value (`/Invoices/Sources`) |
+| Environment variables | `FinanceEmailAddress`, `ReviewsFolderPath`, `SourceFolderPath`, `SharePointDocumentLibrary` and `SharePointSiteURL`. `SourceFolderPath` and `ReviewsFolderPath` have the default values `/Invoices/Sources` and `/Invoices/Reviews` |
 | Connection references | **SharePoint** (two), **Work IQ SharePoint MCP**, **Microsoft Dataverse**, **Office 365 Users**, **Office 365 Outlook**, **Standard approvals** and **Agents** |
 | Workflows | **Invoice Intake** and **Invoice Approval**, both exported turned on |
 | Agent | **Invoice Processing Agent**, with its instructions, the model Claude Sonnet 5, the tools SharePoint MCP, Dataverse MCP, `CreateFile`, `CreateSharingLink` and `GetMyProfile`, and the [invoice-extraction-review](../Skills/invoice-extraction-review/SKILL.md) skill |
@@ -15,7 +15,7 @@ This folder holds the **unmanaged** Power Platform solution **Autonomous Invoice
 ## What it does not contain
 
 - Connections, credentials and tokens. The import asks for a connection for each connection reference.
-- Environment variable current values. The export has none, so the import asks for the site URL, the library name, the folder paths and the Finance email address.
+- Environment variable current values. The export has none, so the import asks for the site URL, the library name and the Finance email address. The two folder paths use their default values unless you set a current value.
 - Table rows, SharePoint files, real invoices and test evidence.
 - Closed [release gates](../README.md#release-gates). The solution is a starting point for development and test, not evidence that the gates pass.
 
