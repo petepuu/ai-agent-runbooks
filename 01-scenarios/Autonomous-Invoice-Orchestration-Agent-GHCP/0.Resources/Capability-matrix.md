@@ -4,7 +4,7 @@
 
 The agent is one standard configuration with one included capability, the skill `invoice-extraction-review`. It is invoked only by the **Invoice Intake** workflow, through the Workflows Agent node. Two workflows surround the agent. **Invoice Intake** owns the email trigger, the environment variables, saving the PDF and the agent call, and it ends there. The agent owns reading the PDF, writing the review JSON file and writing the Dataverse row, and the row is its only output. **Invoice Approval** starts when that row is added and owns the decision check, the approval and the emails to Finance and to the submitter. Both workflows use Office 365 Users lookups: the intake workflow looks up the sender's Object ID, and the approval workflow looks up the submitter's email address and manager. Copilot creates the workflows from the prompts in [Step 3-3](../3.Runbook.md#step-3-3-build-the-intake-workflow-invoice-intake) and [Step 3-4](../3.Runbook.md#step-3-4-build-the-approval-workflow-invoice-approval) of the Runbook.
 
-Delivered assets are documentation and runtime skill definitions only. No deployed agent, workflow export, connection, Dataverse environment, sample tenant data or successful tenant test is included. Each statement below carries one label:
+Delivered assets are documentation, runtime skill definitions and an unmanaged solution package for development and test. No deployed agent, connection, Dataverse environment, sample tenant data or successful tenant test is included. Each statement below carries one label:
 
 | Label | Meaning |
 |---|---|
