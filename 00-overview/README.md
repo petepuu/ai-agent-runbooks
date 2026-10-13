@@ -47,7 +47,7 @@ The repository organizes AI Agent scenarios by business domain and agent type. T
 |--------|------------|-------------|
 | Human Resources | HR Onboarding Agent | Guides new employees through onboarding tasks, policy acknowledgments, and first-day workflows |
 | Human Resources | [HR Onboarding Agent with GHCP Harness](../01-scenarios/HR-Onboarding-Agent-GHCP/1.Overview.md) | Normal HR conversation, onboarding plans and connected user-mailbox replies using two GHCP skills and an Outlook workflow; development walkthrough with explicit operational limitations |
-| Finance | [Autonomous Invoice Orchestration Agent with GHCP Harness](../01-scenarios/Autonomous-Invoice-Orchestration-Agent-GHCP/1.Overview.md) | Email-triggered invoice intake with PDF extraction into Dataverse and a JSON review file, then an approval with an outcome email to the submitter, or a Finance review email for missing fields, using one GHCP skill and two Workflows flows; development walkthrough with explicit release gates |
+| Finance | [Autonomous Invoice Orchestration Agent with GHCP Harness](../01-scenarios/Autonomous-Invoice-Orchestration-Agent-GHCP/1.Overview.md) | Email-triggered PDF invoice extraction into Dataverse, then approval or Finance review, using one GHCP skill and two Workflows flows |
 
 Additional scenarios across IT & Operations, Customer Service, Finance, Legal, and Sales domains are planned for future releases.
 
