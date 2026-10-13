@@ -17,8 +17,8 @@ Each scenario folder is self-contained and follows a standardized structure so t
 │   ├── 2.Architecture.md
 │   ├── 3.Runbook.md
 │   └── 4.Sample-prompts.md
-├── 📂 Autonomous-Invoice-Orchestration-Agent-GHCP/ ← 📝 Draft; tenant validation required
-│   ├── 📂 0.Resources/                   ← Capability matrix, two runtime skills and sample invoices
+├── 📂 Autonomous-Invoice-Orchestration-Agent-GHCP/ ← ✅ Available
+│   ├── 📂 0.Resources/
 │   ├── 1.Overview.md
 │   ├── 2.Architecture.md
 │   ├── 3.Runbook.md
@@ -31,12 +31,6 @@ Each scenario folder is self-contained and follows a standardized structure so t
 │   └── 4.Sample-prompts.md
 ├── 📂 Copilot-License-Lifecycle-Agent/     ← ✅ Available
 │   ├── 📂 0.Resources/
-│   ├── 1.Overview.md
-│   ├── 2.Architecture.md
-│   ├── 3.Runbook.md
-│   └── 4.Sample-prompts.md
-├── 📂 Copilot-License-Lifecycle-Agent-GHCP/ ← 📝 Draft; tenant validation required
-│   ├── 📂 0.Resources/                   ← Capability matrix and ten runtime skills
 │   ├── 1.Overview.md
 │   ├── 2.Architecture.md
 │   ├── 3.Runbook.md
@@ -102,6 +96,11 @@ Each scenario folder is self-contained and follows a standardized structure so t
 │   ├── 3.Runbook.md
 │   └── 4.Sample-prompts.md
 ├── 📂 Employee-Self-Service-Agent/         ← ✅ Available
+│   ├── 📂 0.Resources/
+│   ├── 1.Overview.md
+│   ├── 2.Architecture.md
+│   ├── 3.Runbook.md
+│   └── 4.Sample-prompts.md
 ├── 📂 IT-Service-Desk-Insights-Agent/      ← ✅ Available
 │   ├── 📂 0.Resources/
 │   ├── 1.Overview.md
@@ -121,8 +120,8 @@ Each scenario folder is self-contained and follows a standardized structure so t
 │   ├── 2.Architecture.md
 │   ├── 3.Runbook.md
 │   └── 4.Sample-prompts.md
-├── 📂 HR-Onboarding-Agent-GHCP/                ← Authored; tenant validation required
-│   ├── 📂 0.Resources/                         ← Capability matrix and runtime skills
+├── 📂 HR-Onboarding-Agent-GHCP/                ← ✅ Available
+│   ├── 📂 0.Resources/
 │   ├── 1.Overview.md
 │   ├── 2.Architecture.md
 │   ├── 3.Runbook.md
@@ -175,9 +174,8 @@ Below is the standard structure, using **HR Onboarding Agent** as the reference 
 | Scenario | Type | Description | Platform | Status |
 |----------|------|-------------|----------|--------|
 | [Autonomous-Invoice-Orchestration-Ageny](./Autonomous-Invoice-Orchestration-Agent/) | Payment Approval Automation | Automates the payment request and approval process.| Microsoft Copilot Studios, Power Automate|✅ Available |
-| [Autonomous Invoice Orchestration Agent with GHCP Harness](./Autonomous-Invoice-Orchestration-Agent-GHCP/1.Overview.md) | Accounts Payable / Invoice Approval | Email-triggered PDF invoice extraction into Dataverse and a JSON review file, then approval or Finance review, using one skill and two Workflows flows. Implementation and tenant validation are required. | Microsoft Copilot Studio, GitHub Copilot harness, Workflows, Outlook, SharePoint, Dataverse, Approvals | 📝 Draft; tenant validation required |
+| [Autonomous Invoice Orchestration Agent with GHCP Harness](./Autonomous-Invoice-Orchestration-Agent-GHCP/1.Overview.md) | Accounts Payable / Invoice Approval | Email-triggered PDF invoice extraction into Dataverse and a JSON review file, then approval or Finance review, using one skill and two Workflows flows. Implementation and tenant validation are required. | Microsoft Copilot Studio, GitHub Copilot harness, Workflows, Outlook, SharePoint, Dataverse, Approvals | ✅ Available |
 | [Copilot-License-Lifecycle-Agent](./Copilot-License-Lifecycle-Agent/) | IT Operations / FinOps for Copilot | Copilot Studio agent that manages the Microsoft 365 Copilot licence estate — inventory, dormancy detection, notification and reclaim with approvals, and waitlist management — with a full audit trail in Dataverse. Also works well as a Copilot Studio enablement asset for customer teams. | Microsoft Copilot Studio, Power Automate, Microsoft Graph, Dataverse | ✅ Available |
-| [Copilot-License-Lifecycle-Agent-GHCP](./Copilot-License-Lifecycle-Agent-GHCP/1.Overview.md) | IT Operations / FinOps for Copilot | Ten runtime skills for licence reporting, waitlist intake/review, confirmed notifications, reclaim, assignment, cancellation and disputes. Scoped backend contracts preserve human approvals and audit; implementation and tenant validation are required. | Microsoft Copilot Studio, GitHub Copilot harness, scoped MCP tools, Power Automate, Microsoft Graph, Dataverse | 📝 Draft |
 | [CRM-Account-Planning-Cowork-Agent](./CRM-Account-Planning-Cowork-Agent/) | Sales Productivity / Revenue Operations | Copilot Cowork connected to the CRM through a purpose-built MCP server that exposes custom objects and composed queries the standard connector cannot reach. Produces branded account plans, QBR decks, and pipeline models as Office artifacts, with approval gates on write-back. | Microsoft 365 Copilot Cowork, MCP server, Salesforce, Organization Asset Library | ✅ Available |
 | [Client-Meeting-Preparation-Agent](./Client-Meeting-Preparation-Agent/) | Client Advisory / Relationship Management | Pre-meeting briefings and post-meeting file notes for advisers, relationship managers, and account teams. Assembles positions, relationship history, outstanding items, and watch-outs from the book of record, correspondence, and the client file — with hard advice boundaries, information barrier enforcement, and full citation. Generalises across wealth, banking, insurance, subscriptions, and durable assets. | Microsoft 365 Copilot, Copilot connectors or MCP server, SharePoint, Microsoft Purview | ✅ Available |
 | [Contract-and-Legal-Intelligence-Agent](./Contract-and-Legal-Intelligence-Agent/) | Legal Operations / Contract Lifecycle | Clause extraction, risk flagging against documented standard positions, tracked-changes redlines, and evidence retrieval across a document corpus — with a hard legal-advice boundary and a qualified human on every decision. Covers DPA and NDA review, negotiation support, resolutions, and claim evidence assembly. | Copilot Studio, Microsoft Foundry / Document Intelligence, SharePoint, Word | ✅ Available |
@@ -193,7 +191,7 @@ Below is the standard structure, using **HR Onboarding Agent** as the reference 
 | [IT-Service-Desk-Insights-Agent](./IT-Service-Desk-Insights-Agent/) | IT Service Management / Employee Support | Declarative agent grounded on ServiceNow knowledge and catalog content. Answers how-to and catalog questions and performs sentiment and theme analysis over ticket text, with permission-trimmed retrieval driven by ServiceNow user criteria. | Microsoft 365 Copilot, Agent Builder, ServiceNow Knowledge + Catalog Copilot connectors | ✅ Available |
 | [F&O-User-Onboarding-Agent](./F&O-User-Onboarding-Agent/) | ERP Administration / User Lifecycle | Automates onboarding of new users into Dynamics 365 Finance & Operations by provisioning accounts, assigning roles, and managing approval workflows using AI-driven orchestration. | Microsoft Copilot Studio, Dynamics 365 F&O, Azure AD, Power Automate, Microsoft Teams | ✅ Available |
 | [HR-Onboarding-Agent](./HR-Onboarding-Agent/) | Employee Self-Service (HR) | Autonomous agent that helps new hires find HR-related information such as onboarding processes, policies, and employee benefits by leveraging a ServiceNow Knowledge Base. | Microsoft Copilot Studio, ServiceNow Copilot Connector, Power Platform | ✅ Available |
-| [HR Onboarding Agent with GHCP Harness](./HR-Onboarding-Agent-GHCP/1.Overview.md) | Employee Self-Service (HR) | Normal HR chat, onboarding plans and connected user-mailbox replies with two skills. Outlook sends the agent's HTML without per-message approval; development scope and limitations are documented. | Microsoft Copilot Studio, GitHub Copilot harness, Workflows, Outlook, ServiceNow knowledge | 📝 Draft; tenant validation required |
+| [HR Onboarding Agent with GHCP Harness](./HR-Onboarding-Agent-GHCP/1.Overview.md) | Employee Self-Service (HR) | Normal HR chat, onboarding plans and connected user-mailbox replies with two skills. Outlook sends the agent's HTML without per-message approval; development scope and limitations are documented. | Microsoft Copilot Studio, GitHub Copilot harness, Workflows, Outlook, ServiceNow knowledge | ✅ Available |
 | [M365-Agent](./M365-Agent/) | Pre-configured Agent Templates | Pre-configured, deploy-ready AI agent templates for Microsoft 365 built by the Copilot Agents & Platform Ecosystem (CAPE) team. This folder contains Overview documents for the following **10** agent templates:<br>• [AI Learning Advisor Agent](./M365-Agent-Templates/AI-Learning-Advisor-Agent-Overview.md) — Personal AI teaching assistant for the Microsoft stack, delivering step-by-step guidance and learning plans grounded in Microsoft Learn<br>• [Executive Briefing Agent](./M365-Agent-Templates/Executive-Briefing-Agent-Overview.md) — Generates concise leadership briefings with account health, key metrics, and recommended talking points<br>• [Know My Customer Agent](./M365-Agent-Templates/Know-My-Customer-Agent-Overview.md) — Surfaces customer insights, account history, and relationship context from Microsoft 365 data<br>• [My Company Policy Agent](./M365-Agent-Templates/My-Company-Policy-Agent-Overview.md) — Provides employees with trusted, conversational access to company policies, HR information, and benefits<br>• [Personal News Digest Agent](./M365-Agent-Templates/Personal-News-Digest-Agent-Overview.md) — Filters corporate broadcasts into a personalized, role- and location-aware digest of what truly matters<br>• [Plan My Day Agent](./M365-Agent-Templates/Plan-My-Day-Agent-Overview.md) — Pulls calendar, emails, and tasks to help employees prioritize their day<br>• [Project Delta Digest Agent](./M365-Agent-Templates/Project-Delta-Digest-Agent-Overview.md) — Generates structured daily/weekly digests of project activity including shipped items, risks, and blockers<br>• [Request Tracker Agent](./M365-Agent-Templates/Request-Tracker-Agent.md) — Tracks and manages internal requests and approval workflows<br>• [SME Finder Agent](./M365-Agent-Templates/SME-Finder-Agent-Overview.md) — Surfaces the most relevant subject matter experts using real M365 work signals with ready-to-use introduction messages<br>• [Status Update Agent](./M365-Agent-Templates/Status-Update-Agent-Overview.md) — Turns Microsoft 365 activity into clear status summaries, brag docs, and manager emails | Microsoft 365 Copilot, Copilot Studio | 📋 Overview Available |
 | [Workplace-Agent](./Workplace-Agent/) | Workforce Productivity / Internal Operations | AI-powered agent that handles internal inquiries (FAQ) and application requests (e.g., equipment loans, expense approvals) using SharePoint, Dataverse, and Power Automate. | Microsoft Copilot Studio, SharePoint, Dataverse, Power Automate | ✅ Available |
 
