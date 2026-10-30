@@ -1,0 +1,28 @@
+# References and validation checks
+
+**Reviewed:** 2026-10-28. These references accompany the setup and capability descriptions. Feature availability, licensing, security and behavior still require validation in the deployment tenant.
+
+| ID / reference | Capability / setup area | Remaining tenant check / owner |
+|---|---|---|
+| D1 [GHCP overview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/overview) | GHCP is a distinct Studio harness; no transfer to/from standard harness; knowledge, tools, skills, Preview, Evaluate and Monitor; Entra auth and M365/Teams at host level | Delivery owner: correct harness, cloud/region, model, channel and identity availability |
+| D2 [Create agent](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/build-new-agent) | Home > Agent or Agents > New agent; name/settings/instructions/save, then components | Maker: actual new-agent experience and solution strategy before first save |
+| D3 [Add knowledge](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/knowledge-add-existing-copilot) | Build > Knowledge; SharePoint and ServiceNow source options; policy-blocked sources; no general-knowledge toggle | Knowledge owner: exact selected source path, connection, permission trimming, freshness and citations |
+| D4 [Add tools](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/add-tools-custom-agent) | Tools picker includes connectors, MCP and Workflows; custom MCP/workflow routes, authentication and action selection | Integration owner: actual operations, schemas and delegated execution; no ESS package compatibility implied |
+| D5 [Upload skills](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/skills-add-existing) | Build > Skills > Upload a skill; Markdown name/description or ZIP containing SKILL.md and assets; skipped/invalid skills must be checked | Maker: each enabled definition loads once and routes correctly |
+| D6 [Preview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/preview-overview) | Interactive testing, source/tool/skill execution evidence and fresh conversations | QA owner: real allowed/denied users, not maker-only screenshots |
+| D7 [Evaluate](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/analytics-agent-evaluation-intro) | Evaluate test sets; General quality does not compare expected answers; evaluations run as signed-in profile | QA owner: deterministic backend and permission assertions supplement quality scores; sign in separately per identity |
+| D8 [Publish](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/publication-fundamentals-publish-channels) | Publish creates live version; drafts remain separate; configure distribution channels after publishing | Release owner: approved audience/channel, policy checks, version and rollback record |
+| D9 [ESS ServiceNow HR/IT](https://learn.microsoft.com/en-us/microsoft-365/copilot/employee-self-service/declarative-agent-servicenow-hr-it) | HRSD create/update/details/updates/list/attachments; ITSM incidents with attachments in create/update; system topics and setup; employee delegated Entra sign-in; OIDC coexistence warning | ServiceNow + identity owners: supported GHCP bindings, user mapping, own-record/field scope, KB/action OIDC coexistence and portal links |
+| D10 [ESS Workday](https://learn.microsoft.com/en-us/microsoft-365/copilot/employee-self-service/declarative-agent-workday) | 12 Get and two Update scenarios; REST/SOAP via Entra Integrated auth; only ESS HR declarative agent supported; employee records only; per-environment connections and non-maker validation | Workday + integration owners: establish a supported GHCP-compatible path independently; template package is not validated for this host |
+| D11 [ServiceNow Knowledge deployment](https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/servicenow-knowledge-deployment) | Knowledge ingestion and user criteria; Simple flow can skip script-based allow criteria; Advanced flow evaluates scripts; authentication is distinct from employee action sign-in | Knowledge + ServiceNow owners: scope and scripted user criteria, permissions changes, chosen ingestion auth and coexistence |
+| D12 [ServiceNow Power Platform connector](https://learn.microsoft.com/en-us/connectors/service-now/) | Generic create/read/update operations and auth choices; full description can be ignored on Create Record; instance-domain limitation | Integration owner: exact operation binding and full-description fidelity; no Basic-auth workaround in this employee-facing design |
+
+## Interpretation and support boundaries
+
+- **Template boundary:** `/setup` and `/connect workday` are Developer Kit commands for ESS HR, not runtime skills for the new GHCP agent. Do not run them against this design as if they migrated it.
+- **Design choice:** one combined authenticated GHCP front door; knowledge-only baseline; separate skill/tool permissions for all actions; backend-masked sensitive IDs; no autonomous execution.
+- **Proposed contract:** every live tool alias in the matrix. None is a vendor operation ID, delivered workflow or API endpoint.
+- **Tenant gate:** runbook `[VERIFY]` entries have owners and acceptance criteria. Sensitive capabilities require explicit approval and tenant validation before enablement.
+- **Deployment value:** runbook `[FILL]` entries belong in a restricted deployment record, not runtime skills or source control.
+
+No licensing prices, seat thresholds, crawl schedules or blanket GA promises are carried from the source.

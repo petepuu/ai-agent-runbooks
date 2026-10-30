@@ -78,6 +78,10 @@
       "title": "Employee Self-Service Agent",
       "icon": "🧑‍💻"
     },
+    "Employee-Self-Service-Agent-GHCP": {
+      "title": "Employee Self-Service Agent with GHCP Harness",
+      "icon": "🧑‍💻"
+    },
     "F&O-User-Onboarding-Agent": {
       "title": "F&O User Onboarding Agent",
       "icon": "🪪"

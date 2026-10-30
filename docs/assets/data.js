@@ -292,6 +292,23 @@ const SCENARIOS = [
     "type": "Employee Experience (HR + IT front door)"
   },
   {
+    "id": "Employee-Self-Service-Agent-GHCP",
+    "title": "Employee Self-Service Agent with GHCP Harness",
+    "icon": "🧑‍💻",
+    "desc": "SharePoint and ServiceNow knowledge plus 28 focused skills for knowledge/navigation, own HR cases and IT incidents, and Workday reads/email/phone updates. Proposed integration contracts with live tools OFF until implemented and validated; not a deployed agent.",
+    "tech": [
+      "Microsoft Copilot Studio",
+      "GitHub Copilot harness",
+      "SharePoint",
+      "ServiceNow",
+      "Workday",
+      "MCP Server",
+      "Workflows"
+    ],
+    "status": "Authoring blueprint",
+    "type": "Employee Experience (HR + IT self-service)"
+  },
+  {
     "id": "F&O-User-Onboarding-Agent",
     "title": "F&O User Onboarding Agent",
     "icon": "🪪",
@@ -718,6 +735,16 @@ const PATTERNS = [
     "status": "Available",
     "file": "Human-in-the-Loop-Review-and-Approval/Human-in-the-Loop-Review-and-Approval.md",
     "theme": "Governance & Operations"
+  },
+  {
+    "id": "Copilot-Studio-Harness-Selection",
+    "title": "Copilot Studio Harness Selection and Cowork Decision Pattern",
+    "icon": "🧩",
+    "desc": "This pattern first decides use an existing experience or build an agent, then compares two runtimes inside Microsoft Copilot Studio. Cowork is an experience choice, not a third Studio harness. Here, Cowork means Microsoft 365 Copilot Cowork for work or school accounts, not Anthropic Claude Cowork or the personal-account preview. Use the selection runbook to turn the comparison into a documented architecture decision. Check the upfront compatibility gaps before following the comprehensive decision tree.",
+    "tech": [],
+    "status": "Documentation Available",
+    "file": "Copilot-Studio-Harness-Selection/Copilot-Studio-Harness-Selection.md",
+    "theme": "Architecture & Design"
   }
 ];
 

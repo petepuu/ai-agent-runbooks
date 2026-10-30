@@ -137,6 +137,12 @@ Each scenario folder is self-contained and follows a standardized structure so t
 │   ├── 2.Architecture.md
 │   ├── 3.Runbook.md
 │   └── 4.Sample-prompts.md
+├── 📂 Employee-Self-Service-Agent-GHCP/    ← Authoring blueprint
+│   ├── 📂 0.Resources/
+│   ├── 1.Overview.md
+│   ├── 2.Architecture.md
+│   ├── 3.Runbook.md
+│   └── 4.Sample-prompts.md
 ├── 📂 IT-Service-Desk-Insights-Agent/      ← ✅ Available
 │   ├── 📂 0.Resources/
 │   ├── 1.Overview.md
@@ -238,6 +244,7 @@ shared delivery guidance, not an additional business scenario.
 | [Dynperf-Performance-Agent](./Dynperf-Performance-Agent) | Performance Diagnostics (D365) | AI-powered performance analysis agent that leverages DynamicsPerf data to help administrators diagnose performance issues, analyze SQL query statistics, identify bottlenecks, and provide actionable recommendations for optimizing Dynamics 365 environments. | Microsoft Copilot Studio, Dynamics 365, DynamicsPerf, Azure Application Insights | ✅ Available |
 | [ERP-D365-Inventory-Optimization-Agent](./ERP-D365-Inventory-Optimization-Agent/) | Generates reports of inventory data (D365 F&O) |Interactive agent that generates reports on Inventory from D365 F&O for inventory managers and other stakeholders to get current information, predictions, and other analytics around their inventory data |Microsoft Copilot Studios, Dynamics 365 F&O | ✅ Available |
 | [Employee-Self-Service-Agent](./Employee-Self-Service-Agent/) | Employee Experience (HR + IT front door) | One conversational entry point in Microsoft 365 Copilot for HR and IT support, grounded on the HRIS, ITSM, and SharePoint. Covers the qualification, content architecture, and readiness work that make up most of the delivery effort. | Microsoft 365 Copilot, Copilot connectors (ServiceNow / Workday / SuccessFactors), SharePoint, Copilot Studio | ✅ Available |
+| [Employee Self-Service Agent with GHCP Harness](./Employee-Self-Service-Agent-GHCP/1.Overview.md) | Employee Experience (HR + IT self-service) | SharePoint and ServiceNow knowledge plus 28 focused skills for knowledge/navigation, own HR cases and IT incidents, and Workday reads/email/phone updates. Proposed integration contracts with live tools OFF until implemented and validated; not a deployed agent. | Microsoft Copilot Studio, GitHub Copilot harness, SharePoint, ServiceNow, Workday, MCP, Workflows | Authoring blueprint |
 | [IT-Service-Desk-Insights-Agent](./IT-Service-Desk-Insights-Agent/) | IT Service Management / Employee Support | Declarative agent grounded on ServiceNow knowledge and catalog content. Answers how-to and catalog questions and performs sentiment and theme analysis over ticket text, with permission-trimmed retrieval driven by ServiceNow user criteria. | Microsoft 365 Copilot, Agent Builder, ServiceNow Knowledge + Catalog Copilot connectors | ✅ Available |
 | [F&O-User-Onboarding-Agent](./F&O-User-Onboarding-Agent/) | ERP Administration / User Lifecycle | Automates onboarding of new users into Dynamics 365 Finance & Operations by provisioning accounts, assigning roles, and managing approval workflows using AI-driven orchestration. | Microsoft Copilot Studio, Dynamics 365 F&O, Azure AD, Power Automate, Microsoft Teams | ✅ Available |
 | [HR-Onboarding-Agent](./HR-Onboarding-Agent/) | Employee Self-Service (HR) | Autonomous agent that helps new hires find HR-related information such as onboarding processes, policies, and employee benefits by leveraging a ServiceNow Knowledge Base. | Microsoft Copilot Studio, ServiceNow Copilot Connector, Power Platform | ✅ Available |
