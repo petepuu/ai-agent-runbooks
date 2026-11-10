@@ -1,6 +1,6 @@
 # Runtime skill index
 
-Import only approved capabilities into the **GitHub Copilot harness in Microsoft Copilot Studio**, in this matrix order. Each file is standalone; no sibling file or asset is required at runtime. Tool dependencies must still be configured separately. All live aliases are proposed/unimplemented and OFF in this authoring package.
+Import only approved capabilities into the **Microsoft Copilot Harness in Microsoft Copilot Studio**, in this matrix order. Each file is standalone; no sibling file or asset is required at runtime. Tool dependencies must still be configured separately. All live aliases are proposed/unimplemented and OFF in this authoring package.
 
 | Order | Capability / standalone upload |
 |---|---|
@@ -35,4 +35,4 @@ Import only approved capabilities into the **GitHub Copilot harness in Microsoft
 
 The baseline uses the first two after source validation. Enabling or deleting a skill alone does not implement or revoke a tool. Coordinate the [capability matrix](../Capability-matrix.md), actual tool exposure, backend permissions and active sessions.
 
-Upload through **Build > Skills > Upload a skill**. If assets are added later, use a ZIP containing `SKILL.md` and those assets. Do not import these files as authoring-assistant skills or run ESS Developer Kit commands as if they were GHCP deployment steps.
+Upload through **Build > Skills > Upload a skill**. If assets are added later, use a ZIP containing `SKILL.md` and those assets. These are Studio runtime definitions, not skills for the repository authoring assistant.

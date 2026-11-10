@@ -292,13 +292,13 @@ const SCENARIOS = [
     "type": "Employee Experience (HR + IT front door)"
   },
   {
-    "id": "Employee-Self-Service-Agent-GHCP",
-    "title": "Employee Self-Service Agent with GHCP Harness",
+    "id": "Employee-Self-Service-Agent-Microsoft-Copilot-Harness",
+    "title": "Employee Self-Service Agent with Microsoft Copilot Harness",
     "icon": "🧑‍💻",
     "desc": "SharePoint and ServiceNow knowledge plus 28 focused skills for knowledge/navigation, own HR cases and IT incidents, and Workday reads/email/phone updates. Proposed integration contracts with live tools OFF until implemented and validated; not a deployed agent.",
     "tech": [
       "Microsoft Copilot Studio",
-      "GitHub Copilot harness",
+      "Microsoft Copilot Harness",
       "SharePoint",
       "ServiceNow",
       "Workday",

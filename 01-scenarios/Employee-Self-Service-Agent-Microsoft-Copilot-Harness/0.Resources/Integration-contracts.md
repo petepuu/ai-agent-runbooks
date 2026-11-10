@@ -1,6 +1,6 @@
 # Proposed integration contracts
 
-**Status:** specifications only. No aliases below are vendor operation IDs, deployed tools, REST endpoints or executable implementations. Keep affected capabilities OFF until each alias is bound to an implemented and supported GHCP MCP tool or workflow with this behavior.
+**Status:** specifications only. No aliases below are vendor operation IDs, deployed tools, REST endpoints or executable implementations. Keep affected capabilities OFF until each alias is bound to an implemented and supported Microsoft Copilot Harness MCP tool or workflow with this behavior.
 
 ## Shared execution and result contract
 
