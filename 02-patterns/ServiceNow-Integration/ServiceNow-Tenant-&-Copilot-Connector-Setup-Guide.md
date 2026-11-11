@@ -181,7 +181,7 @@ Configure **Federated Auth** so the connector can authenticate to ServiceNow wit
 
    If you receive 403 access denied then grant **Application.Read.All** permissions to your admin account
 
-   ![alt text](images/103-17.png)
+   ![alt text](Images/103-17.png)
 
    > **Keep the two IDs distinct:** `933838e2-bec1-440f-a634-9363c82e5b6d` is Microsoft's fixed **application (client) ID**. The response's **id** is the **service principal object ID in your tenant**; save that value for the ServiceNow integration user's **User ID**. Do not create a new app registration for this flow. If the query returns no matching entry, resolve the missing service principal before continuing; do not substitute another GUID.
 
@@ -207,7 +207,7 @@ Configure **Federated Auth** so the connector can authenticate to ServiceNow wit
 
 9. Configure the integration as shown in the screenshots below, then save the provider configuration and integration.
 
-   ![alt text](images/103-8.png)
+   ![alt text](Images/103-8.png)
 
    &nbsp;
 
@@ -217,7 +217,7 @@ Configure **Federated Auth** so the connector can authenticate to ServiceNow wit
    - User field: `User ID`
    - Enable JTI verification: **unchecked**
 
-   ![alt text](images/103-9.png) 
+   ![alt text](Images/103-9.png)
 
    ![Review OIDC integration settings](Images/103-10.png?v=28becfdc6d18&refresh=20260921T184148Z)
 

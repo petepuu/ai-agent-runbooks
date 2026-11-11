@@ -46,23 +46,23 @@ recovery route or an owner-approved alternative.
    
 2. Search and select **Plugins**
    
-   ![alt text](images/snow-plugins.png)
+   ![alt text](Images/snow-plugins.png)
 
 3. Search for `multiple provider`and select **Integration - Multiple Provider Single Sign-On Installer** plugin
    
-   ![alt text](images/snow-plugins-02.png)
+   ![alt text](Images/snow-plugins-02.png)
 
 4. Click **Install**
    
-   ![alt text](images/snow-plugins-03.png)
+   ![alt text](Images/snow-plugins-03.png)
 
 5. Select **Load demo data** and click **Install**
    
-   ![alt text](images/snow-plugins-04.png)
+   ![alt text](Images/snow-plugins-04.png)
 
 6. Click **Run in background**
 
-   ![alt text](images/snow-plugins-05.png)
+   ![alt text](Images/snow-plugins-05.png)
 
 
 ## 3. Add snc_basic_auth_api_access role to admin account
