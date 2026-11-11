@@ -283,7 +283,7 @@ const SCENARIOS = [
     "id": "Agentic-Business-Process-Automation-Agent",
     "title": "Agentic Business Process Automation Agent",
     "icon": "🔄",
-    "desc": "Reusable event-driven case runtime designed for waits beyond 30 days, a custom HITL console and task APIs for functional/regional teams and role-based allocation, process-agnostic monitoring, and Forge-assisted adaptation for claims, contracts, loans, deals, tax, and RFQs. Order Processing reference; tenant and elapsed-time validation required.",
+    "desc": "Reusable event-driven case runtime designed for waits beyond 30 days, a custom HITL console and task APIs for functional/regional teams and role-based allocation, process-agnostic monitoring, and adaptation for claims, contracts, loans, deals, tax, and RFQs using Agent Forge, an AI-powered software factory for agentic development. Order Processing reference; tenant and elapsed-time validation required.",
     "tech": [
       "Microsoft Copilot Studio",
       "GitHub Copilot harness",
@@ -595,6 +595,25 @@ const SCENARIOS = [
 ];
 
 const PATTERNS = [
+  {
+    "id": "Workday-Integration",
+    "title": "Workday Integration",
+    "icon": "🔐",
+    "desc": "Four setup paths: SSO with Entra ID, Entra ID Integrated authentication for the Workday Power Platform connector, Workday Sana Self-Service Agent A2A integration, and Workday MCP tool integration for Copilot Studio agents.",
+    "tech": [
+      "Workday",
+      "Microsoft Entra ID",
+      "SAML 2.0",
+      "Power Platform",
+      "Microsoft Copilot Studio",
+      "OAuth 2.0",
+      "A2A",
+      "MCP Server"
+    ],
+    "status": "Available",
+    "file": "Workday-Integration/Workday-Integration.md",
+    "theme": "Integration"
+  },
   {
     "id": "Persona-Skill-Routing-and-Scope-Isolation",
     "title": "Persona Skill Routing and Scope Isolation",
