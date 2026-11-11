@@ -283,7 +283,7 @@ const SCENARIOS = [
     "id": "Agentic-Business-Process-Automation-Agent",
     "title": "Agentic Business Process Automation Agent",
     "icon": "🔄",
-    "desc": "Reusable event-driven case runtime designed for waits beyond 30 days, a custom HITL console and task APIs for functional/regional teams and role-based allocation, process-agnostic monitoring, and Forge-assisted adaptation for claims, contracts, loans, deals, tax, and RFQs. Order Processing reference; tenant and elapsed-time validation required.",
+    "desc": "Reusable event-driven case runtime designed for waits beyond 30 days, a custom HITL console and task APIs for functional/regional teams and role-based allocation, process-agnostic monitoring, and adaptation for claims, contracts, loans, deals, tax, and RFQs using Agent Forge, an AI-powered software factory for agentic development. Order Processing reference; tenant and elapsed-time validation required.",
     "tech": [
       "Microsoft Copilot Studio",
       "GitHub Copilot harness",
@@ -595,6 +595,23 @@ const SCENARIOS = [
 ];
 
 const PATTERNS = [
+  {
+    "id": "ServiceNow-Integration",
+    "title": "ServiceNow Integration",
+    "icon": "🧩",
+    "desc": "ServiceNow instance readiness, Entra ID SAML SSO, Knowledge Copilot connector onboarding, and Power Platform OIDC connection setup, with identity mapping, pilot tests, recovery, and separate authorization boundaries.",
+    "tech": [
+      "ServiceNow",
+      "Microsoft Entra ID",
+      "SAML 2.0",
+      "OIDC",
+      "Power Platform",
+      "Copilot Connectors"
+    ],
+    "status": "Documentation Available",
+    "file": "ServiceNow-Integration/ServiceNow-Integration.md",
+    "theme": "Integration"
+  },
   {
     "id": "Persona-Skill-Routing-and-Scope-Isolation",
     "title": "Persona Skill Routing and Scope Isolation",
