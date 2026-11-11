@@ -2,6 +2,8 @@
 
 **Reviewed:** 2026-10-28. These references accompany the setup and capability descriptions. Feature availability, licensing, security and behavior still require validation in the deployment tenant.
 
+**Starter-scope refresh, 2026-11-11:** D4 and D5 were re-read for tool addition and Markdown skill upload. The seven replacement skill names, Workday paths and ServiceNow parameters come from user-supplied definitions, not independently verified vendor API documentation. Integration owners must verify actual bindings and schemas before enablement.
+
 | ID / reference | Capability / setup area | Remaining tenant check / owner |
 |---|---|---|
 | D1 [Microsoft Copilot Harness overview](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/overview) | Microsoft Copilot Harness is a distinct Studio harness; no transfer to/from standard harness; knowledge, tools, skills, Preview, Evaluate and Monitor; Entra auth and M365/Teams at host level | Delivery owner: correct harness, cloud/region, model, channel and identity availability |
@@ -17,9 +19,9 @@
 
 ## Interpretation and support boundaries
 
-- **Integration boundary:** Workday and ServiceNow action capabilities are proposed scenario contracts. Integration owners must establish supported bindings, delegated identity and per-environment validation before enabling them.
-- **Design choice:** one combined authenticated Microsoft Copilot Harness front door; knowledge-only baseline; separate skill/tool permissions for all actions; backend-masked sensitive IDs; no autonomous execution.
-- **Proposed contract:** every live tool alias in the matrix. None is a vendor operation ID, delivered workflow or API endpoint.
+- **Integration boundary:** the seven starter procedures define required Workday and ServiceNow bindings. Integration owners must establish supported schemas, delegated identity and per-environment validation before enabling them.
+- **Design choice:** one authenticated front door; knowledge/navigation through global instructions without separate skills; seven optional own-record live skills; exact confirmation and reconciliation for writes; no autonomous execution.
+- **Binding evidence:** names/paths from the supplied skills are requirements to validate, not proof of vendor availability or delivered workflows. No former scenario-owned aliases are needed.
 - **Tenant gate:** runbook `[VERIFY]` entries have owners and acceptance criteria. Sensitive capabilities require explicit approval and tenant validation before enablement.
 - **Deployment value:** runbook `[FILL]` entries belong in a restricted deployment record, not runtime skills or source control.
 

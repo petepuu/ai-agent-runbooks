@@ -4,11 +4,11 @@ These are authoring artifacts for a standalone employee self-service agent, not 
 
 | Artifact | Purpose |
 |---|---|
-| [Capability matrix](Capability-matrix.md) | Source dispositions, 28 capability IDs, proposed tools, dependencies and default OFF states |
-| [Integration contracts](Integration-contracts.md) | Proposed backend inputs/outputs, scope, identity, approvals, concurrency and reconciliation |
+| [Capability matrix](Capability-matrix.md) | Seven starter capability IDs, supplied tool binding requirements, dependencies and default OFF states |
+| [Integration contracts](Integration-contracts.md) | Required tool inputs/outputs, scope, identity, approvals, concurrency and reconciliation; bindings remain unverified |
 | [References and validation checks](Official-sources.md) | Setup links, support boundaries and tenant validation owners |
-| [Example use-case planning workbook](Use-case-planning.xlsx) | Editable source/integration inventory, prioritized example use cases and planning instructions for [Scope and Readiness](../3.Scope-and-readiness.md); illustrative data only |
-| [Skills index](Skills/README.md) | All 28 standalone runtime definitions in matrix/import order |
+| [Example use-case planning workbook](Use-case-planning.xlsx) | Broader illustrative backlog for [Scope and Readiness](../3.Scope-and-readiness.md), not the current skill manifest; mark non-starter rows deferred/not selected |
+| [Skills index](Skills/README.md) | Seven standalone runtime definitions in matrix/import order |
 
 The source is `01-scenarios\Employee-Self-Service-Agent` at local revision `a776697d6c072ec6d4cf8b09ba7670bd11a3e73c`. No original asset is copied or modified. The new destination is the sibling `01-scenarios\Employee-Self-Service-Agent-Microsoft-Copilot-Harness`.
 

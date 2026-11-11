@@ -1,38 +1,21 @@
 # Runtime skill index
 
-Import only approved capabilities into the **Microsoft Copilot Harness in Microsoft Copilot Studio**, in this matrix order. Each file is standalone; no sibling file or asset is required at runtime. Tool dependencies must still be configured separately. All live aliases are proposed/unimplemented and OFF in this authoring package.
+Seven starter skills replace the earlier 28-skill inventory. Import only approved rows into the **Microsoft Copilot Harness in Microsoft Copilot Studio**, in this matrix order. Each file is standalone; tool bindings/permissions must be configured separately and remain OFF until validated.
 
 | Order | Capability / standalone upload |
 |---|---|
-| 1 | [ess-knowledge-answer](ess-knowledge-answer/SKILL.md) |
-| 2 | [ess-request-navigation](ess-request-navigation/SKILL.md) |
-| 3 | [sn-hr-create-case](sn-hr-create-case/SKILL.md) |
-| 4 | [sn-hr-list-cases](sn-hr-list-cases/SKILL.md) |
-| 5 | [sn-hr-case-details](sn-hr-case-details/SKILL.md) |
-| 6 | [sn-hr-case-updates](sn-hr-case-updates/SKILL.md) |
-| 7 | [sn-hr-update-case](sn-hr-update-case/SKILL.md) |
-| 8 | [sn-hr-add-attachment](sn-hr-add-attachment/SKILL.md) |
-| 9 | [sn-it-create-ticket](sn-it-create-ticket/SKILL.md) |
-| 10 | [sn-it-list-tickets](sn-it-list-tickets/SKILL.md) |
-| 11 | [sn-it-ticket-details](sn-it-ticket-details/SKILL.md) |
-| 12 | [sn-it-ticket-updates](sn-it-ticket-updates/SKILL.md) |
-| 13 | [sn-it-update-ticket](sn-it-update-ticket/SKILL.md) |
-| 14 | [sn-it-add-attachment](sn-it-add-attachment/SKILL.md) |
-| 15 | [wd-get-base-compensation](wd-get-base-compensation/SKILL.md) |
-| 16 | [wd-get-certifications](wd-get-certifications/SKILL.md) |
-| 17 | [wd-get-company-code](wd-get-company-code/SKILL.md) |
-| 18 | [wd-get-cost-center](wd-get-cost-center/SKILL.md) |
-| 19 | [wd-get-emergency-contacts](wd-get-emergency-contacts/SKILL.md) |
-| 20 | [wd-get-employee-id](wd-get-employee-id/SKILL.md) |
-| 21 | [wd-get-employment-information](wd-get-employment-information/SKILL.md) |
-| 22 | [wd-get-language-information](wd-get-language-information/SKILL.md) |
-| 23 | [wd-get-national-ids](wd-get-national-ids/SKILL.md) |
-| 24 | [wd-get-passports](wd-get-passports/SKILL.md) |
-| 25 | [wd-get-service-anniversary](wd-get-service-anniversary/SKILL.md) |
-| 26 | [wd-get-visas](wd-get-visas/SKILL.md) |
-| 27 | [wd-update-email](wd-update-email/SKILL.md) |
-| 28 | [wd-update-phone](wd-update-phone/SKILL.md) |
+| 1 | [update-workday-home-phone-number-mcp](update-workday-home-phone-number-mcp/SKILL.md) |
+| 2 | [get-workday-cost-center](get-workday-cost-center/SKILL.md) |
+| 3 | [get-workday-employee-information-mcp](get-workday-employee-information-mcp/SKILL.md) |
+| 4 | [request-workday-time-off-mcp](request-workday-time-off-mcp/SKILL.md) |
+| 5 | [create-servicenow-incident](create-servicenow-incident/SKILL.md) |
+| 6 | [list-open-servicenow-tickets](list-open-servicenow-tickets/SKILL.md) |
+| 7 | [list-hr-cases](list-hr-cases/SKILL.md) |
 
-The baseline uses the first two after source validation. Enabling or deleting a skill alone does not implement or revoke a tool. Coordinate the [capability matrix](../Capability-matrix.md), actual tool exposure, backend permissions and active sessions.
+Knowledge answers and source-backed navigation use global instructions and approved SharePoint/ServiceNow knowledge; no separate runtime skills are needed. A knowledge-only release imports none of these seven live skills.
 
-Upload through **Build > Skills > Upload a skill**. If assets are added later, use a ZIP containing `SKILL.md` and those assets. These are Studio runtime definitions, not skills for the repository authoring assistant.
+Adapted from the seven user-supplied definitions on 2026-11-11. Names and core procedures are retained; own-record enforcement, minimal profile reads, unique caller resolution, safe retries and truthful status handling are aligned with the scenario. The supplied other-person incident search is intentionally omitted. Standard time-off submission is in scope; Leave of Absence is not.
+
+For an existing deployment, remove the old runtime definitions rather than importing both inventories. Coordinate the [capability matrix](../Capability-matrix.md), tool exposure, backend permissions, active sessions and pending operations; removing a skill alone does not revoke a tool.
+
+Upload through **Build > Skills > Upload a skill**. These Markdown files require no supporting assets or ZIP. These are Studio runtime definitions, not skills for the repository authoring assistant.

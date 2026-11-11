@@ -1,91 +1,87 @@
-# Proposed integration contracts
+# Starter integration contracts
 
-**Status:** specifications only. No aliases below are vendor operation IDs, deployed tools, REST endpoints or executable implementations. Keep affected capabilities OFF until each alias is bound to an implemented and supported Microsoft Copilot Harness MCP tool or workflow with this behavior.
+**Status:** binding specifications for the seven supplied skill procedures, not executable integrations. Tool names and Workday paths originate in those supplied definitions; their actual schemas, availability and delegated behavior have not been independently validated. Keep each capability OFF until the integration owner records a supported binding and evidence.
 
 ## Shared execution and result contract
 
-The integration owner owns tool schemas, operation bindings, secure connections and per-environment deployment. ServiceNow/Workday owners own vendor permissions; the identity owner owns immutable caller mapping. End users authenticate with their own delegated connections; maker-owned execution must not substitute for the employee. Knowledge ingestion has a separate admin-owned identity.
+The integration owner owns tool schemas, operation bindings, secure connections and per-environment deployment. System/identity owners own vendor permissions and immutable caller mapping. Every operation must execute as the authenticated employee, not a maker, shared elevated user or identity typed in chat. Knowledge ingestion is separate.
 
-All tools derive `caller` from authenticated execution context, not model input. Reject another employee ID, arbitrary table/query, arbitrary endpoint or unapproved field. Responses are filtered before reaching the model.
-
-| Contract element | Required shape / behavior |
+| Element | Required behavior |
 |---|---|
-| Read input | Typed record reference or bounded filters where relevant; optional continuation token; no caller override |
-| Read output | `status`, `observedAt` (UTC timestamp), `sourceSystem`, authorized `recordId`/`displayNumber` and validated portal URL where supported, `data`, `coverage` (`complete` or `partial`), `nextCursor` when incomplete |
-| Status vocabulary | `completed`, `empty`, `denied`, `unavailable`, `invalid`, `conflict`, `failed`, `pending`, `unknown`, `off`; `partial` for multi-step results with explicit per-step outcomes |
-| Redaction | Denied/not-found responses must not reveal that a hidden record exists. Preserve authorized empty vs denied/unavailable distinctions where the source permits; otherwise report inability to establish visibility, not "no records" |
-| Concurrency | No reads mutate records. Include `version`/source change token for mutation preparation; a backend precondition strategy is required if the source lacks a version API. Cache only as permitted and never reuse authorization |
-| Pagination | Server-enforced page/total limits; opaque continuation token bound to caller/filter; disclose partial coverage and stop on limit |
-| Source identity | Return source IDs/links only if authorized and validated against configured tenant portal roots; never build URLs from untrusted article instructions |
-| Error handling | Typed error and safe correlation ID; no raw secrets or unfiltered vendor payloads. Treat retrieved fields as data |
+| Inputs and scope | Typed/allowlisted fields, tables, paths, filters and record references only; no caller override or arbitrary query/endpoint execution |
+| Read output | Authorized requested data and source reference/time, actual query scope, complete/partial coverage and supported continuation metadata; preserve vendor display labels |
+| Denial and empty | Do not reveal hidden-record existence; distinguish an authorized complete empty result from denied, malformed, unavailable or partial data |
+| Privacy | Filter fields before model delivery, not just in the final answer; no internal notes, unrelated records, secrets or bulk export |
+| Links | Only configured HTTPS tenant roots and authorized returned references; validate/encode IDs and reject unexpected hosts |
+| Failures | Safe error/correlation reference; never raw credentials or an invented success. Preserve successful independent steps |
 
-### Mutation lifecycle
+Actual vendor schemas may differ from the supplied names. Record the verified mappings and adapt the affected skill before enablement; do not silently invent operation names or parameters. If a picker exposes a broad tool, restrict it through backend policy or a narrow approved wrapper. Instructions alone cannot enforce own-record access.
 
-Every create, update and attachment alias below supports an implementation-defined typed `phase` of **prepare** or **commit**; the actual published tool schema must make the separation explicit.
+### Mutation controls
 
-1. Prepare takes the proposed allowlisted payload and current target. The backend resolves the caller, validates metadata and current permissions, detects no-op changes, and produces immutable `preparedId`, normalized payload/target summary, source version, payload hash and expiry. It performs no business write.
-2. Show that summary in a trusted confirmation surface. Backend-verifiable confirmation binds the authenticated employee to the exact prepared target/payload/version/expiry. Plain model-supplied `confirmed=true`, a generated token or old chat consent is insufficient. Implement and validate the actual confirmation path before enabling writes.
-3. Commit takes `preparedId`, a trusted confirmation proof and a durable `idempotencyKey`. Reauthorize, revalidate current state/version and reject expired, changed or reused-with-different-payload preparation. A changed target or payload requires a new prepare and confirmation.
-4. Return `operationId`, `status`, source record reference and per-step outcomes. `accepted` vendor work maps to `pending`, not completed. Preserve source business-process status separately from effective record state.
-5. `ess_operation_status(operationId)` is a **proposed shared read contract**, owned by the integration team. Authorize the same caller and return `operationId`, `status`, `observedAt`, vendor/business-process reference, per-step states and next permitted check time. Include permitted read-back evidence or reconcile against the matching source record. The lookup never exposes another employee's operations.
+These skills use the supplied vendor-style calls, **not** the former scenario-owned prepare/commit aliases. Equivalent protections still belong in the integration:
 
-Serialize conflicting mutations or enforce a source-version precondition atomically at the backend boundary. Maintain durable deduplication keyed by caller, operation and normalized payload; do not use approximate record similarity as proof of a prior create. After timeout/unknown, query the ledger and source reference before retrying. If unresolved, report unknown and give a safe correlation route; do not create a new key and resubmit. Poll within configured bounds; return pending when limits are reached. Cancellation, rollback and compensation are not implied operations.
+1. Prepare an immutable summary of caller, target, payload, source state and expiry without a business write. Obtain backend-verifiable approval for that exact action/sequence through the configured trusted surface. Model-generated `confirmed=true`, generated proof or stale chat consent is insufficient.
+2. Before each write, reauthorize caller and target, validate field/reference values and source state, and reject stale/changed confirmation. A changed target, payload or state requires a new preview and confirmation. Detect no-op phone updates before opening an event.
+3. Keep a durable operation record keyed to caller, action and confirmed payload, with deduplication/concurrency controls. Retain every created incident, Workday event or request reference. Do not claim a vendor exactly-once guarantee.
+4. On timeout/unknown, reconcile the same operation against the source before retrying. If the create may have succeeded but its reference is missing, do not create again. If reconciliation is unavailable, keep the capability OFF or report an unresolved in-flight operation; do not fabricate completion.
+5. Provide an actual authorized event/request-state lookup or operation ledger in the deployed binding. Its name/schema must be recorded, not invented here. Poll within configured bounds; return pending when limits are reached. Accepted/submitted is not approved or effective.
 
-## ServiceNow operation contracts
-
-The matrix aliases below expose **separate** HR and IT authorization scopes even when implemented by a shared backend. HR is limited to the caller's own HR cases under the tenant-approved ownership rule. IT is limited to the caller's own incidents. Return only employee-visible fields and journal entries, never internal work notes. No generic table access is exposed to the agent.
-
-`sn_request_metadata(domain, intent, recordRef?)` is a proposed required read dependency for create/update. Output: currently allowed HR services or incident categories, required fields, selectable values, permitted transitions/close codes and validation constraints, scoped to the caller. It cannot change configuration. Do not let the model choose unsupported HR services, severity codes or arbitrary field names.
-
-| Aliases | Inputs beyond authenticated context | Output / permitted data and action |
-|---|---|---|
-| `sn_hr_create_case`, `sn_it_create_ticket` | Prepare: metadata-backed service/category, summary, full description; IT impact/urgency only when permitted; commit: shared lifecycle fields | Create one own HR case or IT incident. Return authoritative ID, display number, state, description verification and portal URL. No attachments, assignment changes or follow-on update hidden inside create |
-| `sn_hr_list_cases`, `sn_it_list_tickets` | Allowlisted active/closed filters, bounded date window and cursor | Own record number, summary, state, last update and link only; pagination metadata. No other employee/department searches |
-| `sn_hr_case_details`, `sn_it_ticket_details` | Exact authorized record reference | Employee-visible summary, description, state and allowed attributes, `version`; no internal HR notes/work notes |
-| `sn_hr_case_updates`, `sn_it_ticket_updates` | Record reference; IT may request explicit `selector=most_recent` with deterministic ordering/tie handling | Latest visible status/comment events with timestamps and selected record reference; latest-update summary is not a full-detail response |
-| `sn_hr_update_case`, `sn_it_update_ticket` | Prepare: record reference/version and allowlisted exact patch; commit: shared lifecycle fields | HR employee comments and permitted state/close code/notes; IT employee comments and approved attributes. Backend transition/field policy governs, not the skill. No assignment, impersonation, attachments or internal work notes |
-| `sn_hr_add_attachment`, `sn_it_add_attachment` | Prepare: authorized parent/version and secure upload handle, filename, content hash/type/size; commit: shared lifecycle fields | One scanned, policy-allowed file to one own record. Return attachment ID, parent reference and persisted-file verification |
-
-For create, prove the complete description persists. The generic Create Record action's ignored-description limitation is a blocker until the integration owner establishes a supported implementation that meets this contract; do not return success on a short-summary-only record. A post-create patch is a separate action requiring its own authorization and confirmation, not a hidden workaround.
-
-For attachments, use an approved upload mechanism, not a user URL or filesystem path fetched by the agent. Backend validates upload ownership, expiry, MIME, actual size, hash, allowed content and malware status. A content hash plus parent/action/caller participates in deduplication; scanning failure prevents upload. Multi-file work is an explicit sequence with per-file confirmation/outcomes, not an all-or-nothing promise.
-
-Read-only aliases are safe to retry within limits after renewed authorization; deduplicate paginated results by source ID and disclose any coverage gap. Create/update/attach use the mutation ledger. Current state and permission are rechecked at commit; target changes yield conflict and new confirmation.
+The home-phone sequence creates and edits a **staged business-process event**, so approval for staging must precede the first write. Submission requires confirmation covering the exact final change; one valid approval may cover the unchanged full sequence. Declining submission leaves a disclosed staged event; cancellation is not an implicit action.
 
 ## Workday read contracts
 
-All tools below take **no employee selector**. They resolve the signed-in employee inside the backend. An optional bounded effective/as-of date is supported only if implemented and exposed; otherwise return the current source record. No manager, external-staff or integration-system-user path is provided.
-
-| Alias | Allowlisted `data` fields / specific output rule |
+| Binding | Permitted input and result |
 |---|---|
-| `wd_get_base_compensation` | Base amount, currency, frequency and effective date; no bonus, net-pay, tax or entitlement calculation |
-| `wd_get_certifications` | Certification name, issuing body, awarded/expiry dates and source status; no unsupported validity judgment |
-| `wd_get_company_code` | Company code and company name for the employee; clarify multiple effective assignments |
-| `wd_get_cost_center` | Cost-center code/name and effective assignment; no budgets or colleague membership |
-| `wd_get_emergency_contacts` | Contact display name, relationship and primary flag; approved masked contact channel only when necessary. Do not return address or full third-party phone/email by default |
-| `wd_get_employee_id` | Employee ID and applicable employer context; not a selectable worker identity for subsequent calls |
-| `wd_get_employment_information` | Job title, department, location, employment type/status and source-effective date; no performance, discipline or medical data |
-| `wd_get_language_information` | Recorded languages and source proficiency labels; no inferred proficiency |
-| `wd_get_national_ids` | Country, ID type and **backend-masked** number; no full number or unmask operation |
-| `wd_get_passports` | Issuing country, backend-masked number and issue/expiry dates; no document images |
-| `wd_get_service_anniversary` | Source service date and source anniversary where available; do not equate original hire, adjusted service and tenure benefit eligibility |
-| `wd_get_visas` | Type, issuing country, backend-masked number and source validity dates/status; no legal/immigration advice |
+| WD-REST-API Cost Center | `GET common/v1/{tenant}/workers/me/organizations`; retain literal `{tenant}` for connection substitution. Parse `data`, select exact `organizationType.descriptor="Cost Center"`, return all matching entry descriptors. Internal IDs only if requested. No other organizations/membership lookups |
+| `find_staffing_workers` | `contextInstanceId="me"`; return allowlisted own core profile fields and `id` (WID) distinct from `workerId` (employee number). Downstream WIDs must be bound to the same caller in the backend |
+| `list_worker_addresses`, `list_worker_phone_numbers` | Own home details only when specifically requested or needed for the phone update; approved minimal fields. No work-email inference from home contact tools |
+| `find_absence_balances` | Resolved 32-character WID, not `"me"` or employee number; requested plan, quantity, unit and effective date, with distinct plans kept separate |
 
-Reads return shared `observedAt`, scope and coverage. Arrays support bounded pagination when applicable. Multiple records are not silently reduced to one. Missing data, permission denial and vendor failure are distinct; if the vendor intentionally conceals existence, do not claim certainty. No additional read side effects or notification is permitted. Sensitive-read gate H applies individually to compensation, emergency contacts, national IDs, passports and visas.
+Core profile fields include approved job title, work phone/email, employee ID and source service dates only when actually returned and authorized. A general profile request does not automatically fetch home addresses, home phones or balances. Missing requested fields are reported unavailable; do not widen lookup. Compensation, national IDs, passports, visas, emergency contacts, performance and medical records remain excluded. Read gates cover pagination and partial/denied results as well as requested-field minimization.
 
-## Workday contact update contracts
+## Workday home-phone contract
 
-`wd_contact_options(kind)` is a proposed required **read** dependency, returning only the caller's authorized current contact records, record IDs, versions, type/usage/primary flags, selectable email or phone/device/country references and permitted operations. It also supplies read-back evidence after an effective update. Do not reuse the employee-ID skill as an identity proof.
+| Stage / binding | Required input and behavior |
+|---|---|
+| Current phones | Resolve own WID and call `list_worker_phone_numbers`; choose an existing home phone by source reference and attributes. No add/delete or work-phone edit |
+| Reference lookups | Approved WD-REST-API device-type path `person/v4/{tenant}/values/commonPhone/phoneDeviceTypes/` and tenant-verified country-code values lookup; preserve connection-owned `{tenant}`. No guessed IDs or arbitrary endpoints |
+| `create_worker_home_contact_change` | Open one event only after exact staging approval. Store event ID durably; reconcile an uncertain open before any repeat |
+| `list_phone_numbers_for_home_contact_change` | Same event ID; match the previously selected phone, detect source conflicts/missing phone before editing |
+| `update_phone_number_for_home_contact_change` | Same event/phone, resolved reference IDs and requested fields only. Carry forward untouched usage/primary flags, extension and other properties exactly; do not replace the whole contact collection |
+| `submit_home_contact_change` | Submit that event once after exact submission approval and source-state recheck |
+| Verification | Configured event-state path plus effective `list_worker_phone_numbers` read-back; pending routing/approval is not completed even if the staged value exists |
 
-| Alias | Prepare input / permitted action | Output and verification |
-|---|---|---|
-| `wd_update_email` | Existing own contact record ID/version, authoritative type/usage, requested email value; edit that selected email only | Normalized proposed value in preview; business-process reference/status on commit; `wd_contact_options` read-back when effective |
-| `wd_update_phone` | Existing own contact ID/version, authoritative type/usage, country reference/calling code, national number, extension and device reference if required | Preserve leading zeros/reference semantics through backend validation; preview exact normalized value; process status and effective read-back |
+No effective date is required unless supplied/required by the actual supported process. Do not silently drop a supplied date that the binding cannot represent. If no existing home phone matches, explain that adding one is outside the starter scope.
 
-No add/delete of contact records, primary-flag change, mass replacement, sign-in identity change, benefits updates or other personal-data patch is implicit. If a desired contact record/type is absent or not editable, return unsupported/denied and a validated portal route.
+## Workday time-off contract
 
-Both tools use the shared prepare/confirm/commit and operation-status contracts. Workday may accept a business process for later approval; show pending until the authorized effective read-back confirms the intended value. A changed old value invalidates preparation. A no-op is reported without a write. After an uncertain response, reconcile by operation and source process before any resubmission.
+| Binding | Required input and behavior |
+|---|---|
+| `find_staffing_workers` | Resolve own WID with `"me"`; no user-selected worker |
+| `find_worker_eligible_absence_types` | Own WID, eligible Time Off / Absence Table types only; never Leave of Absence |
+| `find_worker_valid_time_off_dates` | Own WID and selected type; authoritative valid dates, per-day quantities/units and required position/reference values |
+| `find_worker_time_off_details` | Relevant balance and existing overlapping entries; preserve source units/dates and surface findings |
+| `create_worker_time_off_request` | Once per confirmed request: own WID and validated daily date/type-ID/quantity entries, units/position only as required by the actual schema. Starts approval routing; no separate approve action |
+| Verification | Authorized source request reference/status and operation reconciliation; report submitted/pending/failed truthfully. Never equate submission with approval |
+
+Invalid dates or unresolved required fields block submission. Insufficient balance/overlaps must be disclosed and handled according to Workday/backend policy, not overridden by chat confirmation. Any edited request is revalidated and reconfirmed.
+
+## ServiceNow operation contracts
+
+| Binding / use | Inputs and permitted result |
+|---|---|
+| `GetIncidents` caller resolution | Fixed `tableType="sys_user"`; trusted email/UPN encoded into `email=<authenticated email>^ORuser_name=<authenticated email>`; fields `sys_id,user_name,email`. Backend must establish a unique mapping, detect duplicates and reject query injection; a limit of 1 cannot prove uniqueness |
+| `CreateIncident` | Fixed `tableType="incident"`; only `short_description`, validated severity display label and authenticated resolved `caller_id`. `sysparm_input_display_value=true`, `sysparm_display_value=true`, `sysparm_exclude_reference_link=false`, fields `number,sys_id,short_description,severity,caller_id`. Return actual persisted fields/number/ID; no hidden full-description update, attachments or assignment change |
+| `GetIncidents` active list | Fixed `tableType="incident"`; query `active=true^caller_id=javascript:gs.getUserID()^ORDERBYnumber`, fields `number,severity,short_description`, `sysparm_display_value=true`, limit `50`. `gs.getUserID()` must resolve the actual employee. No other-person name query, even for admins |
+| `GetCases` | Backend-enforced own HR case visibility; supported requested state filter only. Return Number, State, HR Service and Short Description with display values and coverage metadata; no internal notes |
+
+Validate that High/Medium/Low labels map to this instance's `1 - High`, `2 - Medium`, `3 - Low`. Severity and short description are the starter inputs; if the tenant requires extra fields or uses different semantics, resolve that binding gap before ON instead of guessing. A successful short-description incident is not a promise that a separate full-description field persisted.
+
+For created incident links, validate HTTPS `caller_id.link` against the configured instance, extract the base before `/api/now/table/`, and use the returned **incident** `sys_id` in `<base>/nav_to.do?uri=incident.do?sys_id=<encoded incident sys_id>`. If the link cannot be established, report the actual ticket number without a link. List results do not request these IDs/link fields, so do not promise links unless the approved binding supplies them.
+
+The incident-list table has exactly **Ticket Number | Severity | Short Description**; HR cases have exactly **Number | State | HR Service | Short Description**. Escape Markdown delimiters/newlines while preserving content. At the incident 50-row limit, disclose possible truncation. An empty HR response means no cases in the actual queried scope, not necessarily "no open cases".
 
 ## Minimum implementation evidence before ON
 
-Record the actual tool/schema/version, vendor operation binding, allowed fields/transitions, delegated caller trace, connection owner, confirmation implementation, idempotency storage, concurrency test, timeout reconciliation, async/read-back behavior, error mapping and rollback procedure in the restricted deployment manifest. A connector picker entry, skill upload or maker-only test is not sufficient.
+Record exact tool/schema/version, vendor bindings, endpoint/filter/field allowlists, employee caller trace, connection owner, confirmation implementation, durable deduplication/concurrency, timeout reconciliation, event/request status/read-back, error mapping and rollback procedure in the restricted manifest. A skill upload, connector picker entry or maker-only test is not sufficient.
