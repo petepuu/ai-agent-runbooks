@@ -93,7 +93,9 @@ In this step we will first download package of three PowerShell scripts used to 
 
 1. Download configuration PowerShell scripts from [ServiceNow-Integration-Setup.zip](./Resources/ServiceNow-Integration-Scripts.zip) to your workstation, unzip the package and make sure that script files as not blocked and that you are allowed to run scripts
    
-2. Open PowerShell 7 console
+   ![alt text](Images/snow-sso-scripts-unblock.png)
+
+2. Open PowerShell 7 console and verify that execution policy does not block running scripts running this command `Get-ExecutionPolicy`. Policy should be **Bypass** as these scripts are not signed. If it is not then use `Set-ExecutionPolicy` to change the policy
    
 3. Browse to the folder where you extracted the script package
    
