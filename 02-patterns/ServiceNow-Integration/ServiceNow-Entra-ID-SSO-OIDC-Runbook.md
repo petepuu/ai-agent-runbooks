@@ -18,6 +18,8 @@ Navigation labels vary by ServiceNow release. The legacy ServiceNow Express proc
 is not covered here. The referenced PowerShell scripts must be obtained separately;
 they are not included in this folder.
 
+> **Important!** This runbook is using PowerShell scripts to automate most of the configurations starting from step 4. If you can't use and run PowerShell scripts then please follow the official Microsoft guidance how to [configure ServiceNow for SSO with Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity/saas-apps/servicenow-tutorial)
+
 ## 1. Confirm Access and Capture a Baseline
 
 | Prerequisite | Required evidence |
