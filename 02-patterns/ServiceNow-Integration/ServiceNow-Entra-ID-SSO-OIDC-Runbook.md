@@ -85,9 +85,11 @@ recovery route or an owner-approved alternative.
 
 ## 4. Create ServiceNow integration user
 
-In this step we will first download package of 3 PowerShell scripts to help in the setup. Then first step is to create integration account for ServiceNow which is used to setup everything and also used as service account in Entra ID user provisioning. NOTE! This is machine (service) account which has ServiceNow **Admin** role
+In this step we will first download package of three PowerShell scripts used to help in the configuration. First step is to create integration account for ServiceNow which is used to setup everything and also used as service account in Entra ID user provisioning.
 
-1. Download configuration PowerShell scripts from [ServiceNow-Integration-Setup.zip](./Resources/ServiceNow-Integration-Setup.zip) to your workstation, unzip the package and make sure that script files as not blocked and that you are allowed to run scripts
+> **NOTE!** This is machine (service) account which has ServiceNow **Admin** and **snc_basic_auth_api_access** roles
+
+1. Download configuration PowerShell scripts from [ServiceNow-Integration-Setup.zip](./Resources/ServiceNow-Integration-Scripts.zip) to your workstation, unzip the package and make sure that script files as not blocked and that you are allowed to run scripts
    
 2. Open PowerShell 7 console
    
